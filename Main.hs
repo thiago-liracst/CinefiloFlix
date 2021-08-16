@@ -1,9 +1,9 @@
-import Textos
+import Texts
 
 main :: IO()
 main = do
-    telaPrincipal
+    mainScren
 
-telaPrincipal :: IO()
-telaPrincipal = do
-    Textos.opcoesMenuInicial
+mainScren :: IO()
+mainScren = do
+    Texts.optionsStartMenu

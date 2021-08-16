@@ -1,9 +1,9 @@
-module Textos where
+module Texts where
 import System.IO.Unsafe
 
 
-opcoesMenuInicial :: IO()
-opcoesMenuInicial = do
+optionsStartMenu :: IO()
+optionsStartMenu = do
     putStrLn("● ○ ◉ MENU PRINCIPAL ◉ ○ ●")
     putStrLn("\nComo você quer prosseguir, cinéfilo?")
     putStrLn("⓵ Alterar Dados")
