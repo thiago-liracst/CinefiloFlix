@@ -10,3 +10,7 @@ optionsStartMenu = do
     putStrLn("⓶ Cadastrar Mídia")
     putStrLn("⓷ Atualizar Status")
     putStrLn("⓸ Sair\n")
+
+printLogo :: IO()
+printLogo = do
+    putStrLn(unsafeDupablePerformIO(readFile "Files/logo.txt"))
