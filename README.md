@@ -8,7 +8,7 @@
   $ sudo apt-get install haskell-platform 
   ```
 
-### Então é só executar os comandos abaixo:
+### Então, basta executar os comandos abaixo:
 
   ```
   $ git clone https://github.com/thiago-liracst/CinefiloFlix.git
