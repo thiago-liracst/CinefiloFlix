@@ -18,3 +18,7 @@ printLogo = do
 goodByeMsg :: IO()
 goodByeMsg = do
     putStrLn(unsafeDupablePerformIO(readFile "Files/xau.txt"))
+
+invalidOptionMsg :: IO()
+invalidOptionMsg = do
+    putStrLn("\nOpção Inválida\n")

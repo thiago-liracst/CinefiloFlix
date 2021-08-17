@@ -15,3 +15,4 @@ mainScren = do
 
 changeScreen :: String -> IO()
 changeScreen option | option == "4" = Texts.goodByeMsg
+                    | otherwise = do {Texts.invalidOptionMsg; mainScren}
