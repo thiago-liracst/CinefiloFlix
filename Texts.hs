@@ -14,3 +14,7 @@ optionsStartMenu = do
 printLogo :: IO()
 printLogo = do
     putStrLn(unsafeDupablePerformIO(readFile "Files/logo.txt"))
+
+goodByeMsg :: IO()
+goodByeMsg = do
+    putStrLn(unsafeDupablePerformIO(readFile "Files/xau.txt"))
