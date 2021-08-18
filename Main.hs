@@ -1,6 +1,8 @@
 import Texts
 import Util
 
+import Filme
+
 main :: IO()
 main = do
     Texts.printLogo
@@ -27,3 +29,7 @@ addMediaScreen = do
 changeAddMediaScreen :: String -> IO()
 changeAddMediaScreen option | option == "3" = mainScren
                             | otherwise = do {Texts.invalidOptionMsg; mainScren}
+
+cadastraFilme :: String -> String -> String -> String -> String
+cadastraFilme titulo diretor dataLancamento genero =
+    Filme.cadastraFilme titulo diretor dataLancamento genero
