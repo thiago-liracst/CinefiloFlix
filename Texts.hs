@@ -51,6 +51,6 @@ cadastroGeneroFilmeMsg = do
 
 confirmacaoCadastroMsg :: String -> IO()
 confirmacaoCadastroMsg filme = do
-    putStrLn("       -------CADASTRO-------")
-    putStrLn("\n-----\n")
+    putStrLn("Cadastro do filme:")
     putStrLn(filme)
+    putStrLn("realizado com sucesso!")
