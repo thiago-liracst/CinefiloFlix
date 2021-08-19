@@ -27,3 +27,30 @@ goodByeMsg = do
 invalidOptionMsg :: IO()
 invalidOptionMsg = do
     putStrLn("\nOpção Inválida\n")
+
+---------------cadastro de filme----------------
+
+cadastroTituloFilmeMsg :: IO()
+cadastroTituloFilmeMsg = do
+    putStrLn("● ○ ◉ CADASTRO DE FILME ◉ ○ ●")
+    putStrLn ("\nOBS: Para voltar ao menu, digite 'V'!\n")
+    putStr ("")
+    putStrLn("\nTítulo: ")
+
+cadastroDiretorFilmeMsg :: IO()
+cadastroDiretorFilmeMsg = do
+    putStrLn("\nDiretor: ")
+
+cadastroLancamentoFilmeMsg :: IO()
+cadastroLancamentoFilmeMsg = do
+    putStrLn("\nData de Lançamento: ")
+
+cadastroGeneroFilmeMsg :: IO()
+cadastroGeneroFilmeMsg = do
+    putStrLn("\nGênero: ")
+
+confirmacaoCadastroMsg :: String -> IO()
+confirmacaoCadastroMsg filme = do
+    putStrLn("       -------CADASTRO-------")
+    putStrLn("\n-----\n")
+    putStrLn(filme)
