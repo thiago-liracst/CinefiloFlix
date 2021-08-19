@@ -59,7 +59,6 @@ addFilme titulo diretor dataLancamento genero = do
 insereDado :: Int -> String -> String -> String -> String -> IO()
 insereDado id titulo diretor dataLancamento genero = do
     executeBD ("INSERT INTO filmes (id_filme,\
-
                 \ titulo,\
                 \ diretor,\
                 \ dataLancamento,\
@@ -69,7 +68,7 @@ insereDado id titulo diretor dataLancamento genero = do
                 \ '" ++ titulo ++ "',\
                 \ '" ++ diretor ++ "',\
                 \ '" ++ dataLancamento ++ "',\
-                \ '" ++ genero ++ ");") ()
+                \ '" ++ genero ++ "');") ()
 
 -- Método responsável por criar o banco de dados.
 criaBD :: IO ()

@@ -8,9 +8,18 @@
   $ sudo apt-get install haskell-platform 
   ```
 
+-O SqLite3 para gerenciamento do Banco de Dados
+
+  ```
+  $ sudo apt-get install sqlite3
+  ```
+
+
 ### Então, basta executar os comandos abaixo:
 
   ```
   $ git clone https://github.com/thiago-liracst/CinefiloFlix.git
+  $ cd data
+  $ sqlite3 cinefiloflix.db < build.sql
   $ runhaskell Main.hs
   ```
