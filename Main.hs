@@ -27,9 +27,32 @@ addMediaScreen = do
     changeAddMediaScreen option
 
 changeAddMediaScreen :: String -> IO()
-changeAddMediaScreen option | option == "3" = mainScren
+changeAddMediaScreen option | option == "1" = telaCadastraFilme
+                            | option == "3" = mainScren
                             | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
-cadastraFilme :: String -> String -> String -> String -> String
-cadastraFilme titulo diretor dataLancamento genero =
-    Filme.cadastraFilme titulo diretor dataLancamento genero
+telaCadastraFilme :: IO()
+telaCadastraFilme = do
+    Texts.cadastroTituloFilmeMsg
+    titulo <- Util.readStringInput
+    if titulo == "V"
+        then do addMediaScreen
+    else do 
+        Texts.cadastroDiretorFilmeMsg
+        diretor <- Util.readStringInput
+        if diretor == "V"
+        then do addMediaScreen
+        else do 
+            Texts.cadastroLancamentoFilmeMsg 
+            dataLancamento <- Util.readStringInput
+            if dataLancamento == "V"
+            then do addMediaScreen
+            else do
+                Texts.cadastroGeneroFilmeMsg
+                genero <- Util.readStringInput
+                if genero == "V"
+                then do addMediaScreen
+                else do {
+                    Texts.confirmacaoCadastroMsg (Filme.cadastraFilme titulo diretor dataLancamento genero);
+                    addMediaScreen
+        }
