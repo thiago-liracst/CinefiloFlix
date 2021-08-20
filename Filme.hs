@@ -19,7 +19,7 @@ ehFilme id = FilmeDB.verificaExistenciaFilme id
 cadastraFilme :: String -> String -> String -> String -> String
 cadastraFilme titulo diretor dataLancamento genero
     | FilmeDB.verificaExistenciaFilmePorTitulo titulo = "Erro: filme já cadastrado!"
-    | otherwise = "Filme de id: " ++ show idFilme ++ " cadastrado com sucesso!\n" ++ toString titulo diretor dataLancamento genero
+    | otherwise = "\nFilme de id: " ++ show idFilme ++ " cadastrado com sucesso!\n" ++ toString titulo diretor dataLancamento genero
     where idFilme = id_filme (FilmeDB.cadastraFilme titulo diretor dataLancamento genero)
 
 recuperaFilmes :: String
