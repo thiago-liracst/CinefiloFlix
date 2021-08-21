@@ -16,11 +16,11 @@ geraString (x:xs) txt = geraString xs (txt ++ "\n" ++ x)
 ehFilme :: Int -> Bool
 ehFilme id = FilmeDB.verificaExistenciaFilme id
 
-cadastraFilme :: String -> String -> String -> String -> String
-cadastraFilme titulo diretor dataLancamento genero
+cadastraFilme :: String -> String -> String -> String -> String -> String -> String -> String
+cadastraFilme titulo diretor dataLancamento genero duracao elenco nacionalidade
     | FilmeDB.verificaExistenciaFilmePorTitulo titulo = "Erro: filme já cadastrado!"
-    | otherwise = "Filme de id: " ++ show idFilme ++ " cadastrado com sucesso!\n" ++ toString titulo diretor dataLancamento genero
-    where idFilme = id_filme (FilmeDB.cadastraFilme titulo diretor dataLancamento genero)
+    | otherwise = "Filme de id: " ++ show idFilme ++ " cadastrado com sucesso!\n" ++ toString titulo diretor dataLancamento genero duracao elenco nacionalidade
+    where idFilme = id_filme (FilmeDB.cadastraFilme titulo diretor dataLancamento genero duracao elenco nacionalidade) 
 
 recuperaFilmes :: String
 recuperaFilmes
@@ -32,7 +32,8 @@ concatenaToStringsFilmes :: [Filme] -> String
 concatenaToStringsFilmes [] = ""
 concatenaToStringsFilmes (filme:outros) = "id: " ++ show (id_filme filme) ++ " - " ++ (FilmeDB.formataFilme filme) ++ "\n" ++ (concatenaToStringsFilmes outros)
 
-toString ::  String -> String -> String -> String -> String
-toString titulo diretor dataLancamento genero =
+toString ::  String -> String -> String -> String -> String -> String -> String -> String 
+toString titulo diretor dataLancamento genero duracao elenco nacionalidade =
     "Titulo: " ++ titulo  ++ "\nGênero: " ++ genero ++ "\nDiretor: " ++ diretor 
-    ++ "\nData de lançamento: "  ++ dataLancamento
+    ++ "\nData de lançamento: "  ++ dataLancamento ++ "\nDuração: "  ++ duracao
+    ++ "\nElenco: "  ++ elenco  ++ "\nNacionalidade: "  ++ nacionalidade

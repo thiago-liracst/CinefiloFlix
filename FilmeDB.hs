@@ -19,7 +19,10 @@ data Filme = Filme {
     titulo :: String,
     diretor :: String,
     dataLancamento :: String,
-    genero :: String
+    genero :: String,
+    duracao :: String,
+    elenco :: String,
+    naionalidade :: String
 
 } deriving (Show)
 
@@ -31,44 +34,54 @@ instance FromRow Filme where
                     <*> field
                     <*> field
                     <*> field
+                    <*> field
+                    <*> field
+                    <*> field
+
 
 -- Código que serve para o Haskell saber como transformar o objeto Filme em uma linha do BD
 -- Os atributos do filme são passados para o metodo "toRow" que permite que esse filme seja inserido no BD.
 instance ToRow Filme where
-  toRow (Filme id_filme titulo diretor dataLancamento genero) = toRow (id_filme, titulo, diretor, dataLancamento, genero)
+  toRow (Filme id_filme titulo diretor dataLancamento genero duracao elenco nacionalidade) = toRow (id_filme, titulo, diretor, dataLancamento, genero, duracao, elenco, nacionalidade)
 
 -- Método que exibe o título de um filme a partir do id do filme.
 getTituloFilme :: Int -> String
 getTituloFilme idFilme = titulo (head(recuperaFilmeID idFilme))
 
-cadastraFilme :: String -> String -> String -> String -> Filme
-cadastraFilme titulo diretor dataLancamento genero =
-    fromIO(addFilme titulo diretor dataLancamento genero)
+cadastraFilme :: String -> String -> String -> String -> String -> String -> String -> Filme
+cadastraFilme titulo diretor dataLancamento genero duracao elenco nacionalidade =
+    fromIO(addFilme titulo diretor dataLancamento genero duracao elenco nacionalidade) 
 
 -- Adiciona filme a partir de título, diretor, dataLancamento, genero
 -- OBS: Verificar formato da data antes de fazer a adição no BD
-addFilme :: String -> String -> String -> String -> IO Filme
-addFilme titulo diretor dataLancamento genero = do
+addFilme :: String -> String -> String -> String -> String -> String -> String -> IO Filme
+addFilme titulo diretor dataLancamento genero duracao elenco nacionalidade = do
     let id = fromIO geraId
     criaBD
-    insereDado id titulo diretor dataLancamento genero
+    insereDado id titulo diretor dataLancamento genero duracao elenco nacionalidade
 
     return (head (recuperaFilmeID id))
     
 -- Método responsável por inserir os dados no banco de dados.
-insereDado :: Int -> String -> String -> String -> String -> IO()
-insereDado id titulo diretor dataLancamento genero = do
+insereDado :: Int -> String -> String -> String -> String -> String -> String -> String ->IO()
+insereDado id titulo diretor dataLancamento genero duracao elenco nacionalidade = do
     executeBD ("INSERT INTO filmes (id_filme,\
                 \ titulo,\
                 \ diretor,\
                 \ dataLancamento,\
-                \ genero)\
+                \ genero,\
+                \ duracao,\
+                \ elenco,\
+                \ nacionalidade)\
                 \ VALUES\
                 \ (" ++ show id ++ ",\
                 \ '" ++ titulo ++ "',\
                 \ '" ++ diretor ++ "',\
                 \ '" ++ dataLancamento ++ "',\
-                \ '" ++ genero ++ "');") ()
+                \ '" ++ genero ++ "',\
+                \ '" ++ duracao ++ "',\
+                \ '" ++ elenco ++ "',\
+                \ '" ++ nacionalidade ++ "');") ()
 
 -- Método responsável por criar o banco de dados.
 criaBD :: IO ()
@@ -78,6 +91,9 @@ criaBD = do executeBD "CREATE TABLE IF NOT EXISTS filmes (\
                  \ diretor TEXT, \
                  \ dataLancamento DATE, \
                  \ genero TEXT \
+                 \ duracao TEXT \
+                 \ elenco TEXT \
+                 \ nacionalidade TEXT \
                  \);" ()
 
 -- Metodo que cria um id para o Banco de dados dos filmes

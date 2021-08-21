@@ -49,6 +49,18 @@ cadastroGeneroFilmeMsg :: IO()
 cadastroGeneroFilmeMsg = do
     putStrLn("\nGênero: ")
 
+cadastroDuracaoFilmeMsg :: IO()
+cadastroDuracaoFilmeMsg = do
+    putStrLn("\nDuração: ")
+
+cadastroElencoFilmeMsg :: IO()
+cadastroElencoFilmeMsg = do
+    putStrLn("\nElenco: ")
+
+cadastroNacionalidadeFilmeMsg :: IO()
+cadastroNacionalidadeFilmeMsg = do
+    putStrLn("\nNacionalidade: ")
+
 confirmacaoCadastroMsg :: String -> IO()
 confirmacaoCadastroMsg filme = do
     putStrLn("Cadastro do filme:")
