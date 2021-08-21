@@ -8,7 +8,7 @@
   $ sudo apt-get install haskell-platform 
   ```
 
--O SqLite3 para gerenciamento do Banco de Dados
+- O SqLite3 para gerenciamento do Banco de Dados
 
   ```
   $ sudo apt-get install sqlite3
