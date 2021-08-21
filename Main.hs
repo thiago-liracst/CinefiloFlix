@@ -52,7 +52,22 @@ telaCadastraFilme = do
                 genero <- Util.readStringInput
                 if genero == "V"
                 then do addMediaScreen
-                else do {
-                    Texts.confirmacaoCadastroMsg (Filme.cadastraFilme titulo diretor dataLancamento genero);
-                    addMediaScreen
+                else do 
+                    Texts.cadastroDuracaoFilmeMsg
+                    duracao <- Util.readStringInput
+                    if duracao == "V"
+                    then do addMediaScreen
+                    else do 
+                        Texts.cadastroElencoFilmeMsg
+                        elenco <- Util.readStringInput
+                        if elenco == "V"
+                        then do addMediaScreen
+                        else do 
+                            Texts.cadastroNacionalidadeFilmeMsg
+                            nacionalidade <- Util.readStringInput
+                            if nacionalidade == "V"
+                            then do addMediaScreen
+                            else do {
+                                Texts.confirmacaoCadastroMsg (Filme.cadastraFilme titulo diretor dataLancamento genero duracao elenco nacionalidade);
+                                addMediaScreen
         }
