@@ -44,8 +44,8 @@ telaCadastraFilme = do
         then do addMediaScreen
         else do 
             Texts.cadastroLancamentoFilmeMsg 
-            dataLancamento <- Util.readStringInput
-            if dataLancamento == "V"
+            anoLancamento <- Util.readStringInput
+            if anoLancamento == "V"
             then do addMediaScreen
             else do
                 Texts.cadastroGeneroFilmeMsg
@@ -58,16 +58,11 @@ telaCadastraFilme = do
                     if duracao == "V"
                     then do addMediaScreen
                     else do 
-                        Texts.cadastroElencoFilmeMsg
-                        elenco <- Util.readStringInput
-                        if elenco == "V"
+                        Texts.cadastroNacionalidadeFilmeMsg
+                        nacionalidade <- Util.readStringInput
+                        if nacionalidade == "V"
                         then do addMediaScreen
-                        else do 
-                            Texts.cadastroNacionalidadeFilmeMsg
-                            nacionalidade <- Util.readStringInput
-                            if nacionalidade == "V"
-                            then do addMediaScreen
-                            else do {
-                                Texts.confirmacaoCadastroMsg (Filme.cadastraFilme titulo diretor dataLancamento genero duracao elenco nacionalidade);
-                                addMediaScreen
+                        else do {
+                            Texts.confirmacaoCadastroMsg (Filme.cadastraFilme titulo diretor anoLancamento genero duracao nacionalidade);
+                            addMediaScreen
         }

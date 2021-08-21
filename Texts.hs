@@ -51,11 +51,7 @@ cadastroGeneroFilmeMsg = do
 
 cadastroDuracaoFilmeMsg :: IO()
 cadastroDuracaoFilmeMsg = do
-    putStrLn("\nDuração: ")
-
-cadastroElencoFilmeMsg :: IO()
-cadastroElencoFilmeMsg = do
-    putStrLn("\nElenco: ")
+    putStrLn("\nDuração (Em minutos): ")
 
 cadastroNacionalidadeFilmeMsg :: IO()
 cadastroNacionalidadeFilmeMsg = do
