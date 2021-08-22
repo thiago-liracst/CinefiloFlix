@@ -21,7 +21,8 @@ data Filme = Filme {
     anoDeLancamento :: String,
     genero :: String,
     duracao :: String,
-    nacionalidade :: String
+    nacionalidade :: String,
+    visualizacoes :: Int
 
 } deriving (Show)
 
@@ -35,13 +36,14 @@ instance FromRow Filme where
                     <*> field
                     <*> field
                     <*> field
+                    <*> field
                     
 
 
 -- Código que serve para o Haskell saber como transformar o objeto Filme em uma linha do BD
 -- Os atributos do filme são passados para o metodo "toRow" que permite que esse filme seja inserido no BD.
 instance ToRow Filme where
-  toRow (Filme id_filme titulo diretor anoDeLancamento genero duracao  nacionalidade) = toRow (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade)
+  toRow (Filme id_filme titulo diretor anoDeLancamento genero duracao  nacionalidade visualizacoes) = toRow (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade, visualizacoes)
 
 -- Método que exibe o título de um filme a partir do id do filme.
 getTituloFilme :: Int -> String
@@ -79,6 +81,23 @@ insereDado id titulo diretor anoDeLancamento genero duracao nacionalidade = do
                 \ '" ++ genero ++ "',\
                 \ '" ++ duracao ++ "',\
                 \ '" ++ nacionalidade ++ "');") ()
+
+-- Método responsável por alterar o status de acompanhamento de um filme
+assistirFilme :: Int -> Int -> String -> Filme
+assistirFilme id avaliacao comentario = 
+    fromIO(updateStatusFilme id avaliacao comentario)
+
+updateStatusFilme :: Int -> Int -> String -> IO Filme
+updateStatusFilme id avaliacao comentario = do
+    updateStatus id avaliacao comentario
+    return (head (recuperaFilmeID id))
+
+updateStatus :: Int -> Int -> String -> IO()
+updateStatus id avaliacao comentario = do
+    let filme = recuperaFilmeID id
+    executeBD ("UPDATE filmes SET (assistido, visualizacao, avaliacao, comentario) = \
+        \ (1, 2, "++ show avaliacao ++", '"++ comentario ++"') \
+        \ WHERE id_filme = "++ show id ++";") ()
 
 -- Método responsável por criar o banco de dados.
 criaBD :: IO ()

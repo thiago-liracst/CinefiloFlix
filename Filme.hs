@@ -1,6 +1,7 @@
 module Filme where
 
 import FilmeDB
+import GHC.Base (String, Bool (False))
 
 listaFilmes :: String
 listaFilmes = Filme.formataFilmes FilmeDB.recuperaFilmes
@@ -28,6 +29,12 @@ recuperaFilmes
     | not (null filmes) = "\nFilmes:\n" ++ filmes
     | otherwise = "\nNão há filmes para exibir!\n"
     where filmes = concatenaToStringsFilmes (FilmeDB.recuperaFilmes)
+ 
+assistirFilme :: Int -> Int -> String -> String
+assistirFilme id avaliacao comentario
+    | (FilmeDB.verificaExistenciaFilme id == False) = "Erro: filme não cadastrado!"
+    | otherwise = "\nFilme de id: " ++ show id ++ " concluído!\n"
+    where idFilme = id_filme (FilmeDB.assistirFilme id avaliacao comentario)
 
 concatenaToStringsFilmes :: [Filme] -> String
 concatenaToStringsFilmes [] = ""
