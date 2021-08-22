@@ -20,8 +20,13 @@ data Filme = Filme {
     diretor :: String,
     anoDeLancamento :: String,
     genero :: String,
-    duracao :: String,
-    nacionalidade :: String
+    duracao :: Int,
+    nacionalidade :: String,
+    produtora :: String,
+    assistido :: Boolean,
+    visualizacoes :: Int,
+    avaliacao :: Int,
+    comentario :: String
 
 } deriving (Show)
 
