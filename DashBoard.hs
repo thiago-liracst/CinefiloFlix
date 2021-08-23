@@ -2,7 +2,7 @@ module DashBoard where
 
 
 filmesMelhorAvaliados :: String
-filmesMelhorAvaliados = "Os5 Filmes mais avaliados aparecerão aqui"
+filmesMelhorAvaliados = "Os Filmes mais avaliados aparecerão aqui"
 
 horasAssitidas :: String 
 horasAssitidas = "O total de horas assisitdas aparecerá aqui"
