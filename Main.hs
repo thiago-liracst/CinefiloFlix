@@ -17,7 +17,8 @@ mainScren = do
 
 changeScreen :: String -> IO()
 changeScreen option | option == "2" = addMediaScreen
-                    | option == "4" = Texts.goodByeMsg
+                    | option == "5" = Texts.goodByeMsg
+                    | option == "4" = dashboard 
                     | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
 addMediaScreen :: IO()
@@ -66,3 +67,16 @@ telaCadastraFilme = do
                             Texts.confirmacaoCadastroMsg (Filme.cadastraFilme titulo diretor anoLancamento genero duracao nacionalidade);
                             addMediaScreen
         }
+
+
+dashboard :: IO()
+dashboard = do 
+    Texts.dashboardScreen
+    putStrLn("\nOBS: Para voltar ao menu, digite qualquer tecla.\n\n")
+    entrada <- getLine
+    do mainScren
+    
+                
+                
+    
+            
