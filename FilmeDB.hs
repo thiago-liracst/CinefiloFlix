@@ -97,7 +97,7 @@ updateStatusFilme id avaliacao comentario = do
 updateStatus :: Int -> Int -> String -> IO()
 updateStatus id avaliacao comentario = do
     let visualizacoes = fromIO(getVisuzalizacao id)
-    let visualizacoesSomado = convertStringToInt(show visualizacoes)+1
+    let visualizacoesSomado = read (show visualizacoes)+1
     executeBD ("UPDATE filmes SET (assistido, visualizacao, avaliacao, comentario) = \
         \ (1, "++ show visualizacoesSomado ++", "++ show avaliacao ++", '"++ comentario ++"') \
         \ WHERE id_filme = "++ show id ++";") ()
