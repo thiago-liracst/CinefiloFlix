@@ -24,3 +24,6 @@ queryBD query = do
    conn <- open "./data/cinefiloflix.db"
    let search = read $ show query :: Query;
    query_ conn search;
+
+convertStringToInt :: String -> Int
+convertStringToInt str = read str :: Int
