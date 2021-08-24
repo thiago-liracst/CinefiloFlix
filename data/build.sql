@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS filmes (
     diretor TEXT,
     anoDeLancamento TEXT,
     genero TEXT,
-    duracao TEXT,
-    nacionalidade TEXT
+    duracao INT,
+    nacionalidade TEXT,
+    produtora TEXT
     );

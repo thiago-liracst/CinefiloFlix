@@ -32,6 +32,16 @@ changeAddMediaScreen option | option == "1" = telaCadastraFilme
                             | option == "3" = mainScren
                             | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
+
+parseToInt :: String -> Int
+parseToInt num = read (num) :: Int
+
+--retornaZero :: Int
+--retornaZero = 0
+
+--comentarioInicial :: String
+--comentarioInicial = "Sem comentários."
+
 telaCadastraFilme :: IO()
 telaCadastraFilme = do
     Texts.cadastroTituloFilmeMsg
@@ -63,20 +73,21 @@ telaCadastraFilme = do
                         nacionalidade <- Util.readStringInput
                         if nacionalidade == "V"
                         then do addMediaScreen
-                        else do {
-                            Texts.confirmacaoCadastroMsg (Filme.cadastraFilme titulo diretor anoLancamento genero duracao nacionalidade);
-                            addMediaScreen
+                        else do 
+                            Texts.cadastroProdutoraFilmeMsg
+                            produtora <- Util.readStringInput
+                            if produtora == "V"
+                            then do addMediaScreen
+                            else do {
+                                Texts.confirmacaoCadastroMsg (Filme.cadastraFilme titulo diretor anoLancamento genero (parseToInt(duracao)) nacionalidade produtora);
+                                addMediaScreen
         }
 
 
 dashboard :: IO()
 dashboard = do 
-    Texts.dashboardScreen
-    putStrLn("\nOBS: Para voltar ao menu, digite qualquer tecla.\n\n")
-    entrada <- getLine
-    do mainScren
-    
-                
-                
-    
-            
+Texts.dashboardScreen
+putStrLn("\nOBS: Para voltar ao menu, digite qualquer tecla.\n\n")
+entrada <- getLine
+do mainScren
+                        

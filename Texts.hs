@@ -45,7 +45,7 @@ cadastroDiretorFilmeMsg = do
 
 cadastroLancamentoFilmeMsg :: IO()
 cadastroLancamentoFilmeMsg = do
-    putStrLn("\nData de Lançamento: ")
+    putStrLn("\nAno de lançamento: ")
 
 cadastroGeneroFilmeMsg :: IO()
 cadastroGeneroFilmeMsg = do
@@ -58,6 +58,10 @@ cadastroDuracaoFilmeMsg = do
 cadastroNacionalidadeFilmeMsg :: IO()
 cadastroNacionalidadeFilmeMsg = do
     putStrLn("\nNacionalidade: ")
+
+cadastroProdutoraFilmeMsg :: IO()
+cadastroProdutoraFilmeMsg = do
+    putStrLn("\nProdutora: ")
 
 confirmacaoCadastroMsg :: String -> IO()
 confirmacaoCadastroMsg filme = do
