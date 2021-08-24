@@ -20,8 +20,9 @@ data Filme = Filme {
     diretor :: String,
     anoDeLancamento :: String,
     genero :: String,
-    duracao :: String,
-    nacionalidade :: String
+    duracao :: Int,
+    nacionalidade :: String,
+    produtora :: String
 
 } deriving (Show)
 
@@ -35,50 +36,54 @@ instance FromRow Filme where
                     <*> field
                     <*> field
                     <*> field
+                    <*> field            
                     
 
 
 -- Código que serve para o Haskell saber como transformar o objeto Filme em uma linha do BD
 -- Os atributos do filme são passados para o metodo "toRow" que permite que esse filme seja inserido no BD.
 instance ToRow Filme where
-  toRow (Filme id_filme titulo diretor anoDeLancamento genero duracao  nacionalidade) = toRow (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade)
+  toRow (Filme id_filme titulo diretor anoDeLancamento genero duracao nacionalidade produtora) =
+     toRow (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade, produtora)
 
 -- Método que exibe o título de um filme a partir do id do filme.
 getTituloFilme :: Int -> String
 getTituloFilme idFilme = titulo (head(recuperaFilmeID idFilme))
 
-cadastraFilme :: String -> String -> String -> String -> String -> String  -> Filme
-cadastraFilme titulo diretor anoDeLancamento genero duracao nacionalidade =
-    fromIO(addFilme titulo diretor anoDeLancamento genero duracao nacionalidade) 
+cadastraFilme :: String -> String -> String -> String -> Int -> String  -> String -> Filme
+cadastraFilme titulo diretor anoDeLancamento genero duracao nacionalidade produtora =
+    fromIO(addFilme titulo diretor anoDeLancamento genero duracao nacionalidade produtora) 
 
 -- Adiciona filme a partir de título, diretor, anoDeLancamento, genero
 -- OBS: Verificar formato da data antes de fazer a adição no BD
-addFilme :: String -> String -> String -> String -> String -> String -> IO Filme
-addFilme titulo diretor anoDeLancamento genero duracao nacionalidade = do
+addFilme :: String -> String -> String -> String -> Int -> String -> String -> IO Filme
+addFilme titulo diretor anoDeLancamento genero duracao nacionalidade produtora = do
     let id = fromIO geraId
     criaBD
-    insereDado id titulo diretor anoDeLancamento genero duracao nacionalidade
+    insereDado id titulo diretor anoDeLancamento genero duracao nacionalidade produtora
 
     return (head (recuperaFilmeID id))
     
--- Método responsável por inserir os dados no banco de dados.
-insereDado :: Int -> String -> String -> String -> String -> String -> String ->IO()
-insereDado id titulo diretor anoDeLancamento genero duracao nacionalidade = do
+-- Método responsável por inserir os dados no banco de dados. (avaliação inicia com -1 para indicar que o filme não foi avaliado ainda)
+insereDado :: Int -> String -> String -> String -> String -> Int -> String -> String -> IO()
+insereDado id titulo diretor anoDeLancamento genero duracao nacionalidade produtora = do
     executeBD ("INSERT INTO filmes (id_filme,\
                 \ titulo,\
                 \ diretor,\
                 \ anoDeLancamento,\
                 \ genero,\
-                \ duracao,\               
-                \ nacionalidade)\
+                \ duracao,\ 
+                \ nacionalidade,\ 
+                \ produtora,\   
                 \ VALUES\
                 \ (" ++ show id ++ ",\
                 \ '" ++ titulo ++ "',\
                 \ '" ++ diretor ++ "',\
                 \ '" ++ anoDeLancamento ++ "',\
                 \ '" ++ genero ++ "',\
-                \ '" ++ duracao ++ "',\
-                \ '" ++ nacionalidade ++ "');") ()
+                \ " ++ show duracao ++ ",\
+                \ '" ++ nacionalidade ++ "',\
+                \ '" ++ produtora ++ "');") ()
 
 -- Método responsável por criar o banco de dados.
 criaBD :: IO ()
@@ -86,10 +91,11 @@ criaBD = do executeBD "CREATE TABLE IF NOT EXISTS filmes (\
                  \ id_filme INT PRIMARY KEY, \
                  \ titulo TEXT, \
                  \ diretor TEXT, \
-                 \ anoDeLancamento DATE, \
+                 \ anoDeLancamento TEXT, \
                  \ genero TEXT \
-                 \ duracao TEXT \
+                 \ duracao INT \
                  \ nacionalidade TEXT \
+                 \ produtora TEXT \
                  \);" ()
 
 -- Metodo que cria um id para o Banco de dados dos filmes
