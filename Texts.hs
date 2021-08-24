@@ -1,5 +1,6 @@
 module Texts where
 import System.IO.Unsafe
+import DashBoard
 
 printLogo :: IO()
 printLogo = do
@@ -12,7 +13,8 @@ optionsStartMenu = do
     putStrLn("⓵ Alterar Dados")
     putStrLn("⓶ Cadastrar Mídia")
     putStrLn("⓷ Atualizar Status")
-    putStrLn("⓸ Sair\n")
+    putStrLn("⓸ DashBoard")
+    putStrLn("⑤ Sair\n")
 
 optionsAddMediaScreen :: IO()
 optionsAddMediaScreen = do
@@ -59,5 +61,24 @@ cadastroNacionalidadeFilmeMsg = do
 
 confirmacaoCadastroMsg :: String -> IO()
 confirmacaoCadastroMsg filme = do
+    putStrLn("Cadastro do filme:")
     putStrLn(filme)
     putStrLn("\nO que deseja fazer a seguir ?\n")
+
+
+
+dashboardScreen :: IO()
+dashboardScreen = do 
+    putStrLn("\n" ++ DashBoard.filmesMelhorAvaliados) 
+    putStrLn("\n--------------------\n")
+    putStrLn(DashBoard.horasAssitidas)
+    putStrLn("\n--------------------\n")
+    putStrLn(DashBoard.principaisGeneros)
+    putStrLn("\n--------------------\n")
+    putStrLn(DashBoard.principaisDiretores ++ "\n")
+
+
+
+
+
+
