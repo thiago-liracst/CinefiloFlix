@@ -11,7 +11,9 @@ import System.Random
 import Data.Typeable
 import qualified Data.Text.IO as T
 
-import Util (queryBD, fromIO, executeBD)
+import Util (queryBD, fromIO, executeBD, convertStringToInt)
+import System.Directory.Internal.Prelude (Num(fromInteger))
+import Text.Printf (PrintfArg(parseFormat))
 
 -- Tipo de dado "Filme" que será armazenado no BD
 data Filme = Filme {
@@ -99,10 +101,15 @@ updateStatusFilme id avaliacao comentario = do
 
 updateStatus :: Int -> Int -> String -> IO()
 updateStatus id avaliacao comentario = do
-    let filme = recuperaFilmeID id
+    let visualizacoes = fromIO(getVisuzalizacao id)
+    let visualizacoesSomado = read (show visualizacoes)+1
     executeBD ("UPDATE filmes SET (assistido, visualizacoes, avaliacao, comentario) = \
-        \ (1, 2, "++ show avaliacao ++", '"++ comentario ++"') \
+        \ (1, "++ show visualizacoesSomado ++", "++ show avaliacao ++", '"++ comentario ++"') \
         \ WHERE id_filme = "++ show id ++";") ()
+
+getVisuzalizacao :: Int -> IO()
+getVisuzalizacao id = do 
+    executeBD ("SELECT visualizacoes FROM filmes WHERE id="++ show id ++";") ()
 
 -- Método responsável por criar o banco de dados.
 criaBD :: IO ()
