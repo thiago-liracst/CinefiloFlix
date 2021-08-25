@@ -11,7 +11,9 @@ import System.Random
 import Data.Typeable
 import qualified Data.Text.IO as T
 
-import Util (queryBD, fromIO, executeBD)
+import Util (queryBD, fromIO, executeBD, convertStringToInt)
+import System.Directory.Internal.Prelude (Num(fromInteger))
+import Text.Printf (PrintfArg(parseFormat))
 
 -- Tipo de dado "Filme" que será armazenado no BD
 data Filme = Filme {
@@ -22,6 +24,7 @@ data Filme = Filme {
     genero :: String,
     duracao :: Int,
     nacionalidade :: String,
+    visualizacoes :: Int,
     produtora :: String
 
 } deriving (Show)
@@ -36,6 +39,7 @@ instance FromRow Filme where
                     <*> field
                     <*> field
                     <*> field
+                    <*> field
                     <*> field            
                     
 
@@ -43,8 +47,8 @@ instance FromRow Filme where
 -- Código que serve para o Haskell saber como transformar o objeto Filme em uma linha do BD
 -- Os atributos do filme são passados para o metodo "toRow" que permite que esse filme seja inserido no BD.
 instance ToRow Filme where
-  toRow (Filme id_filme titulo diretor anoDeLancamento genero duracao nacionalidade produtora) =
-     toRow (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade, produtora)
+  toRow (Filme id_filme titulo diretor anoDeLancamento genero duracao nacionalidade visualizacoes produtora) =
+     toRow (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade, visualizacoes, produtora)
 
 -- Método que exibe o título de um filme a partir do id do filme.
 getTituloFilme :: Int -> String
@@ -85,6 +89,28 @@ insereDado id titulo diretor anoDeLancamento genero duracao nacionalidade produt
                 \ '" ++ nacionalidade ++ "',\
                 \ '" ++ produtora ++ "');") ()
 
+-- Método responsável por alterar o status de acompanhamento de um filme
+assistirFilme :: Int -> Int -> String -> Filme
+assistirFilme id avaliacao comentario = 
+    fromIO(updateStatusFilme id avaliacao comentario)
+
+updateStatusFilme :: Int -> Int -> String -> IO Filme
+updateStatusFilme id avaliacao comentario = do
+    updateStatus id avaliacao comentario
+    return (head (recuperaFilmeID id))
+
+updateStatus :: Int -> Int -> String -> IO()
+updateStatus id avaliacao comentario = do
+    let visualizacoes = fromIO(getVisuzalizacao id)
+    let visualizacoesSomado = read (show visualizacoes)+1
+    executeBD ("UPDATE filmes SET (assistido, visualizacoes, avaliacao, comentario) = \
+        \ (1, "++ show visualizacoesSomado ++", "++ show avaliacao ++", '"++ comentario ++"') \
+        \ WHERE id_filme = "++ show id ++";") ()
+
+getVisuzalizacao :: Int -> IO()
+getVisuzalizacao id = do 
+    executeBD ("SELECT visualizacoes FROM filmes WHERE id="++ show id ++";") ()
+
 -- Método responsável por criar o banco de dados.
 criaBD :: IO ()
 criaBD = do executeBD "CREATE TABLE IF NOT EXISTS filmes (\
@@ -92,9 +118,10 @@ criaBD = do executeBD "CREATE TABLE IF NOT EXISTS filmes (\
                  \ titulo TEXT, \
                  \ diretor TEXT, \
                  \ anoDeLancamento TEXT, \
-                 \ genero TEXT \
-                 \ duracao INT \
-                 \ nacionalidade TEXT \
+                 \ genero TEXT, \
+                 \ duracao INT, \
+                 \ nacionalidade TEXT, \
+                 \ visualizacoes INT, \
                  \ produtora TEXT \
                  \);" ()
 
@@ -112,7 +139,7 @@ recuperaFilmes = do
 -- Metodo que retorna uma lista contendo o filme do 
 -- id passado se ele existir, caso contrário uma lista vazia é retornada.
 recuperaFilmeID :: Int -> [Filme]
-recuperaFilmeID id_filme = fromIO (queryBD ("SELECT * FROM filmes WHERE id_filme = " ++ show id_filme))
+recuperaFilmeID id_filme = fromIO (queryBD ("SELECT * FROM filmes WHERE id_filme = "++ show id_filme ++""))
 
 -- Método que retorno o filme através do seu título passado como parâmetro.
 recuperaFilmeTitulo :: String -> [Filme]

@@ -3,6 +3,7 @@ module Util where
 import System.IO.Unsafe
 
 import Database.SQLite.Simple
+import GHC.Base (Int)
 
 readStringInput :: IO String
 readStringInput = do
@@ -24,3 +25,6 @@ queryBD query = do
    conn <- open "./data/cinefiloflix.db"
    let search = read $ show query :: Query;
    query_ conn search;
+
+convertStringToInt :: String -> Int
+convertStringToInt str = read str :: Int
