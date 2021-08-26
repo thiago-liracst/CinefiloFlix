@@ -95,8 +95,9 @@ cadastroProdutoraSerieMsg = do
     putStrLn("\nProdutora: ")
 
 confirmacaoCadastroSerieMsg :: String -> IO()
-confirmacaoCadastroSerieMsg filme = do
+confirmacaoCadastroSerieMsg serie = do
     putStrLn("Cadastro do série:")
+    putStrLn(serie)
     putStrLn("\nO que deseja fazer a seguir ?\n")
 
 
