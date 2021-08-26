@@ -17,7 +17,7 @@ import Text.Printf (PrintfArg(parseFormat))
 
 -- Tipo de dado "Serie" que será armazenado no BD
 data Serie = Serie {
-    id_Serie :: Int,
+    id_serie :: Int,
     titulo :: String,
     duracaoMediaEpisodio :: Int,
     genero :: String,
@@ -73,7 +73,7 @@ instance ToRow EstatisticasDaSerie where
 
 -- Método que exibe o título de uma série a partir do id da série.
 getTituloSerie :: Int -> String
-getTituloSerie id_Serie = titulo (head(recuperaSerieID id_Serie))
+getTituloSerie id_serie = titulo (head(recuperaSerieID id_serie))
 
 cadastraSerie :: String -> Int -> String -> String -> String -> Serie
 cadastraSerie titulo duracaoMediaEpisodio genero nacionalidade produtora  =
