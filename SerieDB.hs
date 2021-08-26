@@ -102,7 +102,7 @@ insereDado id titulo duracaoMediaEpisodio genero nacionalidade produtora tempora
                 \ produtora,\ 
                 \ temporadas,\
                 \ episodios,\ 
-                \ episodiosTotais,\ 
+                \ episodiosTotais)\ 
                 \ VALUES\
                 \ (" ++ show id ++ ",\
                 \ '" ++ titulo ++ "',\
@@ -194,7 +194,7 @@ criaBDEstatisticas :: IO ()
 criaBDEstatisticas = do executeBD "CREATE TABLE IF NOT EXISTS estatisticasseries (\
                  \ id_estatistica_serie INT PRIMARY KEY, \
                  \ avaliacao INT, \
-                 \ comentarios TEXT, \
+                 \ comentarios TEXT \
                  \);" ()
 
 -- Método responsável por inserir os dados das estatísticas no banco de dados.
