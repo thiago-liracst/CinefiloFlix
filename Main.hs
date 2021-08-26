@@ -2,6 +2,7 @@ import Texts
 import Util
 
 import Filme
+import Serie
 
 main :: IO()
 main = do
@@ -29,6 +30,7 @@ addMediaScreen = do
 
 changeAddMediaScreen :: String -> IO()
 changeAddMediaScreen option | option == "1" = telaCadastraFilme
+                            | option == "1" = telaCadastraSerie
                             | option == "3" = mainScren
                             | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
@@ -82,6 +84,37 @@ telaCadastraFilme = do
                                 Texts.confirmacaoCadastroMsg (Filme.cadastraFilme titulo diretor anoLancamento genero (parseToInt(duracao)) nacionalidade produtora);
                                 addMediaScreen
         }
+
+telaCadastraSerie :: IO()
+telaCadastraSerie = do
+    Texts.cadastroTituloSerieMsg
+    titulo <- Util.readStringInput
+    if titulo == "V"
+        then do addMediaScreen
+    else do 
+        Texts.cadastroDuracaoEpisodioMsg
+        duracaoMediaEpisodio <- Util.readStringInput
+        if duracaoMediaEpisodio == "V"
+        then do addMediaScreen
+        else do 
+            Texts.cadastroGeneroSerieMsg 
+            genero <- Util.readStringInput
+            if genero == "V"
+            then do addMediaScreen
+            else do
+                Texts.cadastroNacionalidadeSerieMsg
+                nacionalidade <- Util.readStringInput
+                if nacionalidade == "V"
+                then do addMediaScreen
+                else do 
+                    Texts.cadastroProdutoraSerieMsg
+                    produtora <- Util.readStringInput
+                    if produtora == "V"
+                    then do addMediaScreen
+                    else do {
+                        Texts.confirmacaoCadastroSerieMsg (Serie.cadastraSerie titulo (parseToInt(duracaoMediaEpisodio)) genero nacionalidade produtora);
+                        addMediaScreen
+                            }
 
 
 dashboard :: IO()

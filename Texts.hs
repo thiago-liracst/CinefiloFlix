@@ -69,8 +69,39 @@ confirmacaoCadastroMsg filme = do
     putStrLn(filme)
     putStrLn("\nO que deseja fazer a seguir ?\n")
 
+---------------cadastro de série----------------
+
+cadastroTituloSerieMsg :: IO()
+cadastroTituloSerieMsg = do
+    putStrLn("● ○ ◉ CADASTRO DE SÉRIE◉ ○ ●")
+    putStrLn ("\nOBS: Para voltar ao menu, digite 'V'!\n")
+    putStr ("")
+    putStrLn("\nTítulo: ")
+
+cadastroDuracaoEpisodioMsg :: IO()
+cadastroDuracaoEpisodioMsg = do
+    putStrLn("\nDuração média (em minutos) do episódio: ")
+
+cadastroGeneroSerieMsg :: IO()
+cadastroGeneroSerieMsg = do
+    putStrLn("\nGênero: ")
+
+cadastroNacionalidadeSerieMsg :: IO()
+cadastroNacionalidadeSerieMsg = do
+    putStrLn("\nNacionalidade: ")
+
+cadastroProdutoraSerieMsg :: IO()
+cadastroProdutoraSerieMsg = do
+    putStrLn("\nProdutora: ")
+
+confirmacaoCadastroSerieMsg :: String -> IO()
+confirmacaoCadastroSerieMsg filme = do
+    putStrLn("Cadastro do série:")
+    putStrLn(serie)
+    putStrLn("\nO que deseja fazer a seguir ?\n")
 
 
+---------------dashboard----------------
 dashboardScreen :: IO()
 dashboardScreen = do 
     putStrLn("\n" ++ DashBoard.filmesMelhorAvaliados) 
