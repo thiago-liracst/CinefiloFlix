@@ -30,7 +30,7 @@ addMediaScreen = do
 
 changeAddMediaScreen :: String -> IO()
 changeAddMediaScreen option | option == "1" = telaCadastraFilme
-                            | option == "1" = telaCadastraSerie
+                            | option == "2" = telaCadastraSerie
                             | option == "3" = mainScren
                             | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
