@@ -178,7 +178,7 @@ formataSerie serie = "Título: " ++ titulo serie ++ ", Gênero: " ++ genero seri
 --- pesquisa um id de série para aquele genero, se tiver  daquele genero
 pesquisaSerieParaRecomendar:: String -> Int
 pesquisaSerieParaRecomendar genero
-    | length (recuperaSeriesPorGenero genero) > 0 = randomizaFilme (recuperaSeriesPorGenero genero)
+    | length (recuperaSeriesPorGenero genero) > 0 = randomizaSerie (recuperaSeriesPorGenero genero)
     | otherwise = -1
 
 --método auxiliar que randomiza o id da série
