@@ -27,7 +27,7 @@ recuperaSeries :: String
 recuperaSeries
     | not (null series) = "\nSéries:\n" ++ series
     | otherwise = "\nNão há séries para exibir!\n"
-    where series = concatenaToStringsSeries (FilmeDB.recuperaSeries)
+    where series = concatenaToStringsSeries (SerieDB.recuperaSeries)
 
 
 concatenaToStringsSeries :: [Serie] -> String

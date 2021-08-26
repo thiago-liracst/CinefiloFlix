@@ -62,7 +62,7 @@ instance FromRow EstatisticasDaSerie where
 -- Os atributos da série são passados para o metodo "toRow" que permite que essa série seja inserida no BD.
 instance ToRow Serie where
   toRow (Serie id_serie titulo duracaoMediaEpisodio genero nacionalidade produtora temporadas episodios episodiosTotais) =
-     toRow (id_serie, titulo, duracaoMediaEpisodio, genero, nacionalidade, produtora temporadas episodios episodiosTotais)   
+     toRow (id_serie, titulo, duracaoMediaEpisodio, genero, nacionalidade, produtora, temporadas, episodios, episodiosTotais)   
 
 -- Código que serve para o Haskell saber como transformar o objeto EstatisticasDaSerie em uma linha do BD
 -- Os atributos das estatísticas da série são passados para o metodo "toRow" que permite que essas estatísticas sejam inseridas no BD.
