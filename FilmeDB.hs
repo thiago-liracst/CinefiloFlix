@@ -29,8 +29,17 @@ data Filme = Filme {
 
 } deriving (Show)
 
+-- Tipo de dado "EstatisticasDoFilme" que será armazenado no BD
+data EstatisticasDoFilme = EstatisticasDoFilme {
+    id_estatistica_filme :: Int,
+    assistido :: Int,
+    avaliacao :: Int,
+    comentarios :: String
+
+} deriving (Show)
+
 -- Código que serve para que o Haskell entenda como fazer para transformar os valores das linhas do BD
--- novamente em atributos do Objeto Filme.
+-- novamente em atributos do Objeto EstatisticasDoFilme.
 instance FromRow Filme where
   fromRow = Filme <$> field
                     <*> field
@@ -40,7 +49,17 @@ instance FromRow Filme where
                     <*> field
                     <*> field
                     <*> field
-                    <*> field            
+                    <*> field  
+
+
+-- Código que serve para que o Haskell entenda como fazer para transformar os valores das linhas do BD
+-- novamente em atributos do Objeto EstatisticasDoFilme.
+instance FromRow EstatisticasDoFilme where
+  fromRow = EstatisticasDoFilme <$> field
+                                    <*> field
+                                    <*> field
+                                    <*> field
+                            
                     
 
 
@@ -49,6 +68,12 @@ instance FromRow Filme where
 instance ToRow Filme where
   toRow (Filme id_filme titulo diretor anoDeLancamento genero duracao nacionalidade visualizacoes produtora) =
      toRow (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade, visualizacoes, produtora)
+
+-- Código que serve para o Haskell saber como transformar o objeto EstatisticasDoFilme em uma linha do BD
+-- Os atributos das estatísticas do filme são passados para o metodo "toRow" que permite que esse filme seja inserido no BD.
+instance ToRow EstatisticasDoFilme where
+  toRow (EstatisticasDoFilme id_estatistica_filme assistido avaliacao comentarios) =
+     toRow (id_estatistica_filme, assistido, avaliacao, comentarios)
 
 -- Método que exibe o título de um filme a partir do id do filme.
 getTituloFilme :: Int -> String
@@ -64,13 +89,15 @@ addFilme :: String -> String -> String -> String -> Int -> String -> String -> I
 addFilme titulo diretor anoDeLancamento genero duracao nacionalidade produtora = do
     let id = fromIO geraId
     criaBD
-    insereDado id titulo diretor anoDeLancamento genero duracao nacionalidade produtora
+    criaBDEstatisticas
+    insereDado id titulo diretor anoDeLancamento genero duracao nacionalidade 0 produtora
+    insereDadoBDEstatisticas id 0 0 "Sem comentários"
 
     return (head (recuperaFilmeID id))
     
--- Método responsável por inserir os dados no banco de dados. (avaliação inicia com -1 para indicar que o filme não foi avaliado ainda)
-insereDado :: Int -> String -> String -> String -> String -> Int -> String -> String -> IO()
-insereDado id titulo diretor anoDeLancamento genero duracao nacionalidade produtora = do
+-- Método responsável por inserir os dados no banco de dados. 
+insereDado :: Int -> String -> String -> String -> String -> Int -> String -> Int -> String -> IO()
+insereDado id titulo diretor anoDeLancamento genero duracao nacionalidade visualizacoes produtora = do
     executeBD ("INSERT INTO filmes (id_filme,\
                 \ titulo,\
                 \ diretor,\
@@ -78,6 +105,7 @@ insereDado id titulo diretor anoDeLancamento genero duracao nacionalidade produt
                 \ genero,\
                 \ duracao,\ 
                 \ nacionalidade,\ 
+                \ visualizacoes,\ 
                 \ produtora,\   
                 \ VALUES\
                 \ (" ++ show id ++ ",\
@@ -87,6 +115,7 @@ insereDado id titulo diretor anoDeLancamento genero duracao nacionalidade produt
                 \ '" ++ genero ++ "',\
                 \ " ++ show duracao ++ ",\
                 \ '" ++ nacionalidade ++ "',\
+                \ " ++ show visualizacoes ++ ",\
                 \ '" ++ produtora ++ "');") ()
 
 -- Método responsável por alterar o status de acompanhamento de um filme
@@ -129,7 +158,7 @@ criaBD = do executeBD "CREATE TABLE IF NOT EXISTS filmes (\
 geraId :: IO Int
 geraId = getStdRandom(randomR (0, 1000)) :: IO Int
 
--- Metodo que retorna uma lista com todos os filmes cadastrados no BD de ALOKA.
+-- Metodo que retorna uma lista com todos os filmes cadastrados no BD.
 recuperaFilmes :: [Filme]
 recuperaFilmes = do
     let resultado = queryBD "SELECT * FROM filmes"
@@ -185,3 +214,25 @@ randomizaFilme filmes = (id_filme (filmes!!(randomInt 0 (length filmes-1))))
 -- randomiza o inteiro, recebe o i que é o inicio do range e o j que eh o final do range
 randomInt :: Int-> Int -> Int
 randomInt i j = fromIO(getStdRandom(randomR (i, j)) :: IO Int)
+
+-- Método responsável por criar o banco de dados.
+criaBDEstatisticas :: IO ()
+criaBDEstatisticas = do executeBD "CREATE TABLE IF NOT EXISTS estatisticasfilmes (\
+                 \ id_estatistica_filme INT PRIMARY KEY, \
+                 \ assistido INT, \
+                 \ avaliacao INT, \
+                 \ comentarios TEXT, \
+                 \);" ()
+
+-- Método responsável por inserir os dados das estatísticas no banco de dados.
+insereDadoBDEstatisticas :: Int -> Int -> Int -> String -> IO()
+insereDadoBDEstatisticas id assistido avaliacao comentarios = do
+    executeBD ("INSERT INTO estatisticasfilmes (id_estatistica_filme,\
+                \ assistido,\
+                \ avaliacao,\
+                \ comentarios,\ 
+                \ VALUES\
+                \ (" ++ show id ++ ",\
+                \ " ++ show assistido ++ ",\
+                \ " ++ show avaliacao ++ ",\
+                \ '" ++ comentarios ++ "');") ()
