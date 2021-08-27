@@ -67,6 +67,7 @@ confirmacaoUpdateMsg user = do
     putStrLn("")
     putStrLn(user)
     putStrLn("\nO que deseja fazer a seguir ?\n")
+    
 ---------------cadastro de filme----------------
 
 cadastroTituloFilmeMsg :: IO()

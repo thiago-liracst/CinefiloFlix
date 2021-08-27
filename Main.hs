@@ -18,7 +18,8 @@ mainScren = do
     changeScreen option
 
 changeScreen :: String -> IO()
-changeScreen option | option == "2" = addMediaScreen
+changeScreen option | option == "1" = telaUpdateUsuario
+                    | option == "2" = addMediaScreen
                     | option == "3" = telaAssistirMidia
                     | option == "4" = dashboard 
                     | option == "5" = Texts.goodByeMsg
@@ -59,9 +60,6 @@ telaUpdateUsuario = do
                             Texts.confirmacaoUpdateMsg (User.updateUser nome idade sexo generoFavorito filmeFavorito serieFavorita);
                             addMediaScreen
                         }
-
-
-
 
 
 addMediaScreen :: IO()
