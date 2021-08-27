@@ -124,10 +124,35 @@ telaAssistirMidia = do
     opcoesAssistirMidia option
 
 opcoesAssistirMidia :: String -> IO()
-opcoesAssistirMidia option --- | option == "1" = telaAssistirFilme
+opcoesAssistirMidia option  | option == "1" = telaAssistirFilme
                             --- | option == "2" = telaAssistirSerie
                             | option == "3" = mainScren
                             | otherwise = do {Texts.invalidOptionMsg; mainScren}
+
+telaAssistirFilme :: IO()
+telaAssistirFilme = do
+    putStrLn("\nOBS: Para voltar ao menu, digite 'V'!\n")
+
+    Texts.pedeIdFilmeMsg
+    id <- Util.readStringInput
+    if id == "V"
+        then do addMediaScreen
+    else do
+        Texts.avaliacaoFilmeMsg
+        avaliacao <- Util.readStringInput
+        if avaliacao == "V"
+            then do addMediaScreen
+        else do
+            Texts.pedeComentarioFilmeMsg
+            comentario <- Util.readStringInput
+            if avaliacao == "V"
+                then do addMediaScreen
+            else do {
+                Texts.confirmacaoAssistirFilmeMsg (Filme.assistirFilme (parseToInt(id)) (parseToInt(avaliacao)) comentario);
+                addMediaScreen
+            }
+
+
 
 
 dashboard :: IO()
