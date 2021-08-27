@@ -138,20 +138,20 @@ telaAssistirFilme = do
     Texts.pedeIdFilmeMsg
     id <- Util.readStringInput
     if id == "V"
-        then do addMediaScreen
+        then do telaAssistirMidia
     else do
         Texts.avaliacaoFilmeMsg
         avaliacao <- Util.readStringInput
         if avaliacao == "V"
-            then do addMediaScreen
+            then do telaAssistirMidia
         else do
             Texts.pedeComentarioFilmeMsg
             comentario <- Util.readStringInput
             if avaliacao == "V"
-                then do addMediaScreen
+                then do telaAssistirMidia
             else do {
                 Texts.confirmacaoAssistirFilmeMsg (Filme.assistirFilme (parseToInt(id)) (parseToInt(avaliacao)) comentario);
-                addMediaScreen
+                telaAssistirMidia
             }
 
 
