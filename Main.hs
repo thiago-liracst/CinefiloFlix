@@ -18,8 +18,9 @@ mainScren = do
 
 changeScreen :: String -> IO()
 changeScreen option | option == "2" = addMediaScreen
-                    | option == "5" = Texts.goodByeMsg
+                    | option == "3" = telaAssistirMidia
                     | option == "4" = dashboard 
+                    | option == "5" = Texts.goodByeMsg
                     | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
 addMediaScreen :: IO()
@@ -115,6 +116,18 @@ telaCadastraSerie = do
                         Texts.confirmacaoCadastroSerieMsg (Serie.cadastraSerie titulo (parseToInt(duracaoMediaEpisodio)) genero nacionalidade produtora);
                         addMediaScreen
                             }
+
+telaAssistirMidia :: IO()
+telaAssistirMidia = do
+    Texts.opcoesAssistirMsg
+    option <-Util.readStringInput
+    opcoesAssistirMidia option
+
+opcoesAssistirMidia :: String -> IO()
+opcoesAssistirMidia option --- | option == "1" = telaAssistirFilme
+                            --- | option == "2" = telaAssistirSerie
+                            | option == "3" = mainScren
+                            | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
 
 dashboard :: IO()

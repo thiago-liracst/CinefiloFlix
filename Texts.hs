@@ -100,6 +100,12 @@ confirmacaoCadastroSerieMsg serie = do
     putStrLn(serie)
     putStrLn("\nO que deseja fazer a seguir ?\n")
 
+---------------assistir----------------
+opcoesAssistirMsg :: IO()
+opcoesAssistirMsg = do
+    putStrLn("⓵ Assistir Filme")
+    putStrLn("⓶ Assistir Série")
+    putStrLn("⓷ Voltar ao Menu Principal\n")
 
 ---------------dashboard----------------
 dashboardScreen :: IO()
