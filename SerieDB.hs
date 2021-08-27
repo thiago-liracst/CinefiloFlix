@@ -17,7 +17,7 @@ import Text.Printf (PrintfArg(parseFormat))
 
 -- Tipo de dado "Serie" que será armazenado no BD
 data Serie = Serie {
-    id_Serie :: Int,
+    id_serie :: Int,
     titulo :: String,
     duracaoMediaEpisodio :: Int,
     genero :: String,
@@ -62,7 +62,7 @@ instance FromRow EstatisticasDaSerie where
 -- Os atributos da série são passados para o metodo "toRow" que permite que essa série seja inserida no BD.
 instance ToRow Serie where
   toRow (Serie id_serie titulo duracaoMediaEpisodio genero nacionalidade produtora temporadas episodios episodiosTotais) =
-     toRow (id_serie, titulo, duracaoMediaEpisodio, genero, nacionalidade, produtora temporadas episodios episodiosTotais)   
+     toRow (id_serie, titulo, duracaoMediaEpisodio, genero, nacionalidade, produtora, temporadas, episodios, episodiosTotais)   
 
 -- Código que serve para o Haskell saber como transformar o objeto EstatisticasDaSerie em uma linha do BD
 -- Os atributos das estatísticas da série são passados para o metodo "toRow" que permite que essas estatísticas sejam inseridas no BD.
@@ -73,7 +73,7 @@ instance ToRow EstatisticasDaSerie where
 
 -- Método que exibe o título de uma série a partir do id da série.
 getTituloSerie :: Int -> String
-getTituloSerie id_Serie = titulo (head(recuperaSerieID id_Serie))
+getTituloSerie id_serie = titulo (head(recuperaSerieID id_serie))
 
 cadastraSerie :: String -> Int -> String -> String -> String -> Serie
 cadastraSerie titulo duracaoMediaEpisodio genero nacionalidade produtora  =
@@ -102,7 +102,7 @@ insereDado id titulo duracaoMediaEpisodio genero nacionalidade produtora tempora
                 \ produtora,\ 
                 \ temporadas,\
                 \ episodios,\ 
-                \ episodiosTotais,\ 
+                \ episodiosTotais)\ 
                 \ VALUES\
                 \ (" ++ show id ++ ",\
                 \ '" ++ titulo ++ "',\
@@ -178,7 +178,7 @@ formataSerie serie = "Título: " ++ titulo serie ++ ", Gênero: " ++ genero seri
 --- pesquisa um id de série para aquele genero, se tiver  daquele genero
 pesquisaSerieParaRecomendar:: String -> Int
 pesquisaSerieParaRecomendar genero
-    | length (recuperaSeriesPorGenero genero) > 0 = randomizaFilme (recuperaSeriesPorGenero genero)
+    | length (recuperaSeriesPorGenero genero) > 0 = randomizaSerie (recuperaSeriesPorGenero genero)
     | otherwise = -1
 
 --método auxiliar que randomiza o id da série
@@ -194,7 +194,7 @@ criaBDEstatisticas :: IO ()
 criaBDEstatisticas = do executeBD "CREATE TABLE IF NOT EXISTS estatisticasseries (\
                  \ id_estatistica_serie INT PRIMARY KEY, \
                  \ avaliacao INT, \
-                 \ comentarios TEXT, \
+                 \ comentarios TEXT \
                  \);" ()
 
 -- Método responsável por inserir os dados das estatísticas no banco de dados.
