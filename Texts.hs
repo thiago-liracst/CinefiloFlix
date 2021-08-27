@@ -12,9 +12,9 @@ optionsStartMenu = do
     putStrLn("\nComo você quer prosseguir, cinéfilo?")
     putStrLn("⓵ Alterar Dados")
     putStrLn("⓶ Cadastrar Mídia")
-    putStrLn("⓷ Atualizar Status")
+    putStrLn("⓷ Assistir Mídia")
     putStrLn("⓸ DashBoard")
-    putStrLn("⑤ Sair\n")
+    putStrLn("⓹ Sair\n")
 
 optionsAddMediaScreen :: IO()
 optionsAddMediaScreen = do
