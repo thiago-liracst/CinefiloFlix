@@ -131,7 +131,7 @@ opcoesAssistirMidia option  | option == "1" = telaAssistirFilme
 
 telaAssistirFilme :: IO()
 telaAssistirFilme = do
-    putStrLn("\nOBS: Para voltar ao menu, digite 'V'!\n")
+    Texts.voltarAoMenuMsg
 
     Texts.pedeIdFilmeMsg
     id <- Util.readStringInput

@@ -30,12 +30,16 @@ invalidOptionMsg :: IO()
 invalidOptionMsg = do
     putStrLn("\nOpção Inválida\n")
 
+voltarAoMenuMsg :: IO()
+voltarAoMenuMsg = do
+    putStrLn("\nOBS: Para voltar ao menu, digite 'V'!\n")
+
 ---------------cadastro de filme----------------
 
 cadastroTituloFilmeMsg :: IO()
 cadastroTituloFilmeMsg = do
     putStrLn("● ○ ◉ CADASTRO DE FILME ◉ ○ ●")
-    putStrLn ("\nOBS: Para voltar ao menu, digite 'V'!\n")
+    voltarAoMenuMsg
     putStr ("")
     putStrLn("\nTítulo: ")
 
@@ -74,7 +78,7 @@ confirmacaoCadastroMsg filme = do
 cadastroTituloSerieMsg :: IO()
 cadastroTituloSerieMsg = do
     putStrLn("● ○ ◉ CADASTRO DE SÉRIE◉ ○ ●")
-    putStrLn ("\nOBS: Para voltar ao menu, digite 'V'!\n")
+    voltarAoMenuMsg
     putStr ("")
     putStrLn("\nTítulo: ")
 
@@ -129,6 +133,7 @@ confirmacaoAssistirFilmeMsg filme = do
     putStrLn("")
     putStrLn(filme)
     putStrLn("\nO que deseja fazer a seguir ?\n")
+
 ---------------dashboard----------------
 dashboardScreen :: IO()
 dashboardScreen = do 
