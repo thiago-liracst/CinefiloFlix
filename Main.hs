@@ -3,6 +3,7 @@ import Util
 
 import Filme
 import Serie
+import User
 
 main :: IO()
 main = do
@@ -22,6 +23,46 @@ changeScreen option | option == "2" = addMediaScreen
                     | option == "4" = dashboard 
                     | option == "5" = Texts.goodByeMsg
                     | otherwise = do {Texts.invalidOptionMsg; mainScren}
+
+telaUpdateUsuario :: IO()
+telaUpdateUsuario = do
+    Texts.pedeNomeUsuarioMsg
+    nome <- Util.readStringInput
+    if nome == "V"
+        then do addMediaScreen
+    else do
+        Texts.pedeIdadeUsuarioMsg
+        idade <- Util.readStringInput
+        if idade == "V"
+            then do addMediaScreen
+        else do
+            Texts.pedeSexoUsuarioMsg
+            sexo <- Util.readStringInput
+            if sexo == "V"
+                then do addMediaScreen
+            else do
+                Texts.pedeGeneroFavoritoMsg
+                generoFavorito <- Util.readStringInput
+                if generoFavorito == "V"
+                    then do addMediaScreen
+                else do
+                    Texts.pedeFilmeFavoritoMsg
+                    filmeFavorito <- Util.readStringInput
+                    if filmeFavorito == "V"
+                        then do addMediaScreen
+                    else do 
+                        Texts.pedeSerieFavoritaMsg
+                        serieFavorita <- Util.readStringInput
+                        if serieFavorita == "V"
+                            then do addMediaScreen
+                        else do {
+                            Texts.confirmacaoUpdateMsg (User.updateUser nome idade sexo generoFavorito filmeFavorito serieFavorita);
+                            addMediaScreen
+                        }
+
+
+
+
 
 addMediaScreen :: IO()
 addMediaScreen = do

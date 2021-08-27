@@ -34,6 +34,39 @@ voltarAoMenuMsg :: IO()
 voltarAoMenuMsg = do
     putStrLn("\nOBS: Para voltar ao menu, digite 'V'!\n")
 
+---------------atualizar cadastro usuario----------------
+pedeNomeUsuarioMsg :: IO()
+pedeNomeUsuarioMsg =  do
+    putStrLn("● ○ ◉ ATUALIZAÇÃO DE DADOS DO USUÁRIO ◉ ○ ●")
+    voltarAoMenuMsg
+    putStr ("")
+    putStrLn("\nNome: ")
+
+pedeIdadeUsuarioMsg :: IO()
+pedeIdadeUsuarioMsg = do
+    putStrLn("\nIdade: ")
+
+pedeSexoUsuarioMsg :: IO()
+pedeSexoUsuarioMsg =  do
+    putStrLn("\nSexo: ")
+
+pedeGeneroFavoritoMsg :: IO()
+pedeGeneroFavoritoMsg  = do
+    putStrLn("\nQual é o seu gênero cinematográfico favorito? ")
+
+pedeFilmeFavoritoMsg :: IO()
+pedeFilmeFavoritoMsg = do
+    putStrLn("\nQual é o seu filme favorito? ")
+
+pedeSerieFavoritaMsg:: IO()
+pedeSerieFavoritaMsg = do
+    putStrLn("\nQual é a sua série favorita? ")
+
+confirmacaoUpdateMsg :: String -> IO()
+confirmacaoUpdateMsg user = do
+    putStrLn("")
+    putStrLn(user)
+    putStrLn("\nO que deseja fazer a seguir ?\n")
 ---------------cadastro de filme----------------
 
 cadastroTituloFilmeMsg :: IO()
