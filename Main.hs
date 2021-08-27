@@ -133,6 +133,8 @@ telaAssistirFilme :: IO()
 telaAssistirFilme = do
     Texts.voltarAoMenuMsg
 
+    --- ??? putStr Filme.recuperaFilmes
+
     Texts.pedeIdFilmeMsg
     id <- Util.readStringInput
     if id == "V"
