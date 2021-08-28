@@ -18,8 +18,9 @@ mainScren = do
 
 changeScreen :: String -> IO()
 changeScreen option | option == "2" = addMediaScreen
-                    | option == "5" = Texts.goodByeMsg
+                    | option == "3" = telaAssistirMidia
                     | option == "4" = dashboard 
+                    | option == "5" = Texts.goodByeMsg
                     | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
 addMediaScreen :: IO()
@@ -115,6 +116,45 @@ telaCadastraSerie = do
                         Texts.confirmacaoCadastroSerieMsg (Serie.cadastraSerie titulo (parseToInt(duracaoMediaEpisodio)) genero nacionalidade produtora);
                         addMediaScreen
                             }
+
+telaAssistirMidia :: IO()
+telaAssistirMidia = do
+    Texts.opcoesAssistirMsg
+    option <-Util.readStringInput
+    opcoesAssistirMidia option
+
+opcoesAssistirMidia :: String -> IO()
+opcoesAssistirMidia option  | option == "1" = telaAssistirFilme
+                            --- | option == "2" = telaAssistirSerie
+                            | option == "3" = mainScren
+                            | otherwise = do {Texts.invalidOptionMsg; mainScren}
+
+telaAssistirFilme :: IO()
+telaAssistirFilme = do
+    Texts.voltarAoMenuMsg
+
+    --- ??? putStr Filme.recuperaFilmes
+
+    Texts.pedeIdFilmeMsg
+    id <- Util.readStringInput
+    if id == "V"
+        then do telaAssistirMidia
+    else do
+        Texts.avaliacaoFilmeMsg
+        avaliacao <- Util.readStringInput
+        if avaliacao == "V"
+            then do telaAssistirMidia
+        else do
+            Texts.pedeComentarioFilmeMsg
+            comentario <- Util.readStringInput
+            if avaliacao == "V"
+                then do telaAssistirMidia
+            else do {
+                Texts.confirmacaoAssistirFilmeMsg (Filme.assistirFilme (parseToInt(id)) (parseToInt(avaliacao)) comentario);
+                telaAssistirMidia
+            }
+
+
 
 
 dashboard :: IO()

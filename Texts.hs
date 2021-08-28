@@ -12,9 +12,9 @@ optionsStartMenu = do
     putStrLn("\nComo você quer prosseguir, cinéfilo?")
     putStrLn("⓵ Alterar Dados")
     putStrLn("⓶ Cadastrar Mídia")
-    putStrLn("⓷ Atualizar Status")
+    putStrLn("⓷ Assistir Mídia")
     putStrLn("⓸ DashBoard")
-    putStrLn("⑤ Sair\n")
+    putStrLn("⓹ Sair\n")
 
 optionsAddMediaScreen :: IO()
 optionsAddMediaScreen = do
@@ -30,12 +30,16 @@ invalidOptionMsg :: IO()
 invalidOptionMsg = do
     putStrLn("\nOpção Inválida\n")
 
+voltarAoMenuMsg :: IO()
+voltarAoMenuMsg = do
+    putStrLn("\nOBS: Para voltar ao menu, digite 'V'!\n")
+
 ---------------cadastro de filme----------------
 
 cadastroTituloFilmeMsg :: IO()
 cadastroTituloFilmeMsg = do
     putStrLn("● ○ ◉ CADASTRO DE FILME ◉ ○ ●")
-    putStrLn ("\nOBS: Para voltar ao menu, digite 'V'!\n")
+    voltarAoMenuMsg
     putStr ("")
     putStrLn("\nTítulo: ")
 
@@ -74,7 +78,7 @@ confirmacaoCadastroMsg filme = do
 cadastroTituloSerieMsg :: IO()
 cadastroTituloSerieMsg = do
     putStrLn("● ○ ◉ CADASTRO DE SÉRIE◉ ○ ●")
-    putStrLn ("\nOBS: Para voltar ao menu, digite 'V'!\n")
+    voltarAoMenuMsg
     putStr ("")
     putStrLn("\nTítulo: ")
 
@@ -100,6 +104,35 @@ confirmacaoCadastroSerieMsg serie = do
     putStrLn(serie)
     putStrLn("\nO que deseja fazer a seguir ?\n")
 
+---------------assistir----------------
+opcoesAssistirMsg :: IO()
+opcoesAssistirMsg = do
+    putStrLn("⓵ Assistir Filme")
+    putStrLn("⓶ Assistir Série")
+    putStrLn("⓷ Voltar ao Menu Principal\n")
+
+pedeIdFilmeMsg :: IO()
+pedeIdFilmeMsg = do
+    putStrLn("\n Por favor, insira o id do filme que você deseja assisitr: ")
+
+avaliacaoFilmeMsg :: IO()
+avaliacaoFilmeMsg = do
+    putStrLn("\nComo você classifica esse filme?")
+    putStrLn("★")
+    putStrLn("★★")
+    putStrLn("★★★")
+    putStrLn("★★★★")
+    putStrLn("★★★★★")
+
+pedeComentarioFilmeMsg :: IO()
+pedeComentarioFilmeMsg = do
+    putStrLn("\n Por favor, insira um comentário sobre o filme: ")
+
+confirmacaoAssistirFilmeMsg :: String -> IO()
+confirmacaoAssistirFilmeMsg filme = do
+    putStrLn("")
+    putStrLn(filme)
+    putStrLn("\nO que deseja fazer a seguir ?\n")
 
 ---------------dashboard----------------
 dashboardScreen :: IO()
