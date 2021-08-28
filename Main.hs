@@ -30,35 +30,35 @@ telaUpdateUsuario = do
     Texts.pedeNomeUsuarioMsg
     nome <- Util.readStringInput
     if nome == "V"
-        then do addMediaScreen
+        then do mainScren
     else do
         Texts.pedeIdadeUsuarioMsg
         idade <- Util.readStringInput
         if idade == "V"
-            then do addMediaScreen
+            then do mainScren
         else do
             Texts.pedeSexoUsuarioMsg
             sexo <- Util.readStringInput
             if sexo == "V"
-                then do addMediaScreen
+                then do mainScren
             else do
                 Texts.pedeGeneroFavoritoMsg
                 generoFavorito <- Util.readStringInput
                 if generoFavorito == "V"
-                    then do addMediaScreen
+                    then do mainScren
                 else do
                     Texts.pedeFilmeFavoritoMsg
                     filmeFavorito <- Util.readStringInput
                     if filmeFavorito == "V"
-                        then do addMediaScreen
+                        then do mainScren
                     else do 
                         Texts.pedeSerieFavoritaMsg
                         serieFavorita <- Util.readStringInput
                         if serieFavorita == "V"
-                            then do addMediaScreen
+                            then do mainScren
                         else do {
                             Texts.confirmacaoUpdateMsg (User.updateUser nome idade sexo generoFavorito filmeFavorito serieFavorita);
-                            addMediaScreen
+                            mainScren
                         }
 
 
