@@ -3,6 +3,7 @@ import Util
 
 import Filme
 import Serie
+import User
 
 main :: IO()
 main = do
@@ -17,11 +18,49 @@ mainScren = do
     changeScreen option
 
 changeScreen :: String -> IO()
-changeScreen option | option == "2" = addMediaScreen
+changeScreen option | option == "1" = telaUpdateUsuario
+                    | option == "2" = addMediaScreen
                     | option == "3" = telaAssistirMidia
                     | option == "4" = dashboard 
                     | option == "5" = Texts.goodByeMsg
                     | otherwise = do {Texts.invalidOptionMsg; mainScren}
+
+telaUpdateUsuario :: IO()
+telaUpdateUsuario = do
+    Texts.pedeNomeUsuarioMsg
+    nome <- Util.readStringInput
+    if nome == "V"
+        then do mainScren
+    else do
+        Texts.pedeIdadeUsuarioMsg
+        idade <- Util.readStringInput
+        if idade == "V"
+            then do mainScren
+        else do
+            Texts.pedeSexoUsuarioMsg
+            sexo <- Util.readStringInput
+            if sexo == "V"
+                then do mainScren
+            else do
+                Texts.pedeGeneroFavoritoMsg
+                generoFavorito <- Util.readStringInput
+                if generoFavorito == "V"
+                    then do mainScren
+                else do
+                    Texts.pedeFilmeFavoritoMsg
+                    filmeFavorito <- Util.readStringInput
+                    if filmeFavorito == "V"
+                        then do mainScren
+                    else do 
+                        Texts.pedeSerieFavoritaMsg
+                        serieFavorita <- Util.readStringInput
+                        if serieFavorita == "V"
+                            then do mainScren
+                        else do {
+                            Texts.confirmacaoUpdateMsg (User.updateUser nome idade sexo generoFavorito filmeFavorito serieFavorita);
+                            mainScren
+                        }
+
 
 addMediaScreen :: IO()
 addMediaScreen = do
