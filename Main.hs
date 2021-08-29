@@ -172,7 +172,7 @@ telaAssistirFilme :: IO()
 telaAssistirFilme = do
     Texts.voltarAoMenuMsg
 
-    --- ??? putStr Filme.recuperaFilmes
+    putStrLn("\n" ++ Filme.listaFilmes ++ "\n")
 
     Texts.pedeIdFilmeMsg
     id <- Util.readStringInput
@@ -189,11 +189,9 @@ telaAssistirFilme = do
             if avaliacao == "V"
                 then do telaAssistirMidia
             else do {
-                Texts.confirmacaoAssistirFilmeMsg (Filme.assistirFilme (parseToInt(id)) (parseToInt(avaliacao)) comentario);
+                Texts.confirmacaoAssistirFilmeMsg (Filme.assistirFilme (read id) (read avaliacao) comentario);
                 telaAssistirMidia
             }
-
-
 
 
 dashboard :: IO()

@@ -20,7 +20,7 @@ ehFilme id = FilmeDB.verificaExistenciaFilme id
 cadastraFilme :: String -> String -> String -> String -> Int -> String -> String  -> String
 cadastraFilme titulo diretor anoDeLancamento genero duracao nacionalidade produtora
     | FilmeDB.verificaExistenciaFilmePorTitulo titulo = "Erro: filme já cadastrado!"
-    | otherwise = "\nFilme de id: " ++ show idFilme ++ " cadastrado com sucesso!\n" ++ toString titulo diretor anoDeLancamento genero duracao nacionalidade produtora
+    | otherwise = "Cadastrado com sucesso!\n" ++ toString titulo diretor anoDeLancamento genero duracao nacionalidade produtora
     where idFilme = id_filme (FilmeDB.cadastraFilme titulo diretor anoDeLancamento genero duracao nacionalidade produtora)   
 
 
@@ -33,7 +33,7 @@ recuperaFilmes
 assistirFilme :: Int -> Int -> String -> String
 assistirFilme id avaliacao comentario
     | (FilmeDB.verificaExistenciaFilme id == False) = "Erro: filme não cadastrado!"
-    | otherwise = "\nFilme de id: " ++ show id ++ " concluído!\n"
+    | otherwise = "Concluído!\n"
     where idFilme = id_filme (FilmeDB.assistirFilme id avaliacao comentario)
 
 concatenaToStringsFilmes :: [Filme] -> String

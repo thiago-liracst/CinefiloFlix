@@ -22,17 +22,25 @@ CREATE TABLE IF NOT EXISTS filmes (
     genero TEXT,
     duracao INT,
     nacionalidade TEXT,
+    visualizacoes TEXT,
     produtora TEXT
     );
 
 INSERT INTO filmes (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade, produtora)
 VALUES (1, 'A volta de xablau', 'Irmãos Xablau', '2018', 'Aventura', 45, 'Brasil', 'Youtube');
+INSERT INTO filmes (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade, produtora)
+VALUES (2, 'A volta de xablau', 'Irmãos Xablau', '2018', 'Aventura', 45, 'Brasil', 'Youtube');
+INSERT INTO filmes (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade, produtora)
+VALUES (3, 'A volta de xablau', 'Irmãos Xablau', '2018', 'Aventura', 45, 'Brasil', 'Youtube');
 
 CREATE TABLE IF NOT EXISTS series (
     id_serie INT PRIMARY KEY,
     titulo TEXT,
     duracaoMediaEpisodio INT,
     genero TEXT,
+    episodios INT,
+    temporadas INT,
+    episodiosTotais INT,
     nacionalidade TEXT,
     produtora TEXT
     );
