@@ -22,16 +22,16 @@ CREATE TABLE IF NOT EXISTS filmes (
     genero TEXT,
     duracao INT,
     nacionalidade TEXT,
-    visualizacoes TEXT,
+    visualizacoes INT,
     produtora TEXT
     );
 
-INSERT INTO filmes (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade, produtora)
-VALUES (1, 'A volta de xablau', 'Irmãos Xablau', '2018', 'Aventura', 45, 'Brasil', 'Youtube');
-INSERT INTO filmes (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade, produtora)
-VALUES (2, 'A volta de xablau', 'Irmãos Xablau', '2018', 'Aventura', 45, 'Brasil', 'Youtube');
-INSERT INTO filmes (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade, produtora)
-VALUES (3, 'A volta de xablau', 'Irmãos Xablau', '2018', 'Aventura', 45, 'Brasil', 'Youtube');
+INSERT INTO filmes (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade, visualizacoes, produtora)
+VALUES (1, 'A volta de xablau', 'Irmãos Xablau', '2018', 'Aventura', 45, 'Brasil', 0, 'Youtube');
+INSERT INTO filmes (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade, visualizacoes, produtora)
+VALUES (2, 'A volta de xablau', 'Irmãos Xablau', '2018', 'Aventura', 45, 'Brasil', 0, 'Youtube');
+INSERT INTO filmes (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade, visualizacoes, produtora)
+VALUES (3, 'A volta de xablau', 'Irmãos Xablau', '2018', 'Aventura', 45, 'Brasil', 0, 'Youtube');
 
 CREATE TABLE IF NOT EXISTS series (
     id_serie INT PRIMARY KEY,
