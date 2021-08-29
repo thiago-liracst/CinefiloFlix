@@ -202,7 +202,7 @@ insereDadoBDEstatisticas :: Int -> Int -> String -> IO()
 insereDadoBDEstatisticas id avaliacao comentarios = do
     executeBD ("INSERT INTO estatisticasseries (id_estatistica_serie,\
                 \ avaliacao,\
-                \ comentarios,\ 
+                \ comentarios)\ 
                 \ VALUES\
                 \ (" ++ show id ++ ",\
                 \ " ++ show avaliacao ++ ",\

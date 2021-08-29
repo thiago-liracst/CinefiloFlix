@@ -106,7 +106,7 @@ insereDado id titulo diretor anoDeLancamento genero duracao nacionalidade visual
                 \ duracao,\ 
                 \ nacionalidade,\ 
                 \ visualizacoes,\ 
-                \ produtora,\   
+                \ produtora) \   
                 \ VALUES\
                 \ (" ++ show id ++ ",\
                 \ '" ++ titulo ++ "',\
@@ -132,9 +132,9 @@ updateStatus :: Int -> Int -> String -> IO()
 updateStatus id avaliacao comentario = do
     let visualizacoes = fromIO(getVisuzalizacao id)
     let visualizacoesSomado = read (show visualizacoes)+1
-    executeBD ("UPDATE filmes SET (assistido, visualizacoes, avaliacao, comentario) = \
-        \ (1, "++ show visualizacoesSomado ++", "++ show avaliacao ++", '"++ comentario ++"') \
-        \ WHERE id_filme = "++ show id ++";") ()
+    executeBD ("UPDATE estatisticasfilmes SET (assistido, avaliacao, comentario) = \
+        \ (1, "++ show avaliacao ++", '"++ comentario ++"') \
+        \ WHERE id_estatistica_filme = "++ show id ++";") ()
 
 getVisuzalizacao :: Int -> IO()
 getVisuzalizacao id = do 
@@ -168,7 +168,7 @@ recuperaFilmes = do
 -- Metodo que retorna uma lista contendo o filme do 
 -- id passado se ele existir, caso contrário uma lista vazia é retornada.
 recuperaFilmeID :: Int -> [Filme]
-recuperaFilmeID id_filme = fromIO (queryBD ("SELECT * FROM filmes WHERE id_filme = "++ show id_filme ++""))
+recuperaFilmeID id_filme = fromIO (queryBD ("SELECT * FROM filmes WHERE id_filme = "++ show id_filme ++";"))
 
 -- Método que retorno o filme através do seu título passado como parâmetro.
 recuperaFilmeTitulo :: String -> [Filme]
@@ -221,7 +221,7 @@ criaBDEstatisticas = do executeBD "CREATE TABLE IF NOT EXISTS estatisticasfilmes
                  \ id_estatistica_filme INT PRIMARY KEY, \
                  \ assistido INT, \
                  \ avaliacao INT, \
-                 \ comentarios TEXT, \
+                 \ comentarios TEXT \
                  \);" ()
 
 -- Método responsável por inserir os dados das estatísticas no banco de dados.
@@ -230,7 +230,7 @@ insereDadoBDEstatisticas id assistido avaliacao comentarios = do
     executeBD ("INSERT INTO estatisticasfilmes (id_estatistica_filme,\
                 \ assistido,\
                 \ avaliacao,\
-                \ comentarios,\ 
+                \ comentarios) \ 
                 \ VALUES\
                 \ (" ++ show id ++ ",\
                 \ " ++ show assistido ++ ",\

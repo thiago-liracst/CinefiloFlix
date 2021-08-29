@@ -20,7 +20,7 @@ ehSerie id = SerieDB.verificaExistenciaSerie id
 cadastraSerie :: String -> Int -> String -> String -> String -> String
 cadastraSerie titulo duracaoMediaEpisodio genero  nacionalidade produtora
     | SerieDB.verificaExistenciaSeriePorTitulo titulo = "Erro: Série já cadastrado!"
-    | otherwise = "\nSérie de id: " ++ show id_Serie ++ " cadastrado com sucesso!\n" ++ toString titulo duracaoMediaEpisodio genero nacionalidade produtora
+    | otherwise = "Cadastrada com sucesso!\n" ++ toString titulo duracaoMediaEpisodio genero nacionalidade produtora
     where id_Serie = id_serie (SerieDB.cadastraSerie titulo duracaoMediaEpisodio genero nacionalidade produtora)   
 
 recuperaSeries :: String
