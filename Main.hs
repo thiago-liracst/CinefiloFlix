@@ -164,7 +164,7 @@ telaAssistirMidia = do
 
 opcoesAssistirMidia :: String -> IO()
 opcoesAssistirMidia option  | option == "1" = telaAssistirFilme
-                            --- | option == "2" = telaAssistirSerie
+                            | option == "2" = telaAssistirSerie
                             | option == "3" = mainScren
                             | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
@@ -192,6 +192,57 @@ telaAssistirFilme = do
                 Texts.confirmacaoAssistirFilmeMsg (Filme.assistirFilme (read id) (read avaliacao) comentario);
                 telaAssistirMidia
             }
+
+telaAssistirSerie :: IO()
+telaAssistirSerie = do
+    Texts.headerAssistirSerieMsg 
+    -- chamar metodo de listar as séries
+
+    Texts.pedeIdSerieMsg
+    id <- Util.readStringInput
+    if id == "V"
+        then do telaAssistirMidia
+    else do 
+        -- lanca o stts da serie
+        Texts.opcoesAssistirSerieMsg
+        opcao <-Util.readStringInput
+        opcoesAssistirSerie opcao
+    
+
+opcoesAssistirSerie :: String -> IO()
+opcoesAssistirSerie opcao   | opcao == "1" = telaFinalizaEpisodio
+                            | opcao == "2" = telaFinalizaTemporada
+                            | opcao == "3" = telaFinalizaSerie
+                            | otherwise = do {Texts.invalidOptionMsg; mainScren}
+
+telaFinalizaEpisodio :: IO()
+telaFinalizaEpisodio = do 
+    -- metodo que finaliza episódio 
+    Texts.episodioFinalizadoMsg
+    mainScren
+
+telaFinalizaTemporada :: IO()
+telaFinalizaTemporada =  do
+    --metodo q finaliza temporada
+    Texts.temporadaFinalizadaMsg
+    mainScren
+
+telaFinalizaSerie :: IO()
+telaFinalizaSerie = do
+    Texts.voltarAoMenuMsg
+    Texts.avaliacaoSerieMsg
+    avaliacao <- Util.readStringInput
+    if avaliacao == "V"
+        then do telaAssistirMidia
+    else do
+        Texts.pedeComentarioSerieMsg
+        comentario <- Util.readStringInput
+        if avaliacao == "V"
+            then do telaAssistirMidia
+        else do {
+            -- confirmação e metodo de assistir serie c comentario e avaliacao
+            telaAssistirMidia
+        }
 
 
 dashboard :: IO()

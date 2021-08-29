@@ -168,6 +168,45 @@ confirmacaoAssistirFilmeMsg filme = do
     putStrLn(filme)
     putStrLn("\nO que deseja fazer a seguir ?\n")
 
+headerAssistirSerieMsg ::IO()
+headerAssistirSerieMsg = do
+    putStrLn("● ○ ◉ Assistir Série ◉ ○ ●")
+    voltarAoMenuMsg
+    putStrLn("\nConfira a lista de séries disponíveis: \n")
+
+pedeIdSerieMsg :: IO()
+pedeIdSerieMsg = do
+    putStrLn("\n Por favor, insira o id da série que você deseja assisitr: ")
+
+opcoesAssistirSerieMsg :: IO()
+opcoesAssistirSerieMsg = do
+    putStrLn("\nO quê você deseja fazer, cinéfilo?\n")
+    putStrLn("⓵ Finalizar Episódio")
+    putStrLn("⓶ Finalizar Temporada")
+    putStrLn("⓷ Finalizar Série")
+
+episodioFinalizadoMsg :: IO()
+episodioFinalizadoMsg = do
+    putStrLn("Episódio finalizado com sucesso!")
+    putStrLn("\nO que deseja fazer a seguir ?\n")
+
+temporadaFinalizadaMsg :: IO()
+temporadaFinalizadaMsg = do
+    putStrLn("Temporada finalizada com sucesso!")
+    putStrLn("\nO que deseja fazer a seguir ?\n")
+
+avaliacaoSerieMsg :: IO()
+avaliacaoSerieMsg = do
+    putStrLn("\nComo você classifica esse série?")
+    putStrLn("★")
+    putStrLn("★★")
+    putStrLn("★★★")
+    putStrLn("★★★★")
+    putStrLn("★★★★★")
+
+pedeComentarioSerieMsg :: IO()
+pedeComentarioSerieMsg = do
+    putStrLn("\n Por favor, insira um comentário sobre a série: ")
 ---------------dashboard----------------
 dashboardScreen :: IO()
 dashboardScreen = do 
