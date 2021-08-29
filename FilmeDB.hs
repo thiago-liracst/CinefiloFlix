@@ -206,6 +206,7 @@ pesquisaFilmeParaRecomendar genero
     | length (recuperaFilmesPorGenero genero) > 0 = randomizaFilme (recuperaFilmesPorGenero genero)
     | otherwise = -1
 
+
 --método auxiliar que randomiza o id do filme
 randomizaFilme:: [Filme] -> Int
 randomizaFilme filmes = (id_filme (filmes!!(randomInt 0 (length filmes-1))))
@@ -213,6 +214,7 @@ randomizaFilme filmes = (id_filme (filmes!!(randomInt 0 (length filmes-1))))
 -- randomiza o inteiro, recebe o i que é o inicio do range e o j que eh o final do range
 randomInt :: Int-> Int -> Int
 randomInt i j = fromIO(getStdRandom(randomR (i, j)) :: IO Int)
+
 
 -- Método responsável por criar o banco de dados.
 criaBDEstatisticas :: IO ()
@@ -235,3 +237,12 @@ insereDadoBDEstatisticas id assistido avaliacao comentarios = do
                 \ " ++ show assistido ++ ",\
                 \ " ++ show avaliacao ++ ",\
                 \ '" ++ comentarios ++ "');") ()
+
+recuperaEstatisticas :: [EstatisticasDoFilme] 
+recuperaEstatisticas = fromIO (queryBD ("SELECT * FROM estatisticasfilmes;"))
+
+recuperaEstatisticaPorId :: Int -> [EstatisticasDoFilme]
+recuperaEstatisticaPorId id = fromIO (queryBD ("SELECT * FROM estatisticasfilmes WHERE id_estatistica_filme = " ++ show id ++ ""))
+
+recuperaFilmesPorAvaliacao :: Int -> [EstatisticasDoFilme] 
+recuperaFilmesPorAvaliacao i  = fromIO (queryBD ("SELECT * FROM estatisticasfilmes ORDER BY avaliacao DESC LIMIT " ++ show i ++ "") )

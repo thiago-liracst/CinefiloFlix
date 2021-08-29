@@ -210,16 +210,12 @@ pedeComentarioSerieMsg = do
 ---------------dashboard----------------
 dashboardScreen :: IO()
 dashboardScreen = do 
-    putStrLn("\n" ++ DashBoard.filmesMelhorAvaliados) 
+    putStrLn("\n--------------------\n")
+    putStrLn(DashBoard.filmesMelhorAvaliados) 
     putStrLn("\n--------------------\n")
     putStrLn(DashBoard.horasAssitidas)
     putStrLn("\n--------------------\n")
     putStrLn(DashBoard.principaisGeneros)
     putStrLn("\n--------------------\n")
     putStrLn(DashBoard.principaisDiretores ++ "\n")
-
-
-
-
-
 

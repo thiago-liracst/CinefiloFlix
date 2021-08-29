@@ -248,7 +248,7 @@ telaFinalizaSerie = do
 dashboard :: IO()
 dashboard = do 
 Texts.dashboardScreen
-putStrLn("\nOBS: Para voltar ao menu, digite qualquer tecla.\n\n")
+putStrLn("\nOBS: Para voltar ao menu, digite qualquer tecla.\nx")
 entrada <- getLine
 do mainScren
                         

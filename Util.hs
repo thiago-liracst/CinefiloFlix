@@ -28,3 +28,7 @@ queryBD query = do
 
 convertStringToInt :: String -> Int
 convertStringToInt str = read str :: Int
+
+tamanhoLista :: [a] -> Int
+tamanhoLista [] = 0
+tamanhoLista (x : xs) = 1 + tamanhoLista (xs)
