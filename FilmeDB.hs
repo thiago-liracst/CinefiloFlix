@@ -132,9 +132,8 @@ updateStatus :: Int -> Int -> String -> IO()
 updateStatus id avaliacao comentario = do
     let visualizacoes = fromIO(getVisuzalizacao id)
     let visualizacoesSomado = read (show visualizacoes)+1
-    executeBD ("UPDATE estatisticasfilmes SET (assistido, avaliacao, comentario) = \
-        \ (1, "++ show avaliacao ++", '"++ comentario ++"') \
-        \ WHERE id_estatistica_filme = "++ show id ++";") ()
+    executeBD ("INSERT INTO estatisticasfilmes (id_estatistica_filme, assistido, avaliacao, comentario) \
+        \ VALUES ("++ show id ++", 1, "++ show avaliacao ++", '"++ comentario ++"');") ()
 
 getVisuzalizacao :: Int -> IO()
 getVisuzalizacao id = do 
