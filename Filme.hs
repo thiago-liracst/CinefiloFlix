@@ -33,8 +33,9 @@ recuperaFilmes
 assistirFilme :: Int -> Int -> String -> String
 assistirFilme id avaliacao comentario
     | (FilmeDB.verificaExistenciaFilme id == False) = "Erro: filme não cadastrado!"
-    | otherwise = "Concluído!\n"
+    | otherwise = "Filme de id " ++ show idFilme ++ " Concluído!\n"
     where idFilme = id_filme (FilmeDB.assistirFilme id avaliacao comentario)
+    
 
 concatenaToStringsFilmes :: [Filme] -> String
 concatenaToStringsFilmes [] = ""

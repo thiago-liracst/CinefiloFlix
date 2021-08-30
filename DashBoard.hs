@@ -23,7 +23,7 @@ filmesMelhorAvaliadosRecursivo (x : xs) i = show i ++ "° " ++ titulo (head (rec
 
 horasAssitidas :: String
 horasAssitidas
-  |(contaHorasAssistidas (filmes) <= 0) = "Você não possui filmes cadastrados no Sistema.\nVolte quando tiver algum filme."
+  |((Util.tamanhoLista filmes) <= 0) = erroSemCadastroFilme
   |otherwise = "O total de horas assistidas é de " ++  show (div horas 60)  ++ " horas e " ++ show (mod horas 60) ++ " minutos."
     where 
       filmes = FilmeDB.recuperaFilmes
@@ -35,12 +35,29 @@ contaHorasAssistidas (x : xs) = (duracao x) + contaHorasAssistidas xs
 
 
 principaisGeneros :: String 
-principaisGeneros =  "Os principais gêneros aparecerão aqui"
+principaisGeneros 
+  |((Util.tamanhoLista filmes) <= 0) = erroSemCadastroFilme
+  |otherwise =  "Principais Gêneros: \n" ++ principaisGenerosRecursivo  generos 1
+  where 
+    filmes = FilmeDB.recuperaFilmes
+    generos = FilmeDB.recuperaPrincipaisGeneros 5
 
+
+principaisGenerosRecursivo :: [(String, Int)] -> Int -> String
+principaisGenerosRecursivo [] i = ""
+principaisGenerosRecursivo (x : xs) i = show i ++ "° " ++ (fst x) ++ " - " ++  show (snd x) ++ " filme(s)\n" ++ principaisGenerosRecursivo xs (i + 1)
 
 principaisDiretores :: String 
-principaisDiretores = "Os principais Dretores aparecerão aqui"
+principaisDiretores
+  |((Util.tamanhoLista filmes) <= 0) = erroSemCadastroFilme
+  |otherwise =  "Principais Diretores: \n" ++ principaisDiretoresRecursivo  generos 1
+  where 
+    filmes = FilmeDB.recuperaFilmes
+    generos = FilmeDB.recuperaPrincipaisDiretores 5
 
+principaisDiretoresRecursivo :: [(String, Int)] -> Int -> String
+principaisDiretoresecursivo [] i = ""
+principaisDiretoresRecursivo (x : xs) i = show i ++ "° " ++ (fst x) ++ " - " ++  show (snd x) ++ " filme(s)\n" ++ principaisGenerosRecursivo xs (i + 1)
 
 erroSemCadastroFilme :: String
 erroSemCadastroFilme = "Você não possui filmes cadastrados no Sistema.\nVolte quando tiver algum filme."
