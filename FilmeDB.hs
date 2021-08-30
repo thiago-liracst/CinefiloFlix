@@ -67,13 +67,13 @@ instance FromRow EstatisticasDoFilme where
 -- Os atributos do filme são passados para o metodo "toRow" que permite que esse filme seja inserido no BD.
 instance ToRow Filme where
   toRow (Filme id_filme titulo diretor anoDeLancamento genero duracao nacionalidade visualizacoes produtora) =
-     toRow (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade, visualizacoes, produtora)
+      toRow (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade, visualizacoes, produtora)
 
 -- Código que serve para o Haskell saber como transformar o objeto EstatisticasDoFilme em uma linha do BD
 -- Os atributos das estatísticas do filme são passados para o metodo "toRow" que permite que esse filme seja inserido no BD.
 instance ToRow EstatisticasDoFilme where
   toRow (EstatisticasDoFilme id_estatistica_filme assistido avaliacao comentarios) =
-     toRow (id_estatistica_filme, assistido, avaliacao, comentarios)
+      toRow (id_estatistica_filme, assistido, avaliacao, comentarios)
 
 -- Método que exibe o título de um filme a partir do id do filme.
 getTituloFilme :: Int -> String
@@ -130,14 +130,21 @@ updateStatusFilme id avaliacao comentario = do
 
 updateStatus :: Int -> Int -> String -> IO()
 updateStatus id avaliacao comentario = do
-    let visualizacoes = fromIO(getVisuzalizacao id)
-    let visualizacoesSomado = read (show visualizacoes)+1
-    executeBD ("INSERT INTO estatisticasfilmes (id_estatistica_filme, assistido, avaliacao, comentario) \
-        \ VALUES ("++ show id ++", 1, "++ show avaliacao ++", '"++ comentario ++"');") ()
+    let visualizacoes1 = visualizacoes (head (recuperaFilmeID id))
+    let visualizacaoSomado = visualizacoes1 + 1
+    executeBD ("UPDATE filmes SET \
+                \visualizacoes = " ++ show visualizacaoSomado ++ " \
+                \WHERE id_filme = " ++ show id ++ ";")()
 
-getVisuzalizacao :: Int -> IO()
-getVisuzalizacao id = do 
-    executeBD ("SELECT visualizacoes FROM filmes WHERE id="++ show id ++";") ()
+    executeBD ("UPDATE estatisticasfilmes SET \
+                \assistido = " ++ "'1'" ++ ", \
+                \avaliacao = " ++ show (avaliacao) ++ ", \
+                \comentarios = '" ++ comentario ++ "' \
+                \WHERE id_estatistica_filme =  " ++ show id ++ ";") ()
+
+getVisualizacao :: Int -> [Filme]
+getVisualizacao id = fromIO(queryBD ("SELECT visualizacoes FROM filmes WHERE id_filme= "++ show id ++""))
+
 
 -- Método responsável por criar o banco de dados.
 criaBD :: IO ()
@@ -206,6 +213,7 @@ pesquisaFilmeParaRecomendar genero
     | length (recuperaFilmesPorGenero genero) > 0 = randomizaFilme (recuperaFilmesPorGenero genero)
     | otherwise = -1
 
+
 --método auxiliar que randomiza o id do filme
 randomizaFilme:: [Filme] -> Int
 randomizaFilme filmes = (id_filme (filmes!!(randomInt 0 (length filmes-1))))
@@ -213,6 +221,7 @@ randomizaFilme filmes = (id_filme (filmes!!(randomInt 0 (length filmes-1))))
 -- randomiza o inteiro, recebe o i que é o inicio do range e o j que eh o final do range
 randomInt :: Int-> Int -> Int
 randomInt i j = fromIO(getStdRandom(randomR (i, j)) :: IO Int)
+
 
 -- Método responsável por criar o banco de dados.
 criaBDEstatisticas :: IO ()
@@ -235,3 +244,19 @@ insereDadoBDEstatisticas id assistido avaliacao comentarios = do
                 \ " ++ show assistido ++ ",\
                 \ " ++ show avaliacao ++ ",\
                 \ '" ++ comentarios ++ "');") ()
+
+recuperaEstatisticas :: [EstatisticasDoFilme] 
+recuperaEstatisticas = fromIO (queryBD ("SELECT * FROM estatisticasfilmes;"))
+
+recuperaEstatisticaPorId :: Int -> [EstatisticasDoFilme]
+recuperaEstatisticaPorId id = fromIO (queryBD ("SELECT * FROM estatisticasfilmes WHERE id_estatistica_filme = " ++ show id ++ ""))
+
+recuperaFilmesPorAvaliacao :: Int -> [EstatisticasDoFilme] 
+recuperaFilmesPorAvaliacao i  = fromIO (queryBD ("SELECT * FROM estatisticasfilmes ORDER BY avaliacao DESC LIMIT " ++ show i ++ ""))
+
+recuperaPrincipaisGeneros :: Int -> [(String, Int)]
+
+recuperaPrincipaisGeneros i  = fromIO (queryBD ( "SELECT genero AS g, COUNT(genero) AS c FROM filmes GROUP BY genero ORDER BY c DESC LIMIT " ++ show i ++ ""))
+
+recuperaPrincipaisDiretores :: Int -> [(String,Int)]
+recuperaPrincipaisDiretores i  = fromIO (queryBD( "SELECT diretor AS d, COUNT(diretor) AS c FROM filmes GROUP BY diretor ORDER BY c DESC LIMIT " ++ show i ++ ""))

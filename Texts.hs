@@ -207,19 +207,16 @@ avaliacaoSerieMsg = do
 pedeComentarioSerieMsg :: IO()
 pedeComentarioSerieMsg = do
     putStrLn("\n Por favor, insira um comentário sobre a série: ")
+
 ---------------dashboard----------------
 dashboardScreen :: IO()
 dashboardScreen = do 
-    putStrLn("\n" ++ DashBoard.filmesMelhorAvaliados) 
+    putStrLn("\n--------------------\n")
+    putStrLn(DashBoard.filmesMelhorAvaliados) 
     putStrLn("\n--------------------\n")
     putStrLn(DashBoard.horasAssitidas)
     putStrLn("\n--------------------\n")
     putStrLn(DashBoard.principaisGeneros)
     putStrLn("\n--------------------\n")
     putStrLn(DashBoard.principaisDiretores ++ "\n")
-
-
-
-
-
 
