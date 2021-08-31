@@ -14,7 +14,8 @@ optionsStartMenu = do
     putStrLn("⓶ Cadastrar Mídia")
     putStrLn("⓷ Assistir Mídia")
     putStrLn("⓸ DashBoard")
-    putStrLn("⓹ Sair\n")
+    putStrLn("⓹ Recomendações para você")
+    putStrLn("⓺ Sair\n")
 
 optionsAddMediaScreen :: IO()
 optionsAddMediaScreen = do
@@ -207,6 +208,27 @@ avaliacaoSerieMsg = do
 pedeComentarioSerieMsg :: IO()
 pedeComentarioSerieMsg = do
     putStrLn("\n Por favor, insira um comentário sobre a série: ")
+
+---------------recomendações----------------
+opcoesRecomendacoes :: IO()
+opcoesRecomendacoes = do
+    putStrLn("● ○ ◉ Recomendações ◉ ○ ●")
+    voltarAoMenuMsg
+    putStrLn("\nQue tipo de recomendação você gostaria, cinéfilo? \n")
+    putStrLn("⓵ Recomendação de filmes")
+    putStrLn("⓶ Recomendação de séries\n")
+
+recomendacaoDeFilmeMsg :: IO()
+recomendacaoDeFilmeMsg = do
+    putStrLn("● ○ ◉ Recomendações de Filmes ◉ ○ ●")
+    voltarAoMenuMsg
+    putStrLn("\nConfira a lista de filmes que foi preparada só para você:")
+
+recomendacaoDeSerieMsg :: IO()
+recomendacaoDeSerieMsg = do
+    putStrLn("● ○ ◉ Recomendações de Séries ◉ ○ ●")
+    voltarAoMenuMsg
+    putStrLn("\nConfira a lista de séries que foi preparada só para você:")
 
 ---------------dashboard----------------
 dashboardScreen :: IO()
