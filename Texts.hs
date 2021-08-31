@@ -224,6 +224,11 @@ recomendacaoDeFilmeMsg = do
     voltarAoMenuMsg
     putStrLn("\nConfira a lista de filmes que foi preparada só para você:")
 
+recomendacaoDeSerieMsg :: IO()
+recomendacaoDeSerieMsg = do
+    putStrLn("● ○ ◉ Recomendações de Séries ◉ ○ ●")
+    voltarAoMenuMsg
+    putStrLn("\nConfira a lista de séries que foi preparada só para você:")
 
 ---------------dashboard----------------
 dashboardScreen :: IO()

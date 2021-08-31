@@ -243,13 +243,18 @@ telaRecomendacao = do
 
 opcoesRecomendacao :: String -> IO()
 opcoesRecomendacao opcao    | opcao == "1" = telaRecomendacaoFilme
-                            ----- | opcao == "2" = telaRecomendacaoSerie
+                            | opcao == "2" = telaRecomendacaoSerie
                             | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
 telaRecomendacaoFilme :: IO()
 telaRecomendacaoFilme = do
     Texts.recomendacaoDeFilmeMsg
-    putStrLn("\n" ++ Filme.listaFilmes ++ "\n")
+    putStrLn("\n" ++ Filme.recomendaFilme ++ "\n")
+
+telaRecomendacaoSerie :: IO()
+telaRecomendacaoSerie = do
+    Texts.recomendacaoDeSerieMsg
+    putStrLn("\n" ++ Serie.recomendaSerie ++ "\n")
 
 
 dashboard :: IO()
