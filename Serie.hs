@@ -29,6 +29,11 @@ recuperaSeries
     | otherwise = "\nNão há séries para exibir!\n"
     where series = concatenaToStringsSeries SerieDB.recuperaSeries
 
+recomendaSerie :: String
+recomendaSerie
+    | not (null serie) = "\nSérie recomendada:\n" ++ titulo (head serie)
+    | otherwise = "\nNão há séries para exibir!\n"
+    where serie = SerieDB.recomendaSerie
 
 concatenaToStringsSeries :: [Serie] -> String
 concatenaToStringsSeries [] = ""

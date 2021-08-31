@@ -23,7 +23,6 @@ cadastraFilme titulo diretor anoDeLancamento genero duracao produtora
     | otherwise = "Cadastrado com sucesso!\n" ++ "id: " ++ show idFilme ++ "\n" ++ toString titulo diretor anoDeLancamento genero duracao produtora
     where idFilme = id_filme (FilmeDB.cadastraFilme titulo diretor anoDeLancamento genero duracao produtora)   
 
-
 recuperaFilmes :: String
 recuperaFilmes
     | not (null filmes) = "\nFilmes:\n" ++ filmes
@@ -35,7 +34,12 @@ assistirFilme id avaliacao comentario
     | not (FilmeDB.verificaExistenciaFilme id) = "Erro: filme não cadastrado!"
     | otherwise = "Filme de id " ++ show idFilme ++ " Concluído!\n"
     where idFilme = id_filme (FilmeDB.assistirFilme id avaliacao comentario)
-    
+
+recomendaFilme :: String
+recomendaFilme
+    | not (null filme) = "\nFilme recomendado:\n" ++ titulo (head filme)
+    | otherwise = "\nNão há filmes para exibir!\n"
+    where filme = FilmeDB.recomendaFilme
 
 concatenaToStringsFilmes :: [Filme] -> String
 concatenaToStringsFilmes [] = ""

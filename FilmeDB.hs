@@ -153,6 +153,13 @@ recuperaFilmes = do
     let filmes = fromIO resultado
     filmes
 
+-- Metodo que retorna uma lista com todos os filmes cadastrados no BD.
+recomendaFilme :: [Filme]
+recomendaFilme = do
+    let genero = recuperaPrincipaisGeneros 1 !! 1
+    let consulta = fromIO(queryBD("SELECT * FROM filmes WHERE genero = '" ++ fst genero ++"';"))
+    consulta
+
 -- Metodo que retorna uma lista contendo o filme do 
 -- id passado se ele existir, caso contrário uma lista vazia é retornada.
 recuperaFilmeID :: Int -> [Filme]
@@ -215,7 +222,7 @@ insereDadoBDEstatisticas id avaliacao comentarios = do
                 \ '" ++ comentarios ++ "');") ()
 
 recuperaEstatisticas :: [EstatisticasDoFilme] 
-recuperaEstatisticas = fromIO (queryBD ("SELECT * FROM estatisticasfilmes;"))
+recuperaEstatisticas = fromIO (queryBD "SELECT * FROM estatisticasfilmes;")
 
 recuperaEstatisticaPorId :: Int -> [EstatisticasDoFilme]
 recuperaEstatisticaPorId id = fromIO (queryBD ("SELECT * FROM estatisticasfilmes WHERE id_estatistica_filme = " ++ show id ++ ""))
