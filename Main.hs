@@ -21,8 +21,9 @@ changeScreen :: String -> IO()
 changeScreen option | option == "1" = telaUpdateUsuario
                     | option == "2" = addMediaScreen
                     | option == "3" = telaAssistirMidia
-                    | option == "4" = dashboard 
-                    | option == "5" = Texts.goodByeMsg
+                    | option == "4" = dashboard
+                    | option == "5" = telaRecomendacao 
+                    | option == "6" = Texts.goodByeMsg
                     | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
 telaUpdateUsuario :: IO()
@@ -233,6 +234,22 @@ telaFinalizaSerie = do
             -- confirmação e metodo de assistir serie c comentario e avaliacao
             telaAssistirMidia
         }
+
+telaRecomendacao :: IO()
+telaRecomendacao = do 
+    Texts.opcoesRecomendacoes
+    opcao <- Util.readStringInput
+    opcoesRecomendacao opcao
+
+opcoesRecomendacao :: String -> IO()
+opcoesRecomendacao opcao    | opcao == "1" = telaRecomendacaoFilme
+                            ----- | opcao == "2" = telaRecomendacaoSerie
+                            | otherwise = do {Texts.invalidOptionMsg; mainScren}
+
+telaRecomendacaoFilme :: IO()
+telaRecomendacaoFilme = do
+    Texts.recomendacaoDeFilmeMsg
+    putStrLn("\n" ++ Filme.listaFilmes ++ "\n")
 
 
 dashboard :: IO()
