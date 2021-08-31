@@ -81,7 +81,7 @@ verificaExistenciaUserPorNome nome
     | null (recuperaUserPorNome nome) = False
     | otherwise = False
 
--- Metodo que retorna uma lista com todos os users cadastrados no BD de ALOKA.
+-- Metodo que retorna uma lista com todos os users cadastrados no BD.
 recuperaUsers :: [User]
 recuperaUsers = do
     let resultado = queryBD "SELECT * FROM user"

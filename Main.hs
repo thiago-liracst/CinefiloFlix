@@ -110,19 +110,14 @@ telaCadastraFilme = do
                     duracao <- Util.readStringInput
                     if duracao == "V"
                     then do addMediaScreen
-                    else do 
-                        Texts.cadastroNacionalidadeFilmeMsg
-                        nacionalidade <- Util.readStringInput
-                        if nacionalidade == "V"
+                    else do  
+                        Texts.cadastroProdutoraFilmeMsg
+                        produtora <- Util.readStringInput
+                        if produtora == "V"
                         then do addMediaScreen
-                        else do 
-                            Texts.cadastroProdutoraFilmeMsg
-                            produtora <- Util.readStringInput
-                            if produtora == "V"
-                            then do addMediaScreen
-                            else do {
-                                Texts.confirmacaoCadastroMsg (Filme.cadastraFilme titulo diretor anoLancamento genero (parseToInt(duracao)) nacionalidade produtora);
-                                addMediaScreen
+                        else do {
+                            Texts.confirmacaoCadastroMsg (Filme.cadastraFilme titulo diretor anoLancamento genero (parseToInt(duracao)) produtora);
+                            addMediaScreen
         }
 
 telaCadastraSerie :: IO()
@@ -141,20 +136,15 @@ telaCadastraSerie = do
             genero <- Util.readStringInput
             if genero == "V"
             then do addMediaScreen
-            else do
-                Texts.cadastroNacionalidadeSerieMsg
-                nacionalidade <- Util.readStringInput
-                if nacionalidade == "V"
+            else do 
+                Texts.cadastroProdutoraSerieMsg
+                produtora <- Util.readStringInput
+                if produtora == "V"
                 then do addMediaScreen
-                else do 
-                    Texts.cadastroProdutoraSerieMsg
-                    produtora <- Util.readStringInput
-                    if produtora == "V"
-                    then do addMediaScreen
-                    else do {
-                        Texts.confirmacaoCadastroSerieMsg (Serie.cadastraSerie titulo (parseToInt(duracaoMediaEpisodio)) genero nacionalidade produtora);
-                        addMediaScreen
-                            }
+                else do {
+                    Texts.confirmacaoCadastroSerieMsg (Serie.cadastraSerie titulo (parseToInt duracaoMediaEpisodio) genero produtora);
+                    addMediaScreen
+                        }
 
 telaAssistirMidia :: IO()
 telaAssistirMidia = do
