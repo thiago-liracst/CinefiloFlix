@@ -23,7 +23,7 @@ data Filme = Filme {
     anoDeLancamento :: String,
     genero :: String,
     duracao :: Int,
-    nacionalidade :: String,
+    assistido :: Int,
     visualizacoes :: Int,
     produtora :: String
 
@@ -32,7 +32,6 @@ data Filme = Filme {
 -- Tipo de dado "EstatisticasDoFilme" que será armazenado no BD
 data EstatisticasDoFilme = EstatisticasDoFilme {
     id_estatistica_filme :: Int,
-    assistido :: Int,
     avaliacao :: Int,
     comentarios :: String
 
@@ -58,7 +57,6 @@ instance FromRow EstatisticasDoFilme where
   fromRow = EstatisticasDoFilme <$> field
                                     <*> field
                                     <*> field
-                                    <*> field
                             
                     
 
@@ -66,45 +64,44 @@ instance FromRow EstatisticasDoFilme where
 -- Código que serve para o Haskell saber como transformar o objeto Filme em uma linha do BD
 -- Os atributos do filme são passados para o metodo "toRow" que permite que esse filme seja inserido no BD.
 instance ToRow Filme where
-  toRow (Filme id_filme titulo diretor anoDeLancamento genero duracao nacionalidade visualizacoes produtora) =
-      toRow (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, nacionalidade, visualizacoes, produtora)
+  toRow (Filme id_filme titulo diretor anoDeLancamento genero duracao assistido visualizacoes produtora) =
+      toRow (id_filme, titulo, diretor, anoDeLancamento, genero, duracao, assistido, visualizacoes, produtora)
 
 -- Código que serve para o Haskell saber como transformar o objeto EstatisticasDoFilme em uma linha do BD
 -- Os atributos das estatísticas do filme são passados para o metodo "toRow" que permite que esse filme seja inserido no BD.
 instance ToRow EstatisticasDoFilme where
-  toRow (EstatisticasDoFilme id_estatistica_filme assistido avaliacao comentarios) =
-      toRow (id_estatistica_filme, assistido, avaliacao, comentarios)
+  toRow (EstatisticasDoFilme id_estatistica_filme avaliacao comentarios) =
+      toRow (id_estatistica_filme, avaliacao, comentarios)
 
 -- Método que exibe o título de um filme a partir do id do filme.
 getTituloFilme :: Int -> String
 getTituloFilme idFilme = titulo (head(recuperaFilmeID idFilme))
 
-cadastraFilme :: String -> String -> String -> String -> Int -> String  -> String -> Filme
-cadastraFilme titulo diretor anoDeLancamento genero duracao nacionalidade produtora =
-    fromIO(addFilme titulo diretor anoDeLancamento genero duracao nacionalidade produtora) 
+cadastraFilme :: String -> String -> String -> String -> Int  -> String -> Filme
+cadastraFilme titulo diretor anoDeLancamento genero duracao produtora =
+    fromIO(addFilme titulo diretor anoDeLancamento genero duracao produtora) 
 
 -- Adiciona filme a partir de título, diretor, anoDeLancamento, genero
 -- OBS: Verificar formato da data antes de fazer a adição no BD
-addFilme :: String -> String -> String -> String -> Int -> String -> String -> IO Filme
-addFilme titulo diretor anoDeLancamento genero duracao nacionalidade produtora = do
+addFilme :: String -> String -> String -> String -> Int -> String -> IO Filme
+addFilme titulo diretor anoDeLancamento genero duracao produtora = do
     let id = fromIO geraId
-    criaBD
-    criaBDEstatisticas
-    insereDado id titulo diretor anoDeLancamento genero duracao nacionalidade 0 produtora
-    insereDadoBDEstatisticas id 0 0 "Sem comentários"
+
+    insereDado id titulo diretor anoDeLancamento genero duracao 0 0 produtora
+    insereDadoBDEstatisticas id 0 "Sem comentários"
 
     return (head (recuperaFilmeID id))
     
 -- Método responsável por inserir os dados no banco de dados. 
-insereDado :: Int -> String -> String -> String -> String -> Int -> String -> Int -> String -> IO()
-insereDado id titulo diretor anoDeLancamento genero duracao nacionalidade visualizacoes produtora = do
+insereDado :: Int -> String -> String -> String -> String -> Int -> Int -> Int -> String -> IO()
+insereDado id titulo diretor anoDeLancamento genero duracao assistido visualizacoes produtora = do
     executeBD ("INSERT INTO filmes (id_filme,\
                 \ titulo,\
                 \ diretor,\
                 \ anoDeLancamento,\
                 \ genero,\
                 \ duracao,\ 
-                \ nacionalidade,\ 
+                \ assistido,\ 
                 \ visualizacoes,\ 
                 \ produtora) \   
                 \ VALUES\
@@ -114,7 +111,7 @@ insereDado id titulo diretor anoDeLancamento genero duracao nacionalidade visual
                 \ '" ++ anoDeLancamento ++ "',\
                 \ '" ++ genero ++ "',\
                 \ " ++ show duracao ++ ",\
-                \ '" ++ nacionalidade ++ "',\
+                \ " ++ show assistido ++ ",\
                 \ " ++ show visualizacoes ++ ",\
                 \ '" ++ produtora ++ "');") ()
 
@@ -133,32 +130,17 @@ updateStatus id avaliacao comentario = do
     let visualizacoes1 = visualizacoes (head (recuperaFilmeID id))
     let visualizacaoSomado = visualizacoes1 + 1
     executeBD ("UPDATE filmes SET \
-                \visualizacoes = " ++ show visualizacaoSomado ++ " \
+                \visualizacoes = " ++ show visualizacaoSomado ++ ", \
+                \assistido = 1 \
                 \WHERE id_filme = " ++ show id ++ ";")()
 
     executeBD ("UPDATE estatisticasfilmes SET \
-                \assistido = " ++ "'1'" ++ ", \
-                \avaliacao = " ++ show (avaliacao) ++ ", \
+                \avaliacao = " ++ show avaliacao ++ ", \
                 \comentarios = '" ++ comentario ++ "' \
                 \WHERE id_estatistica_filme =  " ++ show id ++ ";") ()
 
 getVisualizacao :: Int -> [Filme]
 getVisualizacao id = fromIO(queryBD ("SELECT visualizacoes FROM filmes WHERE id_filme= "++ show id ++""))
-
-
--- Método responsável por criar o banco de dados.
-criaBD :: IO ()
-criaBD = do executeBD "CREATE TABLE IF NOT EXISTS filmes (\
-                 \ id_filme INT PRIMARY KEY, \
-                 \ titulo TEXT, \
-                 \ diretor TEXT, \
-                 \ anoDeLancamento TEXT, \
-                 \ genero TEXT, \
-                 \ duracao INT, \
-                 \ nacionalidade TEXT, \
-                 \ visualizacoes INT, \
-                 \ produtora TEXT \
-                 \);" ()
 
 -- Metodo que cria um id para o Banco de dados dos filmes
 geraId :: IO Int
@@ -170,6 +152,13 @@ recuperaFilmes = do
     let resultado = queryBD "SELECT * FROM filmes"
     let filmes = fromIO resultado
     filmes
+
+-- Metodo que retorna uma lista com todos os filmes cadastrados no BD.
+recomendaFilme :: [Filme]
+recomendaFilme = do
+    let genero = recuperaPrincipaisGeneros 1 !! 1
+    let consulta = fromIO(queryBD("SELECT * FROM filmes WHERE genero = '" ++ fst genero ++"';"))
+    consulta
 
 -- Metodo que retorna uma lista contendo o filme do 
 -- id passado se ele existir, caso contrário uma lista vazia é retornada.
@@ -213,7 +202,6 @@ pesquisaFilmeParaRecomendar genero
     | length (recuperaFilmesPorGenero genero) > 0 = randomizaFilme (recuperaFilmesPorGenero genero)
     | otherwise = -1
 
-
 --método auxiliar que randomiza o id do filme
 randomizaFilme:: [Filme] -> Int
 randomizaFilme filmes = (id_filme (filmes!!(randomInt 0 (length filmes-1))))
@@ -222,31 +210,19 @@ randomizaFilme filmes = (id_filme (filmes!!(randomInt 0 (length filmes-1))))
 randomInt :: Int-> Int -> Int
 randomInt i j = fromIO(getStdRandom(randomR (i, j)) :: IO Int)
 
-
--- Método responsável por criar o banco de dados.
-criaBDEstatisticas :: IO ()
-criaBDEstatisticas = do executeBD "CREATE TABLE IF NOT EXISTS estatisticasfilmes (\
-                 \ id_estatistica_filme INT PRIMARY KEY, \
-                 \ assistido INT, \
-                 \ avaliacao INT, \
-                 \ comentarios TEXT \
-                 \);" ()
-
 -- Método responsável por inserir os dados das estatísticas no banco de dados.
-insereDadoBDEstatisticas :: Int -> Int -> Int -> String -> IO()
-insereDadoBDEstatisticas id assistido avaliacao comentarios = do
+insereDadoBDEstatisticas :: Int -> Int -> String -> IO()
+insereDadoBDEstatisticas id avaliacao comentarios = do
     executeBD ("INSERT INTO estatisticasfilmes (id_estatistica_filme,\
-                \ assistido,\
                 \ avaliacao,\
                 \ comentarios) \ 
                 \ VALUES\
                 \ (" ++ show id ++ ",\
-                \ " ++ show assistido ++ ",\
                 \ " ++ show avaliacao ++ ",\
                 \ '" ++ comentarios ++ "');") ()
 
 recuperaEstatisticas :: [EstatisticasDoFilme] 
-recuperaEstatisticas = fromIO (queryBD ("SELECT * FROM estatisticasfilmes;"))
+recuperaEstatisticas = fromIO (queryBD "SELECT * FROM estatisticasfilmes;")
 
 recuperaEstatisticaPorId :: Int -> [EstatisticasDoFilme]
 recuperaEstatisticaPorId id = fromIO (queryBD ("SELECT * FROM estatisticasfilmes WHERE id_estatistica_filme = " ++ show id ++ ""))
@@ -255,7 +231,6 @@ recuperaFilmesPorAvaliacao :: Int -> [EstatisticasDoFilme]
 recuperaFilmesPorAvaliacao i  = fromIO (queryBD ("SELECT * FROM estatisticasfilmes ORDER BY avaliacao DESC LIMIT " ++ show i ++ ""))
 
 recuperaPrincipaisGeneros :: Int -> [(String, Int)]
-
 recuperaPrincipaisGeneros i  = fromIO (queryBD ( "SELECT genero AS g, COUNT(genero) AS c FROM filmes GROUP BY genero ORDER BY c DESC LIMIT " ++ show i ++ ""))
 
 recuperaPrincipaisDiretores :: Int -> [(String,Int)]

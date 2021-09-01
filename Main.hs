@@ -21,8 +21,9 @@ changeScreen :: String -> IO()
 changeScreen option | option == "1" = telaUpdateUsuario
                     | option == "2" = addMediaScreen
                     | option == "3" = telaAssistirMidia
-                    | option == "4" = dashboard 
-                    | option == "5" = Texts.goodByeMsg
+                    | option == "4" = dashboard
+                    | option == "5" = telaRecomendacao 
+                    | option == "6" = Texts.goodByeMsg
                     | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
 telaUpdateUsuario :: IO()
@@ -110,19 +111,14 @@ telaCadastraFilme = do
                     duracao <- Util.readStringInput
                     if duracao == "V"
                     then do addMediaScreen
-                    else do 
-                        Texts.cadastroNacionalidadeFilmeMsg
-                        nacionalidade <- Util.readStringInput
-                        if nacionalidade == "V"
+                    else do  
+                        Texts.cadastroProdutoraFilmeMsg
+                        produtora <- Util.readStringInput
+                        if produtora == "V"
                         then do addMediaScreen
-                        else do 
-                            Texts.cadastroProdutoraFilmeMsg
-                            produtora <- Util.readStringInput
-                            if produtora == "V"
-                            then do addMediaScreen
-                            else do {
-                                Texts.confirmacaoCadastroMsg (Filme.cadastraFilme titulo diretor anoLancamento genero (parseToInt(duracao)) nacionalidade produtora);
-                                addMediaScreen
+                        else do {
+                            Texts.confirmacaoCadastroMsg (Filme.cadastraFilme titulo diretor anoLancamento genero (parseToInt(duracao)) produtora);
+                            addMediaScreen
         }
 
 telaCadastraSerie :: IO()
@@ -141,20 +137,15 @@ telaCadastraSerie = do
             genero <- Util.readStringInput
             if genero == "V"
             then do addMediaScreen
-            else do
-                Texts.cadastroNacionalidadeSerieMsg
-                nacionalidade <- Util.readStringInput
-                if nacionalidade == "V"
+            else do 
+                Texts.cadastroProdutoraSerieMsg
+                produtora <- Util.readStringInput
+                if produtora == "V"
                 then do addMediaScreen
-                else do 
-                    Texts.cadastroProdutoraSerieMsg
-                    produtora <- Util.readStringInput
-                    if produtora == "V"
-                    then do addMediaScreen
-                    else do {
-                        Texts.confirmacaoCadastroSerieMsg (Serie.cadastraSerie titulo (parseToInt(duracaoMediaEpisodio)) genero nacionalidade produtora);
-                        addMediaScreen
-                            }
+                else do {
+                    Texts.confirmacaoCadastroSerieMsg (Serie.cadastraSerie titulo (parseToInt duracaoMediaEpisodio) genero produtora);
+                    addMediaScreen
+                        }
 
 telaAssistirMidia :: IO()
 telaAssistirMidia = do
@@ -243,6 +234,27 @@ telaFinalizaSerie = do
             -- confirmação e metodo de assistir serie c comentario e avaliacao
             telaAssistirMidia
         }
+
+telaRecomendacao :: IO()
+telaRecomendacao = do 
+    Texts.opcoesRecomendacoes
+    opcao <- Util.readStringInput
+    opcoesRecomendacao opcao
+
+opcoesRecomendacao :: String -> IO()
+opcoesRecomendacao opcao    | opcao == "1" = telaRecomendacaoFilme
+                            | opcao == "2" = telaRecomendacaoSerie
+                            | otherwise = do {Texts.invalidOptionMsg; mainScren}
+
+telaRecomendacaoFilme :: IO()
+telaRecomendacaoFilme = do
+    Texts.recomendacaoDeFilmeMsg
+    putStrLn("\n" ++ Filme.recomendaFilme ++ "\n")
+
+telaRecomendacaoSerie :: IO()
+telaRecomendacaoSerie = do
+    Texts.recomendacaoDeSerieMsg
+    putStrLn("\n" ++ Serie.recomendaSerie ++ "\n")
 
 
 dashboard :: IO()
