@@ -2,6 +2,7 @@ module Serie where
 
 import SerieDB
 import GHC.Base (String, Bool (False))
+import System.Directory.Internal.Prelude (String)
 
 listaSeries :: String
 listaSeries = Serie.formataSeries SerieDB.recuperaSeries
@@ -29,6 +30,23 @@ recuperaSeries
     | otherwise = "\nNão há séries para exibir!\n"
     where series = concatenaToStringsSeries (SerieDB.recuperaSeries)
 
+concluirEpisodio :: Int -> String
+concluirEpisodio id
+    | (SerieDB.verificaExistenciaSerie id == False) = "Erro: série não cadastrada!"
+    | otherwise = "Episódio da série de id " ++ show idSerie ++ " Concluída!\n"
+    where idSerie = id_serie (SerieDB.concluirEpisodioSerie id)
+
+concluirTemporada :: Int -> String
+concluirTemporada id
+    | (SerieDB.verificaExistenciaSerie id == False) = "Erro: série não cadastrada!"
+    | otherwise = "Temporada da série de id " ++ show idSerie ++ " Concluída!\n"
+    where idSerie = id_serie (SerieDB.concluirTemporadaSerie id)
+
+concluirSerie :: Int -> Int -> String -> String
+concluirSerie id avaliacao comentario
+    | (SerieDB.verificaExistenciaSerie id == False) = "Erro: série não cadastrada!"
+    | otherwise = "Série de id " ++ show idSerie ++ " Concluída!\n"
+    where idSerie = id_serie (SerieDB.concluirSerie id avaliacao comentario)
 
 concatenaToStringsSeries :: [Serie] -> String
 concatenaToStringsSeries [] = ""
