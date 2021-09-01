@@ -32,6 +32,7 @@ data Serie = Serie {
 -- Tipo de dado "EstatisticasDaSerie" que será armazenado no BD
 data EstatisticasDaSerie = EstatisticasDaSerie {
     id_estatistica_serie :: Int,
+    concluida :: Int,
     avaliacao :: Int,
     comentarios :: String
 
@@ -56,7 +57,8 @@ instance FromRow EstatisticasDaSerie where
   fromRow = EstatisticasDaSerie <$> field
                                     <*> field
                                     <*> field
-                                    
+                                    <*> field
+
 
 -- Código que serve para o Haskell saber como transformar o objeto Serie em uma linha do BD
 -- Os atributos da série são passados para o metodo "toRow" que permite que essa série seja inserida no BD.
@@ -67,8 +69,8 @@ instance ToRow Serie where
 -- Código que serve para o Haskell saber como transformar o objeto EstatisticasDaSerie em uma linha do BD
 -- Os atributos das estatísticas da série são passados para o metodo "toRow" que permite que essas estatísticas sejam inseridas no BD.
 instance ToRow EstatisticasDaSerie where
-  toRow (EstatisticasDaSerie id_estatistica_serie avaliacao comentarios) =
-     toRow (id_estatistica_serie, avaliacao, comentarios) 
+  toRow (EstatisticasDaSerie id_estatistica_serie concluida avaliacao comentarios) =
+     toRow (id_estatistica_serie, concluida, avaliacao, comentarios)
 
 
 -- Método que exibe o título de uma série a partir do id da série.
@@ -112,6 +114,99 @@ insereDado id titulo duracaoMediaEpisodio genero produtora assistido temporadas 
                 \ " ++ show temporadas ++ ",\
                 \ " ++ show episodios ++ ",\
                 \ " ++ show episodiosTotais ++ ");") ()
+
+-- Método responsável por atualizar a quantidade de episódios de uma temporada de uma série
+concluirEpisodioSerie :: Int -> Serie
+concluirEpisodioSerie id_serie =
+    fromIO(updateEpisodiosSerie id_serie)
+
+updateEpisodiosSerie :: Int -> IO Serie
+updateEpisodiosSerie id_serie = do
+    updateEpisodios id_serie
+    return (head (recuperaSerieID id_serie))
+
+updateEpisodios:: Int -> IO()
+updateEpisodios id_serie = do
+    let episodios = fromIO (getEpisodios id_serie)
+    let qtdEpisodiosAtualizada = read (show episodios)+1
+    updateEpisodiosTotais id_serie
+    executeBD ("UPDATE series SET episodios="++ show qtdEpisodiosAtualizada ++" \
+    \WHERE id_serie="++ show id_serie ++";") ()
+
+getEpisodios :: Int -> IO()
+getEpisodios id_serie = do
+    executeBD ("SELECT episodios FROM series WHERE id="++ show id_serie ++";") ()
+
+-- Método responsável por atualizar a quantidade total de episódios assistidos de uma série
+updateEpisodiosTotais :: Int -> IO()
+updateEpisodiosTotais id_serie = do
+    let episodiosTotais = fromIO(getEpisodiosTotais id_serie)
+    let qtdEpisodiosTotais = read (show episodiosTotais)+1
+    executeBD ("UPDATE series SET \
+    \episodiosTotais = \
+    \"++ show qtdEpisodiosTotais ++" \
+    \WHERE id_serie="++ show id_serie ++";") ()
+
+getEpisodiosTotais :: Int -> IO()
+getEpisodiosTotais id_serie = do
+    executeBD ("SELECT episodiosTotais FROM series WHERE id="++ show id_serie ++";") ()
+
+concluirTemporadaSerie :: Int -> Serie
+concluirTemporadaSerie id_serie =
+    fromIO(updateTemporadaSerie id_serie)
+
+updateTemporadaSerie :: Int -> IO Serie
+updateTemporadaSerie id_serie = do
+    updateTemporadas id_serie
+    return (head (recuperaSerieID id_serie))
+
+updateTemporadas :: Int -> IO()
+updateTemporadas id_serie = do
+    let temporadas = fromIO(getTemporadas id_serie)
+    let qtdTemporadasAtualizada = read (show temporadas)+1
+    executeBD ("UPDATE series SET \
+    \(temporadas, episodios) = (\
+    \"++ show qtdTemporadasAtualizada ++", 0) \
+    \WHERE id_serie="++ show id_serie ++";") ()
+
+getTemporadas :: Int -> IO()
+getTemporadas id_serie = do
+    executeBD ("SELECT temporadas FROM series WHERE id="++ show id_serie ++";") ()
+
+-- Método responsável por atualizar o status de conclusão de uma série e sua avaliação
+concluirSerie :: Int -> Int -> String -> Serie
+concluirSerie id avaliacao comentario =
+    fromIO(updateStatusSerie id avaliacao comentario)
+
+updateStatusSerie :: Int -> Int -> String -> IO Serie
+updateStatusSerie id avaliacao comentario = do
+    updateStatus id avaliacao comentario
+    return (head (recuperaSerieID id))
+
+updateStatus :: Int -> Int -> String -> IO()
+updateStatus id avaliacao comentario = do
+    assistirSerie id
+    executeBD ("INSERT INTO estatisticasseries \
+    \(id_estatistica_serie, avaliacao, comentario)\
+    \ VALUES ("++ show id ++", "++ show avaliacao ++", '"++ comentario ++"');") ()
+
+assistirSerie :: Int -> IO()
+assistirSerie id_serie = do
+    executeBD ("UPDATE series SET assistido=1 WHERE id_serie="++ show id_serie ++";") ()
+
+-- Método responsável por criar o banco de dados.
+criaBD :: IO ()
+criaBD = do executeBD "CREATE TABLE IF NOT EXISTS series (\
+                 \ id_serie INT PRIMARY KEY, \
+                 \ titulo TEXT, \
+                 \ duracaoMediaEpisodio INT, \
+                 \ genero TEXT, \
+                 \ nacionalidade TEXT, \
+                 \ produtora TEXT \
+                 \ temporadas INT \
+                 \ episodios INT \
+                 \ episodiosTotais INT \
+                 \);" ()
 
 -- Metodo que cria um id para o Banco de dados das séries
 geraId :: IO Int
