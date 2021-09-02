@@ -156,9 +156,12 @@ recuperaFilmes = do
 -- Metodo que retorna uma lista com todos os filmes cadastrados no BD.
 recomendaFilme :: [Filme]
 recomendaFilme = do
-    let genero = recuperaPrincipaisGeneros 5
+    let genero = recomendaFilmePorGenero 5
     let consulta = fromIO(queryBD("SELECT * FROM filmes WHERE genero = '" ++ fst (genero !! 1) ++"';"))
     consulta
+
+recomendaFilmePorGenero :: Int -> [(String, Int)]
+recomendaFilmePorGenero i  = fromIO (queryBD ( "SELECT genero AS g, COUNT(genero) AS c FROM filmes GROUP BY genero ORDER BY c DESC LIMIT " ++ show i ++ ""))
 
 -- Metodo que retorna uma lista contendo o filme do 
 -- id passado se ele existir, caso contrário uma lista vazia é retornada.
@@ -237,4 +240,4 @@ recuperaPrincipaisDiretores :: Int -> [(String,Int)]
 recuperaPrincipaisDiretores i  = fromIO (queryBD( "SELECT diretor AS d, COUNT(diretor) AS c FROM filmes WHERE assistido >= 1 GROUP BY diretor ORDER BY c DESC LIMIT " ++ show i ++ ""))
 
 recuperaFilmesAssistidos :: [Filme]
-recuperaFilmesAssistidos = fromIO (queryBD ( "SELECT * FROM filmes WHERE assistido >=1"))
+recuperaFilmesAssistidos = fromIO (queryBD "SELECT * FROM filmes WHERE assistido >=1")
