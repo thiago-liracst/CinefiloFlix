@@ -246,11 +246,15 @@ telaRecomendacaoFilme :: IO()
 telaRecomendacaoFilme = do
     Texts.recomendacaoDeFilmeMsg
     putStrLn("\n" ++ Filme.recomendaFilme ++ "\n")
+    Texts.eAgoraMsg
+    mainScren
 
 telaRecomendacaoSerie :: IO()
 telaRecomendacaoSerie = do
     Texts.recomendacaoDeSerieMsg
     putStrLn("\n" ++ Serie.recomendaSerie ++ "\n")
+    Texts.eAgoraMsg
+    mainScren
 
 
 dashboard :: IO()
