@@ -149,15 +149,15 @@ geraId = getStdRandom(randomR (0, 1000)) :: IO Int
 -- Metodo que retorna uma lista com todos os filmes cadastrados no BD.
 recuperaFilmes :: [Filme]
 recuperaFilmes = do
-    let resultado = queryBD "SELECT * FROM filmes"
+    let resultado = queryBD "SELECT * FROM filmes;"
     let filmes = fromIO resultado
     filmes
 
 -- Metodo que retorna uma lista com todos os filmes cadastrados no BD.
 recomendaFilme :: [Filme]
 recomendaFilme = do
-    let genero = recuperaPrincipaisGeneros 1 !! 1
-    let consulta = fromIO(queryBD("SELECT * FROM filmes WHERE genero = '" ++ fst genero ++"';"))
+    let genero = recuperaPrincipaisGeneros 5
+    let consulta = fromIO(queryBD("SELECT * FROM filmes WHERE genero = '" ++ fst (genero !! 1) ++"';"))
     consulta
 
 -- Metodo que retorna uma lista contendo o filme do 
