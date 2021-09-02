@@ -35,6 +35,11 @@ voltarAoMenuMsg :: IO()
 voltarAoMenuMsg = do
     putStrLn("\nOBS: Para voltar ao menu, digite 'V'!\n")
 
+eAgoraMsg :: IO()
+eAgoraMsg = do 
+    putStrLn("\nO que deseja fazer a seguir ?\n")
+
+
 ---------------atualizar cadastro usuario----------------
 pedeNomeUsuarioMsg :: IO()
 pedeNomeUsuarioMsg =  do
@@ -67,7 +72,7 @@ confirmacaoUpdateMsg :: String -> IO()
 confirmacaoUpdateMsg user = do
     putStrLn("")
     putStrLn(user)
-    putStrLn("\nO que deseja fazer a seguir ?\n")
+    eAgoraMsg
     
 ---------------cadastro de filme----------------
 
@@ -106,7 +111,7 @@ confirmacaoCadastroMsg :: String -> IO()
 confirmacaoCadastroMsg filme = do
     putStrLn("Cadastro do filme:")
     putStrLn(filme)
-    putStrLn("\nO que deseja fazer a seguir ?\n")
+    eAgoraMsg
 
 ---------------cadastro de série----------------
 
@@ -137,7 +142,7 @@ confirmacaoCadastroSerieMsg :: String -> IO()
 confirmacaoCadastroSerieMsg serie = do
     putStrLn("Cadastro da série:")
     putStrLn(serie)
-    putStrLn("\nO que deseja fazer a seguir ?\n")
+    eAgoraMsg
 
 ---------------assistir----------------
 opcoesAssistirMsg :: IO()
@@ -148,7 +153,7 @@ opcoesAssistirMsg = do
 
 pedeIdFilmeMsg :: IO()
 pedeIdFilmeMsg = do
-    putStrLn("\n Por favor, insira o id do filme que você deseja assisitr: ")
+    eAgoraMsg
 
 avaliacaoFilmeMsg :: IO()
 avaliacaoFilmeMsg = do
@@ -167,7 +172,7 @@ confirmacaoAssistirFilmeMsg :: String -> IO()
 confirmacaoAssistirFilmeMsg filme = do
     putStrLn("")
     putStrLn(filme)
-    putStrLn("\nO que deseja fazer a seguir ?\n")
+    eAgoraMsg
 
 headerAssistirSerieMsg ::IO()
 headerAssistirSerieMsg = do
@@ -177,7 +182,7 @@ headerAssistirSerieMsg = do
 
 pedeIdSerieMsg :: IO()
 pedeIdSerieMsg = do
-    putStrLn("\n Por favor, insira o id da série que você deseja assisitr: ")
+    eAgoraMsg
 
 opcoesAssistirSerieMsg :: IO()
 opcoesAssistirSerieMsg = do
@@ -189,12 +194,12 @@ opcoesAssistirSerieMsg = do
 episodioFinalizadoMsg :: IO()
 episodioFinalizadoMsg = do
     putStrLn("Episódio finalizado com sucesso!")
-    putStrLn("\nO que deseja fazer a seguir ?\n")
+    eAgoraMsg
 
 temporadaFinalizadaMsg :: IO()
 temporadaFinalizadaMsg = do
     putStrLn("Temporada finalizada com sucesso!")
-    putStrLn("\nO que deseja fazer a seguir ?\n")
+    eAgoraMsg
 
 avaliacaoSerieMsg :: IO()
 avaliacaoSerieMsg = do
