@@ -79,11 +79,6 @@ changeAddMediaScreen option | option == "1" = telaCadastraFilme
 parseToInt :: String -> Int
 parseToInt num = read (num) :: Int
 
---retornaZero :: Int
---retornaZero = 0
-
---comentarioInicial :: String
---comentarioInicial = "Sem comentários."
 
 telaCadastraFilme :: IO()
 telaCadastraFilme = do
@@ -143,7 +138,7 @@ telaCadastraSerie = do
                 if produtora == "V"
                 then do addMediaScreen
                 else do {
-                    Texts.confirmacaoCadastroSerieMsg (Serie.cadastraSerie titulo (parseToInt duracaoMediaEpisodio) genero produtora);
+                    Texts.confirmacaoCadastroSerieMsg (Serie.cadastraSerie titulo (parseToInt(duracaoMediaEpisodio)) genero produtora);
                     addMediaScreen
                         }
 

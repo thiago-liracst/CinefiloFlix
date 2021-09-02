@@ -228,10 +228,13 @@ recuperaEstatisticaPorId :: Int -> [EstatisticasDoFilme]
 recuperaEstatisticaPorId id = fromIO (queryBD ("SELECT * FROM estatisticasfilmes WHERE id_estatistica_filme = " ++ show id ++ ""))
 
 recuperaFilmesPorAvaliacao :: Int -> [EstatisticasDoFilme] 
-recuperaFilmesPorAvaliacao i  = fromIO (queryBD ("SELECT * FROM estatisticasfilmes ORDER BY avaliacao DESC LIMIT " ++ show i ++ ""))
+recuperaFilmesPorAvaliacao i  = fromIO (queryBD ("SELECT * FROM estatisticasfilmes WHERE avaliacao >= 1 ORDER BY avaliacao DESC LIMIT " ++ show i ++ ""))
 
 recuperaPrincipaisGeneros :: Int -> [(String, Int)]
-recuperaPrincipaisGeneros i  = fromIO (queryBD ( "SELECT genero AS g, COUNT(genero) AS c FROM filmes GROUP BY genero ORDER BY c DESC LIMIT " ++ show i ++ ""))
+recuperaPrincipaisGeneros i  = fromIO (queryBD ( "SELECT genero AS g, COUNT(genero) AS c FROM filmes WHERE assistido >=1 GROUP BY genero ORDER BY c DESC LIMIT " ++ show i ++ ""))
 
 recuperaPrincipaisDiretores :: Int -> [(String,Int)]
-recuperaPrincipaisDiretores i  = fromIO (queryBD( "SELECT diretor AS d, COUNT(diretor) AS c FROM filmes GROUP BY diretor ORDER BY c DESC LIMIT " ++ show i ++ ""))
+recuperaPrincipaisDiretores i  = fromIO (queryBD( "SELECT diretor AS d, COUNT(diretor) AS c FROM filmes WHERE assistido >= 1 GROUP BY diretor ORDER BY c DESC LIMIT " ++ show i ++ ""))
+
+recuperaFilmesAssistidos :: [Filme]
+recuperaFilmesAssistidos = fromIO (queryBD ( "SELECT * FROM filmes WHERE assistido >=1"))
