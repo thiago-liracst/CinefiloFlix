@@ -21,11 +21,11 @@ data Serie = Serie {
     titulo :: String,
     duracaoMediaEpisodio :: Int,
     genero :: String,
-    assistido :: Int,
-    produtora :: String,
-    temporadas :: Int,
     episodios :: Int,
-    episodiosTotais :: Int
+    temporadas :: Int,
+    episodiosTotais :: Int,
+    assistido :: Int,
+    produtora :: String
 
 } deriving (Show)
 

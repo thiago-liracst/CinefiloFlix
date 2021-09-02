@@ -135,7 +135,7 @@ cadastroProdutoraSerieMsg = do
 
 confirmacaoCadastroSerieMsg :: String -> IO()
 confirmacaoCadastroSerieMsg serie = do
-    putStrLn("Cadastro do série:")
+    putStrLn("Cadastro da série:")
     putStrLn(serie)
     putStrLn("\nO que deseja fazer a seguir ?\n")
 

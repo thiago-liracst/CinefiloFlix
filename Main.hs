@@ -188,6 +188,7 @@ telaAssistirSerie :: IO()
 telaAssistirSerie = do
     Texts.headerAssistirSerieMsg 
     -- chamar metodo de listar as séries
+    putStrLn("\n" ++ Serie.listaSeries ++ "\n")
 
     Texts.pedeIdSerieMsg
     id <- Util.readStringInput
