@@ -37,7 +37,7 @@ voltarAoMenuMsg = do
 
 eAgoraMsg :: IO()
 eAgoraMsg = do 
-    putStrLn("\nO que deseja fazer a seguir ?\n")
+    putStrLn("\nO que deseja fazer a seguir?\n")
 
 
 ---------------atualizar cadastro usuario----------------
@@ -153,7 +153,7 @@ opcoesAssistirMsg = do
 
 pedeIdFilmeMsg :: IO()
 pedeIdFilmeMsg = do
-    eAgoraMsg
+    putStrLn("\nDigite o id do filme: \n")
 
 avaliacaoFilmeMsg :: IO()
 avaliacaoFilmeMsg = do
@@ -182,7 +182,7 @@ headerAssistirSerieMsg = do
 
 pedeIdSerieMsg :: IO()
 pedeIdSerieMsg = do
-    eAgoraMsg
+    putStrLn("\nDigite o id da série: \n")
 
 opcoesAssistirSerieMsg :: IO()
 opcoesAssistirSerieMsg = do
