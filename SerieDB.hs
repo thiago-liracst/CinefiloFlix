@@ -32,7 +32,6 @@ data Serie = Serie {
 -- Tipo de dado "EstatisticasDaSerie" que será armazenado no BD
 data EstatisticasDaSerie = EstatisticasDaSerie {
     id_estatistica_serie :: Int,
-    concluida :: Int,
     avaliacao :: Int,
     comentarios :: String
 
@@ -57,7 +56,6 @@ instance FromRow EstatisticasDaSerie where
   fromRow = EstatisticasDaSerie <$> field
                                     <*> field
                                     <*> field
-                                    <*> field
 
 
 -- Código que serve para o Haskell saber como transformar o objeto Serie em uma linha do BD
@@ -69,8 +67,8 @@ instance ToRow Serie where
 -- Código que serve para o Haskell saber como transformar o objeto EstatisticasDaSerie em uma linha do BD
 -- Os atributos das estatísticas da série são passados para o metodo "toRow" que permite que essas estatísticas sejam inseridas no BD.
 instance ToRow EstatisticasDaSerie where
-  toRow (EstatisticasDaSerie id_estatistica_serie concluida avaliacao comentarios) =
-     toRow (id_estatistica_serie, concluida, avaliacao, comentarios)
+  toRow (EstatisticasDaSerie id_estatistica_serie avaliacao comentarios) =
+     toRow (id_estatistica_serie, avaliacao, comentarios)
 
 
 -- Método que exibe o título de uma série a partir do id da série.
@@ -79,18 +77,16 @@ getTituloSerie id_serie = titulo (head(recuperaSerieID id_serie))
 
 cadastraSerie :: String -> Int -> String -> String -> Serie
 cadastraSerie titulo duracaoMediaEpisodio genero produtora  =
-    fromIO(addSerie titulo duracaoMediaEpisodio genero produtora 0)
+    fromIO (addSerie titulo duracaoMediaEpisodio genero produtora 0) :: Serie
 
 -- Adiciona serie a partir de título, duracaoMediaEpisodio,, genero
 -- OBS: Verificar formato da data antes de fazer a adição no BD
 addSerie :: String -> Int -> String -> String -> Int -> IO Serie
 addSerie titulo duracaoMediaEpisodio genero produtora assistido = do
-    let id = fromIO geraId
-
-    insereDado id titulo duracaoMediaEpisodio genero produtora assistido 1 0 0
-    insereDadoBDEstatisticas id 0 "Sem comentários"
-
-    return (head (recuperaSerieID id))
+     let id = fromIO geraId
+     insereDado id titulo duracaoMediaEpisodio genero produtora assistido 1 0 0
+     insereDadoBDEstatisticas id 0 "Sem comentários"
+     return (head (recuperaSerieID id))
 
 -- Método responsável por inserir os dados no banco de dados.
 insereDado :: Int -> String -> Int -> String -> String -> Int -> Int -> Int -> Int -> IO()
@@ -194,19 +190,7 @@ assistirSerie :: Int -> IO()
 assistirSerie id_serie = do
     executeBD ("UPDATE series SET assistido=1 WHERE id_serie="++ show id_serie ++";") ()
 
--- Método responsável por criar o banco de dados.
-criaBD :: IO ()
-criaBD = do executeBD "CREATE TABLE IF NOT EXISTS series (\
-                 \ id_serie INT PRIMARY KEY, \
-                 \ titulo TEXT, \
-                 \ duracaoMediaEpisodio INT, \
-                 \ genero TEXT, \
-                 \ nacionalidade TEXT, \
-                 \ produtora TEXT \
-                 \ temporadas INT \
-                 \ episodios INT \
-                 \ episodiosTotais INT \
-                 \);" ()
+
 
 -- Metodo que cria um id para o Banco de dados das séries
 geraId :: IO Int
@@ -232,7 +216,7 @@ recuperaPrincipaisGeneros i  = fromIO (queryBD ( "SELECT genero AS g, COUNT(gene
 -- Metodo que retorna uma lista contendo a série do 
 -- id passado se ele existir, caso contrário uma lista vazia é retornada.
 recuperaSerieID :: Int -> [Serie]
-recuperaSerieID id_serie = fromIO (queryBD ("SELECT * FROM series WHERE id_serie = "++ show id_serie ++""))
+recuperaSerieID id_serie = fromIO (queryBD ("SELECT * FROM series WHERE id_serie = "++ show id_serie ++ ";"))
 
 -- Método que retorna a série  através do seu título passado como parâmetro.
 recuperaSerieTitulo :: String -> [Serie]

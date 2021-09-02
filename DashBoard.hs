@@ -24,10 +24,12 @@ filmesMelhorAvaliadosRecursivo (x : xs) i = show i ++ "° " ++ titulo (head (rec
 horasAssitidas :: String
 horasAssitidas
   |((Util.tamanhoLista filmes) <= 0) = erroSemCadastroFilme
+  |((Util.tamanhoLista assistidos) <= 0) = erroFilmeNaoAssistido
   |otherwise = "O total de horas assistidas é de " ++  show (div horas 60)  ++ " horas e " ++ show (mod horas 60) ++ " minutos."
     where 
       filmes = FilmeDB.recuperaFilmes
-      horas = contaHorasAssistidas filmes
+      assistidos = FilmeDB.recuperaFilmesAssistidos
+      horas = contaHorasAssistidas assistidos
 
 contaHorasAssistidas :: [Filme] -> Int 
 contaHorasAssistidas [] = 0
@@ -37,6 +39,7 @@ contaHorasAssistidas (x : xs) = (duracao x) + contaHorasAssistidas xs
 principaisGeneros :: String 
 principaisGeneros 
   |((Util.tamanhoLista filmes) <= 0) = erroSemCadastroFilme
+  |((Util.tamanhoLista generos) <= 0) = erroFilmeNaoAssistido
   |otherwise =  "Principais Gêneros: \n" ++ principaisGenerosRecursivo  generos 1
   where 
     filmes = FilmeDB.recuperaFilmes
@@ -50,10 +53,11 @@ principaisGenerosRecursivo (x : xs) i = show i ++ "° " ++ (fst x) ++ " - " ++  
 principaisDiretores :: String 
 principaisDiretores
   |((Util.tamanhoLista filmes) <= 0) = erroSemCadastroFilme
-  |otherwise =  "Principais Diretores: \n" ++ principaisDiretoresRecursivo  generos 1
+  |((Util.tamanhoLista diretores) <= 0) = erroFilmeNaoAssistido
+  |otherwise =  "Principais Diretores: \n" ++ principaisDiretoresRecursivo  diretores 1
   where 
     filmes = FilmeDB.recuperaFilmes
-    generos = FilmeDB.recuperaPrincipaisDiretores 5
+    diretores = FilmeDB.recuperaPrincipaisDiretores 5
 
 principaisDiretoresRecursivo :: [(String, Int)] -> Int -> String
 principaisDiretoresecursivo [] i = ""
@@ -64,3 +68,6 @@ erroSemCadastroFilme = "Você não possui filmes cadastrados no Sistema.\nVolte 
 
 errosemCadastroEstatisticas :: String
 errosemCadastroEstatisticas = "Você não possui Estatisticas (avaliação, comentário) cadastrados no sistema.\nVolte quando tiver alguma avaliação reqalizada."
+
+erroFilmeNaoAssistido :: String 
+erroFilmeNaoAssistido = "Você não assistiu nenhum Filme cadastrado no Sistema. \nVolte quando tiver asssistido algum Filme. "

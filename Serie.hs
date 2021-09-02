@@ -2,7 +2,7 @@ module Serie where
 
 import SerieDB
 import GHC.Base (String, Bool (False))
-import System.Directory.Internal.Prelude (String)
+import System.Directory.Internal.Prelude
 
 listaSeries :: String
 listaSeries = Serie.formataSeries SerieDB.recuperaSeries
@@ -20,9 +20,10 @@ ehSerie id = SerieDB.verificaExistenciaSerie id
 
 cadastraSerie :: String -> Int -> String -> String -> String
 cadastraSerie titulo duracaoMediaEpisodio genero produtora
-    | SerieDB.verificaExistenciaSeriePorTitulo titulo = "Erro: série já cadastrada!"
+    | (SerieDB.verificaExistenciaSeriePorTitulo titulo) = "Erro: série já cadastrada!"
     | otherwise = "Cadastrado com sucesso!\n" ++ "id: " ++ show idSerie ++ "\n" ++ toString titulo duracaoMediaEpisodio genero produtora
-    where idSerie = id_serie (SerieDB.cadastraSerie titulo duracaoMediaEpisodio genero produtora)  
+    where idSerie = id_serie (SerieDB.cadastraSerie titulo duracaoMediaEpisodio genero produtora)
+
 
 recuperaSeries :: String
 recuperaSeries
@@ -58,7 +59,6 @@ concatenaToStringsSeries :: [Serie] -> String
 concatenaToStringsSeries [] = ""
 concatenaToStringsSeries (serie:outros) = "id: " ++ show (id_serie serie) ++ " - " ++ SerieDB.formataSerie serie ++ "\n" ++ concatenaToStringsSeries outros
 
-toString ::  String -> Int -> String -> String -> String 
-toString titulo duracaoMediaEpisodio genero produtora =
-    "Titulo: " ++ titulo  ++ "\nGênero: " ++ genero ++ "\nDuração Média por Episódio: " ++  show duracaoMediaEpisodio 
-    ++ "\nProdutora: "  ++ produtora
+toString :: String -> Int -> String -> String -> String 
+toString titulo duracaoMediaEpisodio genero produtora = 
+    "Titulo: " ++ titulo  ++ "\nGênero: " ++ genero ++ "\nDuração Média por Episódio: " ++  show duracaoMediaEpisodio ++ "\nProdutora: "  ++ produtora
