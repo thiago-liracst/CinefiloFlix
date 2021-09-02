@@ -222,10 +222,12 @@ recuperaSeries = do
 -- Metodo que retorna uma lista com todos os filmes cadastrados no BD.
 recomendaSerie :: [Serie]
 recomendaSerie = do
-    let genero = ("Terror", 1)
-    --let genero = recuperaPrincipaisGeneros 1 !! 1
-    let consulta = fromIO(queryBD("SELECT * FROM series WHERE genero = '" ++ fst genero ++"';"))
+    let genero = recuperaPrincipaisGeneros 5
+    let consulta = fromIO(queryBD("SELECT * FROM series WHERE genero = '" ++ fst (genero !! 1) ++"';"))
     consulta
+
+recuperaPrincipaisGeneros :: Int -> [(String, Int)]
+recuperaPrincipaisGeneros i  = fromIO (queryBD ( "SELECT genero AS g, COUNT(genero) AS c FROM series GROUP BY genero ORDER BY c DESC LIMIT " ++ show i ++ ""))
 
 -- Metodo que retorna uma lista contendo a série do 
 -- id passado se ele existir, caso contrário uma lista vazia é retornada.
