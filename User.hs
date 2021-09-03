@@ -1,12 +1,14 @@
 module User where
 
 import UserDB
+import GHC.Base (String, Bool (False))
+
 
 updateUser :: String -> String -> String -> String -> String -> String -> String
-updateUser nome idade sexo generoFavorito filmeFavorito serieFavorita
-    | UserDB.verificaExistenciaUserPorNome nome = "User cadastrado!"
-    | otherwise = "\nUser de nome: " ++ nome ++ " atualizado com sucesso!\n" ++ toString nome idade sexo generoFavorito filmeFavorito serieFavorita
-    where idUser = id_user (UserDB.updateUser nome idade sexo generoFavorito filmeFavorito serieFavorita)
+updateUser nome1 idade sexo generoFavorito filmeFavorito serieFavorita
+    | UserDB.verificaExistenciaUserPorNome nome1 = "User cadastrado!"
+    | otherwise = "\nUser de nome: " ++ (nome user) ++ " atualizado com sucesso!\n" ++ toString nome1 idade sexo generoFavorito filmeFavorito serieFavorita
+    where user = UserDB.updateUser nome1 idade sexo generoFavorito filmeFavorito serieFavorita
 
 recuperaUser :: String
 recuperaUser

@@ -62,3 +62,9 @@ concatenaToStringsSeries (serie:outros) = "id: " ++ show (id_serie serie) ++ " -
 toString :: String -> Int -> String -> String -> String 
 toString titulo duracaoMediaEpisodio genero produtora = 
     "Titulo: " ++ titulo  ++ "\nGênero: " ++ genero ++ "\nDuração Média por Episódio: " ++  show duracaoMediaEpisodio ++ "\nProdutora: "  ++ produtora
+
+exibirStatusSerie :: Int -> String
+exibirStatusSerie id 
+    | not (SerieDB.verificaExistenciaSerie id) = "Erro: série não cadastrada!"
+    | otherwise = "\nSerie: " ++ titulo (serie) ++ "\nEpisodio : " ++ show (episodios (serie)) ++ "\nTemporada: " ++ show (temporadas (serie)) ++ "\nEpisódios Totais: " ++ show (episodiosTotais serie) ++ "\n"
+    where  serie =  head (SerieDB.recuperaSerieID id)
