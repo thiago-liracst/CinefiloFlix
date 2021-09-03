@@ -8,7 +8,7 @@
   $ sudo apt-get install haskell-platform 
   ```
 
-### Então, basta executar os comandos abaixo:
+### Para uma primeira execução:
 
   ```
   $ git clone https://github.com/thiago-liracst/CinefiloFlix.git
@@ -16,5 +16,11 @@
   $ cabal update
   $ cabal install sqlite-simple
   $ cabal install random
+  $ runhaskell Main.hs
+  ```
+
+### Execuções rotineiras:
+  
+  ```
   $ runhaskell Main.hs
   ```
