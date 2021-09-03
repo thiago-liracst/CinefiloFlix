@@ -13,9 +13,10 @@ optionsStartMenu = do
     putStrLn("⓵ Alterar Dados")
     putStrLn("⓶ Cadastrar Mídia")
     putStrLn("⓷ Assistir Mídia")
-    putStrLn("⓸ DashBoard")
-    putStrLn("⓹ Recomendações para você")
-    putStrLn("⓺ Sair\n")
+    putStrLn("⓸ Buscar Mídia")
+    putStrLn("⓹ DashBoard")
+    putStrLn("⓺ Recomendações para você")
+    putStrLn("⓻ Sair\n")
 
 optionsAddMediaScreen :: IO()
 optionsAddMediaScreen = do
@@ -234,6 +235,42 @@ recomendacaoDeSerieMsg = do
     putStrLn("● ○ ◉ Recomendações de Séries ◉ ○ ●")
     voltarAoMenuMsg
     putStrLn("\nConfira a lista de séries que foi preparada só para você:")
+
+---------------Busca----------------
+opcoesBuscaMsg :: IO()
+opcoesBuscaMsg = do
+    putStrLn("● ○ ◉ Busca de Mídia ◉ ○ ●")
+    voltarAoMenuMsg
+    putStrLn("\nQue tipo de busca você gostaria, cinéfilo? \n")
+    putStrLn("⓵ Busca por título")
+    putStrLn("⓶ Busca por gênero")
+    putStrLn("⓷ Busca por diretor")
+    putStrLn("⓸ Busca por produtora \n")
+
+
+buscaTituloMsg :: IO()
+buscaTituloMsg = do 
+    putStrLn("● ○ ◉ Busca por Título ◉ ○ ●")
+    voltarAoMenuMsg
+    putStrLn("Por favor, insira o título que você procura: \n")
+
+buscaGeneroMsg :: IO()
+buscaGeneroMsg = do 
+    putStrLn("● ○ ◉ Busca por Gênero ◉ ○ ●")
+    voltarAoMenuMsg
+    putStrLn("Por favor, insira o gênero que você procura: \n")
+
+buscaDiretorMsg :: IO()
+buscaDiretorMsg = do 
+    putStrLn("● ○ ◉ Busca por Diretor ◉ ○ ●")
+    voltarAoMenuMsg
+    putStrLn("Por favor, insira o diretor que você procura: \n")
+
+buscaProdutoraMsg :: IO()
+buscaProdutoraMsg = do 
+    putStrLn("● ○ ◉ Busca por Produtora ◉ ○ ●")
+    voltarAoMenuMsg
+    putStrLn("Por favor, insira a produtora que você procura: \n")
 
 ---------------dashboard----------------
 dashboardMainScreen :: IO()
