@@ -154,6 +154,7 @@ opcoesAssistirMidia :: String -> IO()
 opcoesAssistirMidia option  | option == "1" = telaAssistirFilme
                             | option == "2" = telaAssistirSerie
                             | option == "3" = mainScren
+                            | option == "V" = telaAssistirMidia
                             | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
 telaAssistirFilme :: IO()
@@ -243,6 +244,7 @@ telaRecomendacao = do
 opcoesRecomendacao :: String -> IO()
 opcoesRecomendacao opcao    | opcao == "1" = telaRecomendacaoFilme
                             | opcao == "2" = telaRecomendacaoSerie
+                            | opcao == "V" = telaRecomendacao
                             | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
 telaRecomendacaoFilme :: IO()
@@ -289,6 +291,7 @@ opcoesBusca opcao   | opcao == "1" = telaBuscaTitulo
                     | opcao == "2" = telaBuscaGenero
                     | opcao == "3" = telaBuscaDiretor
                     | opcao == "4" = telaBuscaProdutora
+                    | opcao == "4" = telaBuscarMidia
                     | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
 telaBuscaTitulo :: IO()
@@ -344,6 +347,7 @@ telaListaAvaliacoes = do
 opcoesLista :: String -> IO()
 opcoesLista opcao   | opcao == "1" = telaListaAvaliacaoFilme
                     | opcao == "2" = telaListaAvaliacaoSerie
+                    | opcao == "V" = telaListaAvaliacoes
                     | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
 telaListaAvaliacaoFilme :: IO()

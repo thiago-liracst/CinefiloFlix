@@ -1,6 +1,7 @@
 module Texts where
 import System.IO.Unsafe
 import DashBoard
+import System.Console.ANSI
 
 printLogo :: IO()
 printLogo = do
@@ -18,12 +19,6 @@ optionsStartMenu = do
     putStrLn("⓺ Recomendações para você")
     putStrLn("⓻ Lista de avaliações")
     putStrLn("⓼ Sair\n")
-
-optionsAddMediaScreen :: IO()
-optionsAddMediaScreen = do
-    putStrLn("⓵ Cadastrar Filme")
-    putStrLn("⓶ Cadastrar Série")
-    putStrLn("⓷ Voltar ao Menu Principal\n")
 
 goodByeMsg :: IO()
 goodByeMsg = do
@@ -45,6 +40,7 @@ eAgoraMsg = do
 ---------------atualizar cadastro usuario----------------
 pedeNomeUsuarioMsg :: IO()
 pedeNomeUsuarioMsg =  do
+    clearScreen
     putStrLn("● ○ ◉ ATUALIZAÇÃO DE DADOS DO USUÁRIO ◉ ○ ●")
     voltarAoMenuMsg
     putStr ("")
@@ -76,10 +72,19 @@ confirmacaoUpdateMsg user = do
     putStrLn(user)
     eAgoraMsg
     
----------------cadastro de filme----------------
+---------------cadastro de mídia----------------
+optionsAddMediaScreen :: IO()
+optionsAddMediaScreen = do
+    clearScreen
+    putStrLn("● ○ ◉ CADASTRO DE MÍDIA ◉ ○ ●\n")
+    putStrLn("⓵ Cadastrar Filme")
+    putStrLn("⓶ Cadastrar Série")
+    putStrLn("⓷ Voltar ao Menu Principal\n")
 
+----------filme
 cadastroTituloFilmeMsg :: IO()
 cadastroTituloFilmeMsg = do
+    clearScreen
     putStrLn("● ○ ◉ CADASTRO DE FILME ◉ ○ ●")
     voltarAoMenuMsg
     putStr ("")
@@ -115,10 +120,11 @@ confirmacaoCadastroMsg filme = do
     putStrLn(filme)
     eAgoraMsg
 
----------------cadastro de série----------------
+----------serie
 
 cadastroTituloSerieMsg :: IO()
 cadastroTituloSerieMsg = do
+    clearScreen
     putStrLn("● ○ ◉ CADASTRO DE SÉRIE ◉ ○ ●")
     voltarAoMenuMsg
     putStrLn("\nTítulo: ")
@@ -148,6 +154,8 @@ confirmacaoCadastroSerieMsg serie = do
 ---------------assistir----------------
 opcoesAssistirMsg :: IO()
 opcoesAssistirMsg = do
+    clearScreen
+    putStrLn("O que você deseja, cinéfilo?\n")
     putStrLn("⓵ Assistir Filme")
     putStrLn("⓶ Assistir Série")
     putStrLn("⓷ Voltar ao Menu Principal\n")
@@ -177,6 +185,7 @@ confirmacaoAssistirFilmeMsg filme = do
 
 headerAssistirSerieMsg ::IO()
 headerAssistirSerieMsg = do
+    clearScreen
     putStrLn("● ○ ◉ ASSISTIR SÉRIE ◉ ○ ●")
     voltarAoMenuMsg
     putStrLn("\nConfira a lista de séries disponíveis: \n")
@@ -218,6 +227,7 @@ pedeComentarioSerieMsg = do
 ---------------recomendações----------------
 opcoesRecomendacoes :: IO()
 opcoesRecomendacoes = do
+    clearScreen
     putStrLn("● ○ ◉ RECOMENDAÇÕES ◉ ○ ●")
     voltarAoMenuMsg
     putStrLn("\nQue tipo de recomendação você gostaria, cinéfilo? \n")
@@ -226,12 +236,14 @@ opcoesRecomendacoes = do
 
 recomendacaoDeFilmeMsg :: IO()
 recomendacaoDeFilmeMsg = do
+    clearScreen
     putStrLn("● ○ ◉ RECOMENDAÇÕES DE FILMES ◉ ○ ●")
     voltarAoMenuMsg
     putStrLn("\nConfira a lista de filmes que foi preparada só para você:")
 
 recomendacaoDeSerieMsg :: IO()
 recomendacaoDeSerieMsg = do
+    clearScreen
     putStrLn("● ○ ◉ RECOMENDAÇÕES DE SÉRIES ◉ ○ ●")
     voltarAoMenuMsg
     putStrLn("\nConfira a lista de séries que foi preparada só para você:")
@@ -239,6 +251,7 @@ recomendacaoDeSerieMsg = do
 ---------------Busca----------------
 opcoesBuscaMsg :: IO()
 opcoesBuscaMsg = do
+    clearScreen
     putStrLn("● ○ ◉ BUSCA DE MÍDIA ◉ ○ ●")
     voltarAoMenuMsg
     putStrLn("\nQue tipo de busca você gostaria, cinéfilo? \n")
@@ -249,24 +262,28 @@ opcoesBuscaMsg = do
 
 buscaTituloMsg :: IO()
 buscaTituloMsg = do 
+    clearScreen
     putStrLn("● ○ ◉ BUSCA POR TÍTULO ◉ ○ ●")
     voltarAoMenuMsg
     putStrLn("Por favor, insira o título que você procura: \n")
 
 buscaGeneroMsg :: IO()
 buscaGeneroMsg = do 
+    clearScreen
     putStrLn("● ○ ◉ BUSCA POR GÊNERO ◉ ○ ●")
     voltarAoMenuMsg
     putStrLn("Por favor, insira o gênero que você procura: \n")
 
 buscaDiretorMsg :: IO()
 buscaDiretorMsg = do 
+    clearScreen
     putStrLn("● ○ ◉ BUSCA POR DIRETOR ◉ ○ ●")
     voltarAoMenuMsg
     putStrLn("Por favor, insira o diretor que você procura: \n")
 
 buscaProdutoraMsg :: IO()
 buscaProdutoraMsg = do 
+    clearScreen
     putStrLn("● ○ ◉ BUSCA POR PRODUTORA ◉ ○ ●")
     voltarAoMenuMsg
     putStrLn("Por favor, insira a produtora que você procura: \n")
@@ -275,6 +292,7 @@ buscaProdutoraMsg = do
 
 opcoesListaMsg :: IO()
 opcoesListaMsg = do
+    clearScreen
     putStrLn("● ○ ◉ LISTA DE AVALIAÇÕES ◉ ○ ●")
     voltarAoMenuMsg
     putStrLn("\nQue tipo de avaliações você gostaria de ver, cinéfilo? \n")
@@ -283,6 +301,7 @@ opcoesListaMsg = do
 
 listaDeFilmeMsg :: IO()
 listaDeFilmeMsg = do
+    clearScreen
     putStrLn("● ○ ◉ AVALIAÇÕES DE FILMES ◉ ○ ●")
     voltarAoMenuMsg
     putStrLn("\nConfira a lista de filmes disponíveis:")
@@ -293,6 +312,7 @@ pedeIdFilmeAvaliacaoMsg = do
 
 listaDeSerieMsg :: IO()
 listaDeSerieMsg = do
+    clearScreen
     putStrLn("● ○ ◉ AVALIAÇÕES DE SÉRIES ◉ ○ ●")
     voltarAoMenuMsg
     putStrLn("\nConfira a lista de séries disponíveis:")
@@ -304,6 +324,8 @@ pedeIdSerieAvaliacaoMsg = do
 ---------------dashboard----------------
 dashboardMainScreen :: IO()
 dashboardMainScreen = do 
+    clearScreen
+    putStrLn("● ○ ◉ DASHBOARD ◉ ○ ●")
     voltarAoMenuMsg
     putStrLn("\nComo você quer prosseguir, cinéfilo? \n")
     putStrLn("① DashBoard de Filmes")
