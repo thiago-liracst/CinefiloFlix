@@ -24,7 +24,8 @@ changeScreen option | option == "1" = telaUpdateUsuario
                     | option == "4" = telaBuscarMidia
                     | option == "5" = dashboard
                     | option == "6" = telaRecomendacao 
-                    | option == "7" = Texts.goodByeMsg
+                    | option == "7" = telaListaAvaliacoes 
+                    | option == "8" = Texts.goodByeMsg
                     | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
 telaUpdateUsuario :: IO()
@@ -300,7 +301,6 @@ telaBuscaTitulo = do
         --chama metodo de busca por titulo
         Texts.eAgoraMsg
         mainScren
-    
 
 telaBuscaGenero :: IO()
 telaBuscaGenero = do
@@ -313,8 +313,6 @@ telaBuscaGenero = do
         Texts.eAgoraMsg
         mainScren
     
-
-
 telaBuscaDiretor :: IO()
 telaBuscaDiretor = do
     Texts.buscaDiretorMsg
@@ -326,8 +324,6 @@ telaBuscaDiretor = do
         Texts.eAgoraMsg
         mainScren
     
-
-
 telaBuscaProdutora :: IO()
 telaBuscaProdutora = do
     Texts.buscaProdutoraMsg
@@ -339,3 +335,41 @@ telaBuscaProdutora = do
         Texts.eAgoraMsg
         mainScren
     
+telaListaAvaliacoes :: IO()
+telaListaAvaliacoes = do
+    Texts.opcoesListaMsg
+    opcao <- Util.readStringInput
+    opcoesLista opcao
+
+opcoesLista :: String -> IO()
+opcoesLista opcao   | opcao == "1" = telaListaAvaliacaoFilme
+                    | opcao == "2" = telaListaAvaliacaoSerie
+                    | otherwise = do {Texts.invalidOptionMsg; mainScren}
+
+telaListaAvaliacaoFilme :: IO()
+telaListaAvaliacaoFilme = do
+    Texts.listaDeFilmeMsg
+    -- chama metodo que lista filme
+    Texts.pedeIdFilmeAvaliacaoMsg
+    id <- Util.readStringInput
+    if id == "V"
+        then do telaListaAvaliacoes
+    else do 
+        --chama metodo de avaliacao por filme
+        Texts.eAgoraMsg
+        mainScren
+
+
+telaListaAvaliacaoSerie :: IO()
+telaListaAvaliacaoSerie = do
+    Texts.listaDeSerieMsg
+    -- chama metodo que lista Serie
+    Texts.pedeIdSerieAvaliacaoMsg
+    id <- Util.readStringInput
+    if id == "V"
+        then do telaListaAvaliacoes
+    else do 
+        --chama metodo de avaliacao por Serie
+        Texts.eAgoraMsg
+        mainScren
+
