@@ -41,10 +41,11 @@ instance FromRow User where
 -- Código que serve para o Haskell saber como transformar o objeto User em uma linha do BD
 -- Os atributos do user são passados para o metodo "toRow" que permite que esse user seja inserido no BD.
 instance ToRow User where
-  toRow (User id_user nome idade sexo generoFavorito filmeFavorito serieFavorita) = toRow (id_user, nome, idade, sexo, generoFavorito, filmeFavorito, serieFavorita)
+  toRow (User id_user nome idade sexo generoFavorito filmeFavorito serieFavorita) = 
+      toRow (id_user, nome, idade, sexo, generoFavorito, filmeFavorito, serieFavorita)
 
 
-updateUser :: String -> String -> String -> String -> String -> String  -> User
+updateUser :: String -> String -> String -> String -> String -> String -> User
 updateUser nome idade sexo generoFavorito filmeFavorito serieFavorita =
     fromIO(upUser nome idade sexo generoFavorito filmeFavorito serieFavorita) 
 
@@ -74,7 +75,7 @@ updateData id nome idade sexo generoFavorito filmeFavorito serieFavorita = do
                 \ '" ++ sexo ++ "',\
                 \ '" ++ generoFavorito ++ "',\
                 \ '" ++ filmeFavorito ++ "',\
-                \ '" ++ serieFavorita ++ "') WHERE id_user = '" ++ show id ++ "';") ()
+                \ '" ++ serieFavorita ++ "') WHERE id_user = " ++ show id ++ ";") ()
 
 verificaExistenciaUserPorNome :: String -> Bool
 verificaExistenciaUserPorNome nome
@@ -91,7 +92,7 @@ recuperaUsers = do
 -- Metodo que retorna uma lista contendo o user do 
 -- id passado se ele existir, caso contrário uma lista vazia é retornada.
 recuperaUserID :: Int -> [User]
-recuperaUserID id_user = fromIO (queryBD ("SELECT * FROM user WHERE id_user = " ++ show id_user))
+recuperaUserID id_user = fromIO (queryBD ("SELECT * FROM user WHERE id_user = " ++ show id_user ++ ""))
 
 -- Método que retorno o user através do seu título passado como parâmetro.
 recuperaUserPorNome :: String -> [User]

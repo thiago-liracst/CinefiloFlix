@@ -190,32 +190,33 @@ telaAssistirSerie = do
     if id == "V"
         then do telaAssistirMidia
     else do 
-        -- lanca o stts da serie
+        putStrLn(Serie.exibirStatusSerie (read id))
         Texts.opcoesAssistirSerieMsg
         opcao <-Util.readStringInput
-        opcoesAssistirSerie opcao
+        opcoesAssistirSerie opcao (read id)
     
 
-opcoesAssistirSerie :: String -> IO()
-opcoesAssistirSerie opcao   | opcao == "1" = telaFinalizaEpisodio
-                            | opcao == "2" = telaFinalizaTemporada
-                            | opcao == "3" = telaFinalizaSerie
-                            | otherwise = do {Texts.invalidOptionMsg; mainScren}
+opcoesAssistirSerie :: String -> Int -> IO()
+opcoesAssistirSerie opcao id  
+    | opcao == "1" = telaFinalizaEpisodio id
+    | opcao == "2" = telaFinalizaTemporada id
+    | opcao == "3" = telaFinalizaSerie id
+    | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
-telaFinalizaEpisodio :: IO()
-telaFinalizaEpisodio = do 
-    -- metodo que finaliza episódio 
+telaFinalizaEpisodio :: Int -> IO()
+telaFinalizaEpisodio id = do 
+    putStrLn(Serie.concluirEpisodio id)
     Texts.episodioFinalizadoMsg
     mainScren
 
-telaFinalizaTemporada :: IO()
-telaFinalizaTemporada =  do
-    --metodo q finaliza temporada
+telaFinalizaTemporada :: Int ->  IO()
+telaFinalizaTemporada id =  do
+    putStrLn(Serie.concluirTemporada id)
     Texts.temporadaFinalizadaMsg
     mainScren
 
-telaFinalizaSerie :: IO()
-telaFinalizaSerie = do
+telaFinalizaSerie :: Int -> IO()
+telaFinalizaSerie id = do
     Texts.voltarAoMenuMsg
     Texts.avaliacaoSerieMsg
     avaliacao <- Util.readStringInput
@@ -226,10 +227,10 @@ telaFinalizaSerie = do
         comentario <- Util.readStringInput
         if avaliacao == "V"
             then do telaAssistirMidia
-        else do {
-            -- confirmação e metodo de assistir serie c comentario e avaliacao
+        else do 
+            putStrLn((Serie.concluirSerie id (read avaliacao) comentario))
             telaAssistirMidia
-        }
+        
 
 telaRecomendacao :: IO()
 telaRecomendacao = do 
@@ -258,9 +259,19 @@ telaRecomendacaoSerie = do
 
 
 dashboard :: IO()
-dashboard = do 
-Texts.dashboardScreen
-putStrLn("\nOBS: Para voltar ao menu, digite qualquer tecla.\n")
-entrada <- getLine
-do mainScren
-                        
+dashboard = do
+    Texts.dashboardMainScreen
+    opcao <- Util.readStringInput
+    opcoesDashBoard opcao
+
+    putStrLn("\nOBS: Para voltar ao menu, digite qualquer tecla.\n")
+    entrada <- getLine
+    mainScren
+
+opcoesDashBoard :: String -> IO()
+opcoesDashBoard opcao
+    |(opcao == "1") = Texts.telaDashBoardFilmes
+    |(opcao == "2") = Texts.telaDashBoarsSeries
+    |(opcao == "V") = mainScren
+    |otherwise = do {Texts.invalidOptionMsg; dashboard}
+

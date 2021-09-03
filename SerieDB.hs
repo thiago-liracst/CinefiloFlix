@@ -122,30 +122,16 @@ updateEpisodiosSerie id_serie = do
     return (head (recuperaSerieID id_serie))
 
 updateEpisodios:: Int -> IO()
-updateEpisodios id_serie = do
-    let episodios = fromIO (getEpisodios id_serie)
-    let qtdEpisodiosAtualizada = read (show episodios)+1
-    updateEpisodiosTotais id_serie
-    executeBD ("UPDATE series SET episodios="++ show qtdEpisodiosAtualizada ++" \
+updateEpisodios id_serie = do 
+    let serie = (head(recuperaSerieID id_serie))
+    let episodiosTotaisAtualizada = episodiosTotais(serie) + 1
+    let episodiosAtualizada = episodios(serie) + 1
+    executeBD ("UPDATE series SET  \
+    \ episodios = "++ show episodiosAtualizada ++", \
+    \ episodiosTotais = " ++ show episodiosTotaisAtualizada ++ " \
     \WHERE id_serie="++ show id_serie ++";") ()
 
-getEpisodios :: Int -> IO()
-getEpisodios id_serie = do
-    executeBD ("SELECT episodios FROM series WHERE id="++ show id_serie ++";") ()
 
--- Método responsável por atualizar a quantidade total de episódios assistidos de uma série
-updateEpisodiosTotais :: Int -> IO()
-updateEpisodiosTotais id_serie = do
-    let episodiosTotais = fromIO(getEpisodiosTotais id_serie)
-    let qtdEpisodiosTotais = read (show episodiosTotais)+1
-    executeBD ("UPDATE series SET \
-    \episodiosTotais = \
-    \"++ show qtdEpisodiosTotais ++" \
-    \WHERE id_serie="++ show id_serie ++";") ()
-
-getEpisodiosTotais :: Int -> IO()
-getEpisodiosTotais id_serie = do
-    executeBD ("SELECT episodiosTotais FROM series WHERE id="++ show id_serie ++";") ()
 
 concluirTemporadaSerie :: Int -> Serie
 concluirTemporadaSerie id_serie =
@@ -158,16 +144,13 @@ updateTemporadaSerie id_serie = do
 
 updateTemporadas :: Int -> IO()
 updateTemporadas id_serie = do
-    let temporadas = fromIO(getTemporadas id_serie)
-    let qtdTemporadasAtualizada = read (show temporadas)+1
+    let serie = head (recuperaSerieID id_serie)
+    let temporadasAtualizada = temporadas (serie) + 1
     executeBD ("UPDATE series SET \
     \(temporadas, episodios) = (\
-    \"++ show qtdTemporadasAtualizada ++", 0) \
+    \"++ show temporadasAtualizada ++", 0) \
     \WHERE id_serie="++ show id_serie ++";") ()
 
-getTemporadas :: Int -> IO()
-getTemporadas id_serie = do
-    executeBD ("SELECT temporadas FROM series WHERE id="++ show id_serie ++";") ()
 
 -- Método responsável por atualizar o status de conclusão de uma série e sua avaliação
 concluirSerie :: Int -> Int -> String -> Serie
@@ -182,10 +165,10 @@ updateStatusSerie id avaliacao comentario = do
 updateStatus :: Int -> Int -> String -> IO()
 updateStatus id avaliacao comentario = do
     assistirSerie id
-    executeBD ("INSERT INTO estatisticasseries \
-    \(id_estatistica_serie, avaliacao, comentario)\
-    \ VALUES ("++ show id ++", "++ show avaliacao ++", '"++ comentario ++"');") ()
-
+    executeBD ("UPDATE estatisticasseries SET \
+    \(avaliacao, comentarios) = \
+    \ (" ++ show avaliacao ++", '"++ comentario ++"')\
+    \ WHERE id_estatistica_serie = " ++ show id ++ ";") ()
 assistirSerie :: Int -> IO()
 assistirSerie id_serie = do
     executeBD ("UPDATE series SET assistido=1 WHERE id_serie="++ show id_serie ++";") ()
@@ -273,3 +256,16 @@ insereDadoBDEstatisticas id avaliacao comentarios = do
                 \ (" ++ show id ++ ",\
                 \ " ++ show avaliacao ++ ",\
                 \ '" ++ comentarios ++ "');") ()
+
+
+recuperaSeriesPorAvaliacao :: Int -> [EstatisticasDaSerie] 
+recuperaSeriesPorAvaliacao i  = fromIO (queryBD ("SELECT * FROM estatisticasseries WHERE avaliacao >= 1 ORDER BY avaliacao DESC LIMIT " ++ show i ++ ""))
+
+recuperaSeriesAssistidas :: [Serie]
+recuperaSeriesAssistidas = fromIO (queryBD "SELECT * FROM series WHERE assistido >=1")
+
+recuperaPrincipaisGeneros :: Int -> [(String, Int)]
+recuperaPrincipaisGeneros i = fromIO (queryBD ( "SELECT genero AS g, COUNT(genero) AS c FROM series WHERE assistido >=1 GROUP BY genero ORDER BY c DESC LIMIT " ++ show i ++ ""))
+
+recuperaPrincipaisProdutoras :: Int -> [(String, Int)]
+recuperaPrincipaisProdutoras i = fromIO (queryBD( "SELECT produtora AS p, COUNT(produtora) AS c FROM series WHERE assistido >= 1 GROUP BY produtora ORDER BY c DESC LIMIT " ++ show i ++ "")) 

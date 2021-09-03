@@ -236,14 +236,32 @@ recomendacaoDeSerieMsg = do
     putStrLn("\nConfira a lista de séries que foi preparada só para você:")
 
 ---------------dashboard----------------
-dashboardScreen :: IO()
-dashboardScreen = do 
+dashboardMainScreen :: IO()
+dashboardMainScreen = do 
+    voltarAoMenuMsg
+    putStrLn("\nComo você quer prosseguir, cinéfilo? \n")
+    putStrLn("① DashBoard de Filmes")
+    putStrLn("② DashBoard de Series\n")
+    
+
+telaDashBoardFilmes :: IO()
+telaDashBoardFilmes = do 
     putStrLn("\n--------------------\n")
     putStrLn(DashBoard.filmesMelhorAvaliados) 
     putStrLn("\n--------------------\n")
-    putStrLn(DashBoard.horasAssitidas)
+    putStrLn(DashBoard.horasAssitidasFilmes)
     putStrLn("\n--------------------\n")
-    putStrLn(DashBoard.principaisGeneros)
+    putStrLn(DashBoard.principaisGenerosFilmes)
     putStrLn("\n--------------------\n")
     putStrLn(DashBoard.principaisDiretores ++ "\n")
 
+telaDashBoarsSeries :: IO ()
+telaDashBoarsSeries = do 
+    putStrLn("\n--------------------\n")
+    putStrLn(DashBoard.seriesMelhorAvaliadas) 
+    putStrLn("\n--------------------\n")
+    putStrLn(DashBoard.horasAssitidasSeries)
+    putStrLn("\n--------------------\n")
+    putStrLn(DashBoard.principaisGenerosSeries)
+    putStrLn("\n--------------------\n")
+    putStrLn(DashBoard.principaisProdutoras ++ "\n")
