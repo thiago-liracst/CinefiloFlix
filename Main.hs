@@ -21,9 +21,10 @@ changeScreen :: String -> IO()
 changeScreen option | option == "1" = telaUpdateUsuario
                     | option == "2" = addMediaScreen
                     | option == "3" = telaAssistirMidia
-                    | option == "4" = dashboard
-                    | option == "5" = telaRecomendacao 
-                    | option == "6" = Texts.goodByeMsg
+                    | option == "4" = telaBuscarMidia
+                    | option == "5" = dashboard
+                    | option == "6" = telaRecomendacao 
+                    | option == "7" = Texts.goodByeMsg
                     | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
 telaUpdateUsuario :: IO()
@@ -275,3 +276,66 @@ opcoesDashBoard opcao
     |(opcao == "V") = mainScren
     |otherwise = do {Texts.invalidOptionMsg; dashboard}
 
+
+telaBuscarMidia :: IO()
+telaBuscarMidia = do
+    Texts.opcoesBuscaMsg
+    opcao <- Util.readStringInput
+    opcoesBusca opcao
+
+opcoesBusca :: String -> IO()
+opcoesBusca opcao   | opcao == "1" = telaBuscaTitulo
+                    | opcao == "2" = telaBuscaGenero
+                    | opcao == "3" = telaBuscaDiretor
+                    | opcao == "4" = telaBuscaProdutora
+                    | otherwise = do {Texts.invalidOptionMsg; mainScren}
+
+telaBuscaTitulo :: IO()
+telaBuscaTitulo = do
+    Texts.buscaTituloMsg
+    titulo <- Util.readStringInput
+    if titulo == "V"
+        then do telaBuscarMidia
+    else do 
+        --chama metodo de busca por titulo
+        Texts.eAgoraMsg
+        mainScren
+    
+
+telaBuscaGenero :: IO()
+telaBuscaGenero = do
+    Texts.buscaGeneroMsg
+    genero <- Util.readStringInput
+    if genero == "V"
+        then do telaBuscarMidia
+    else do
+        --chama metodo de busca por genero
+        Texts.eAgoraMsg
+        mainScren
+    
+
+
+telaBuscaDiretor :: IO()
+telaBuscaDiretor = do
+    Texts.buscaDiretorMsg
+    diretor <- Util.readStringInput
+    if diretor == "V"
+        then do telaBuscarMidia
+    else do
+        --chama metodo de busca por diretor
+        Texts.eAgoraMsg
+        mainScren
+    
+
+
+telaBuscaProdutora :: IO()
+telaBuscaProdutora = do
+    Texts.buscaProdutoraMsg
+    produtora <- Util.readStringInput
+    if produtora == "V"
+        then do telaBuscarMidia
+    else do
+        --chama metodo de busca por produtora
+        Texts.eAgoraMsg
+        mainScren
+    
