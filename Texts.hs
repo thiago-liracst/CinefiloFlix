@@ -22,6 +22,7 @@ optionsStartMenu = do
 
 goodByeMsg :: IO()
 goodByeMsg = do
+    clearScreen
     putStrLn(unsafeDupablePerformIO(readFile "Files/xau.txt"))
 
 invalidOptionMsg :: IO()
@@ -229,10 +230,10 @@ opcoesRecomendacoes :: IO()
 opcoesRecomendacoes = do
     clearScreen
     putStrLn("● ○ ◉ RECOMENDAÇÕES ◉ ○ ●")
-    voltarAoMenuMsg
     putStrLn("\nQue tipo de recomendação você gostaria, cinéfilo? \n")
     putStrLn("⓵ Recomendação de filmes")
-    putStrLn("⓶ Recomendação de séries\n")
+    putStrLn("⓶ Recomendação de séries")
+    putStrLn("⓷ Voltar ao menu principal\n")
 
 recomendacaoDeFilmeMsg :: IO()
 recomendacaoDeFilmeMsg = do
@@ -253,26 +254,26 @@ opcoesBuscaMsg :: IO()
 opcoesBuscaMsg = do
     clearScreen
     putStrLn("● ○ ◉ BUSCA DE MÍDIA ◉ ○ ●")
-    voltarAoMenuMsg
     putStrLn("\nQue tipo de busca você gostaria, cinéfilo? \n")
     putStrLn("⓵ Busca por título")
     putStrLn("⓶ Busca por gênero")
     putStrLn("⓷ Busca por diretor")
-    putStrLn("⓸ Busca por produtora \n")
+    putStrLn("⓸ Busca por produtora")
+    putStrLn("⓹ Voltar ao menu principal\n")
 
 buscaTituloMsg :: IO()
 buscaTituloMsg = do 
     clearScreen
     putStrLn("● ○ ◉ BUSCA POR TÍTULO ◉ ○ ●")
     voltarAoMenuMsg
-    putStrLn("Por favor, insira o título que você procura: \n")
+    putStrLn("\nPor favor, insira o título que você procura: \n")
 
 buscaGeneroMsg :: IO()
 buscaGeneroMsg = do 
     clearScreen
     putStrLn("● ○ ◉ BUSCA POR GÊNERO ◉ ○ ●")
     voltarAoMenuMsg
-    putStrLn("Por favor, insira o gênero que você procura: \n")
+    putStrLn("\nPor favor, insira o gênero que você procura: \n")
 
 buscaDiretorMsg :: IO()
 buscaDiretorMsg = do 
@@ -294,10 +295,10 @@ opcoesListaMsg :: IO()
 opcoesListaMsg = do
     clearScreen
     putStrLn("● ○ ◉ LISTA DE AVALIAÇÕES ◉ ○ ●")
-    voltarAoMenuMsg
     putStrLn("\nQue tipo de avaliações você gostaria de ver, cinéfilo? \n")
     putStrLn("⓵ Avaliações de séries")
     putStrLn("⓶ Avaliações de filmes")
+    putStrLn("⓷ Voltar ao menu principal\n")
 
 listaDeFilmeMsg :: IO()
 listaDeFilmeMsg = do
@@ -326,10 +327,10 @@ dashboardMainScreen :: IO()
 dashboardMainScreen = do 
     clearScreen
     putStrLn("● ○ ◉ DASHBOARD ◉ ○ ●")
-    voltarAoMenuMsg
     putStrLn("\nComo você quer prosseguir, cinéfilo? \n")
-    putStrLn("① DashBoard de Filmes")
-    putStrLn("② DashBoard de Series\n")
+    putStrLn("⓵ DashBoard de Filmes")
+    putStrLn("⓶ DashBoard de Series")
+    putStrLn("⓷ Voltar ao menu principal\n")
     
 
 telaDashBoardFilmes :: IO()

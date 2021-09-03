@@ -32,32 +32,32 @@ telaUpdateUsuario :: IO()
 telaUpdateUsuario = do
     Texts.pedeNomeUsuarioMsg
     nome <- Util.readStringInput
-    if nome == "V"
+    if nome == "V" || nome == "v"
         then do mainScren
     else do
         Texts.pedeIdadeUsuarioMsg
         idade <- Util.readStringInput
-        if idade == "V"
+        if idade == "V" || idade == "v"
             then do mainScren
         else do
             Texts.pedeSexoUsuarioMsg
             sexo <- Util.readStringInput
-            if sexo == "V"
+            if sexo == "V" ||  sexo == "v"
                 then do mainScren
             else do
                 Texts.pedeGeneroFavoritoMsg
                 generoFavorito <- Util.readStringInput
-                if generoFavorito == "V"
+                if generoFavorito == "V" || generoFavorito == "v"
                     then do mainScren
                 else do
                     Texts.pedeFilmeFavoritoMsg
                     filmeFavorito <- Util.readStringInput
-                    if filmeFavorito == "V"
+                    if filmeFavorito == "V" || filmeFavorito == "v"
                         then do mainScren
                     else do 
                         Texts.pedeSerieFavoritaMsg
                         serieFavorita <- Util.readStringInput
-                        if serieFavorita == "V"
+                        if serieFavorita == "V" || serieFavorita == "v"
                             then do mainScren
                         else do {
                             Texts.confirmacaoUpdateMsg (User.updateUser nome idade sexo generoFavorito filmeFavorito serieFavorita);
@@ -86,32 +86,32 @@ telaCadastraFilme :: IO()
 telaCadastraFilme = do
     Texts.cadastroTituloFilmeMsg
     titulo <- Util.readStringInput
-    if titulo == "V"
+    if titulo == "V" || titulo == "v"
         then do addMediaScreen
     else do 
         Texts.cadastroDiretorFilmeMsg
         diretor <- Util.readStringInput
-        if diretor == "V"
+        if diretor == "V" || diretor == "v"
         then do addMediaScreen
         else do 
             Texts.cadastroLancamentoFilmeMsg 
             anoLancamento <- Util.readStringInput
-            if anoLancamento == "V"
+            if anoLancamento == "V" || anoLancamento == "v"
             then do addMediaScreen
             else do
                 Texts.cadastroGeneroFilmeMsg
                 genero <- Util.readStringInput
-                if genero == "V"
+                if genero == "V" || genero == "v"
                 then do addMediaScreen
                 else do 
                     Texts.cadastroDuracaoFilmeMsg
                     duracao <- Util.readStringInput
-                    if duracao == "V"
+                    if duracao == "V" || duracao == "v"
                     then do addMediaScreen
                     else do  
                         Texts.cadastroProdutoraFilmeMsg
                         produtora <- Util.readStringInput
-                        if produtora == "V"
+                        if produtora == "V" || produtora == "v"
                         then do addMediaScreen
                         else do {
                             Texts.confirmacaoCadastroMsg (Filme.cadastraFilme titulo diretor anoLancamento genero (parseToInt(duracao)) produtora);
@@ -122,22 +122,22 @@ telaCadastraSerie :: IO()
 telaCadastraSerie = do
     Texts.cadastroTituloSerieMsg
     titulo <- Util.readStringInput
-    if titulo == "V"
+    if titulo == "V" || titulo == "v"
         then do addMediaScreen
     else do 
         Texts.cadastroDuracaoEpisodioMsg
         duracaoMediaEpisodio <- Util.readStringInput
-        if duracaoMediaEpisodio == "V"
+        if duracaoMediaEpisodio == "V" || duracaoMediaEpisodio == "v"
         then do addMediaScreen
         else do 
             Texts.cadastroGeneroSerieMsg 
             genero <- Util.readStringInput
-            if genero == "V"
+            if genero == "V" || genero == "v"
             then do addMediaScreen
             else do 
                 Texts.cadastroProdutoraSerieMsg
                 produtora <- Util.readStringInput
-                if produtora == "V"
+                if produtora == "V" || produtora == "v"
                 then do addMediaScreen
                 else do {
                     Texts.confirmacaoCadastroSerieMsg (Serie.cadastraSerie titulo (parseToInt(duracaoMediaEpisodio)) genero produtora);
@@ -155,6 +155,7 @@ opcoesAssistirMidia option  | option == "1" = telaAssistirFilme
                             | option == "2" = telaAssistirSerie
                             | option == "3" = mainScren
                             | option == "V" = telaAssistirMidia
+                            | option == "v" = telaAssistirMidia
                             | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
 telaAssistirFilme :: IO()
@@ -165,17 +166,17 @@ telaAssistirFilme = do
 
     Texts.pedeIdFilmeMsg
     id <- Util.readStringInput
-    if id == "V"
+    if id == "V" || id == "v"
         then do telaAssistirMidia
     else do
         Texts.avaliacaoFilmeMsg
         avaliacao <- Util.readStringInput
-        if avaliacao == "V"
+        if avaliacao == "V" || avaliacao == "v"
             then do telaAssistirMidia
         else do
             Texts.pedeComentarioFilmeMsg
             comentario <- Util.readStringInput
-            if avaliacao == "V"
+            if comentario == "V" || comentario == "v"
                 then do telaAssistirMidia
             else do {
                 Texts.confirmacaoAssistirFilmeMsg (Filme.assistirFilme (read id) (read avaliacao) comentario);
@@ -190,7 +191,7 @@ telaAssistirSerie = do
 
     Texts.pedeIdSerieMsg
     id <- Util.readStringInput
-    if id == "V"
+    if id == "V" || id == "v"
         then do telaAssistirMidia
     else do 
         putStrLn(Serie.exibirStatusSerie (read id))
@@ -223,12 +224,12 @@ telaFinalizaSerie id = do
     Texts.voltarAoMenuMsg
     Texts.avaliacaoSerieMsg
     avaliacao <- Util.readStringInput
-    if avaliacao == "V"
+    if avaliacao == "V" || avaliacao == "v"
         then do telaAssistirMidia
     else do
         Texts.pedeComentarioSerieMsg
         comentario <- Util.readStringInput
-        if avaliacao == "V"
+        if comentario == "V" || comentario == "v"
             then do telaAssistirMidia
         else do 
             putStrLn((Serie.concluirSerie id (read avaliacao) comentario))
@@ -244,7 +245,7 @@ telaRecomendacao = do
 opcoesRecomendacao :: String -> IO()
 opcoesRecomendacao opcao    | opcao == "1" = telaRecomendacaoFilme
                             | opcao == "2" = telaRecomendacaoSerie
-                            | opcao == "V" = telaRecomendacao
+                            | opcao == "3" = mainScren
                             | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
 telaRecomendacaoFilme :: IO()
@@ -276,7 +277,7 @@ opcoesDashBoard :: String -> IO()
 opcoesDashBoard opcao
     |(opcao == "1") = Texts.telaDashBoardFilmes
     |(opcao == "2") = Texts.telaDashBoarsSeries
-    |(opcao == "V") = mainScren
+    |(opcao == "3") = mainScren
     |otherwise = do {Texts.invalidOptionMsg; dashboard}
 
 
@@ -291,14 +292,14 @@ opcoesBusca opcao   | opcao == "1" = telaBuscaTitulo
                     | opcao == "2" = telaBuscaGenero
                     | opcao == "3" = telaBuscaDiretor
                     | opcao == "4" = telaBuscaProdutora
-                    | opcao == "4" = telaBuscarMidia
+                    | opcao == "5" = mainScren
                     | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
 telaBuscaTitulo :: IO()
 telaBuscaTitulo = do
     Texts.buscaTituloMsg
     titulo <- Util.readStringInput
-    if titulo == "V"
+    if titulo == "V" || titulo == "v"
         then do telaBuscarMidia
     else do 
         --chama metodo de busca por titulo
@@ -309,7 +310,7 @@ telaBuscaGenero :: IO()
 telaBuscaGenero = do
     Texts.buscaGeneroMsg
     genero <- Util.readStringInput
-    if genero == "V"
+    if genero == "V" || genero == "v"
         then do telaBuscarMidia
     else do
         --chama metodo de busca por genero
@@ -320,7 +321,7 @@ telaBuscaDiretor :: IO()
 telaBuscaDiretor = do
     Texts.buscaDiretorMsg
     diretor <- Util.readStringInput
-    if diretor == "V"
+    if diretor == "V" ||  diretor == "v"
         then do telaBuscarMidia
     else do
         --chama metodo de busca por diretor
@@ -331,7 +332,7 @@ telaBuscaProdutora :: IO()
 telaBuscaProdutora = do
     Texts.buscaProdutoraMsg
     produtora <- Util.readStringInput
-    if produtora == "V"
+    if produtora == "V" || produtora == "v"
         then do telaBuscarMidia
     else do
         --chama metodo de busca por produtora
@@ -347,7 +348,7 @@ telaListaAvaliacoes = do
 opcoesLista :: String -> IO()
 opcoesLista opcao   | opcao == "1" = telaListaAvaliacaoFilme
                     | opcao == "2" = telaListaAvaliacaoSerie
-                    | opcao == "V" = telaListaAvaliacoes
+                    | opcao == "3" = mainScren
                     | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
 telaListaAvaliacaoFilme :: IO()
@@ -356,7 +357,7 @@ telaListaAvaliacaoFilme = do
     -- chama metodo que lista filme
     Texts.pedeIdFilmeAvaliacaoMsg
     id <- Util.readStringInput
-    if id == "V"
+    if id == "V" || id == "v"
         then do telaListaAvaliacoes
     else do 
         --chama metodo de avaliacao por filme
@@ -370,7 +371,7 @@ telaListaAvaliacaoSerie = do
     -- chama metodo que lista Serie
     Texts.pedeIdSerieAvaliacaoMsg
     id <- Util.readStringInput
-    if id == "V"
+    if id == "V" || id == "v"
         then do telaListaAvaliacoes
     else do 
         --chama metodo de avaliacao por Serie
