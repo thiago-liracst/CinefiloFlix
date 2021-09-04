@@ -183,6 +183,12 @@ buscaFilme coluna str = do
     let filmes = fromIO resultado
     filmes
 
+-- Método que retorna a avaliação e comentário sobre um determinado filme
+recuperaEstatistica :: Int -> [EstatisticasDoFilme]
+recuperaEstatistica id_filme = do
+    let consulta = fromIO(queryBD("SELECT * FROM estatisticasfilmes WHERE id_estatistica_filme = "++ show id_filme ++";"))
+    consulta
+
 -- Metodo que verifica existência de um filme no Banco de dados e retorna um valor booleano
 -- True se ele existir e False se ele não existir
 verificaExistenciaFilme :: Int -> Bool

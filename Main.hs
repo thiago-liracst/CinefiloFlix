@@ -412,13 +412,13 @@ opcoesLista opcao   | opcao == "1" = telaListaAvaliacaoFilme
 telaListaAvaliacaoFilme :: IO()
 telaListaAvaliacaoFilme = do
     Texts.listaDeFilmeMsg
-    -- chama metodo que lista filme
+    putStrLn("\n" ++ Filme.recuperaFilmesAssistidos ++ "\n")
     Texts.pedeIdFilmeAvaliacaoMsg
     id <- Util.readStringInput
     if id == "V" || id == "v"
         then do telaListaAvaliacoes
     else do 
-        --chama metodo de avaliacao por filme
+        putStrLn(Filme.recuperaEstatisticaFilme (read id))
         Texts.eAgoraMsg
         mainScren
 
@@ -426,13 +426,13 @@ telaListaAvaliacaoFilme = do
 telaListaAvaliacaoSerie :: IO()
 telaListaAvaliacaoSerie = do
     Texts.listaDeSerieMsg
-    -- chama metodo que lista Serie
+    putStrLn("\n" ++ Serie.recuperaSeriesAssistidas ++ "\n")
     Texts.pedeIdSerieAvaliacaoMsg
     id <- Util.readStringInput
     if id == "V" || id == "v"
         then do telaListaAvaliacoes
     else do 
-        --chama metodo de avaliacao por Serie
+        putStrLn(Serie.recuperaEstatisticaSerie (read id))
         Texts.eAgoraMsg
         mainScren
 
