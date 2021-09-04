@@ -255,11 +255,30 @@ opcoesBuscaMsg = do
     clearScreen
     putStrLn("● ○ ◉ BUSCA DE MÍDIA ◉ ○ ●")
     putStrLn("\nQue tipo de busca você gostaria, cinéfilo? \n")
+    putStrLn("⓵ Busca filmes")
+    putStrLn("⓶ Busca séries")
+    putStrLn("⓷ Voltar ao menu principal\n")
+
+opcoesBuscaFilmeMsg :: IO()
+opcoesBuscaFilmeMsg = do
+    clearScreen
+    putStrLn("● ○ ◉ BUSCA DE FILME ◉ ○ ●")
+    putStrLn("\nQue tipo de busca você gostaria, cinéfilo? \n")
     putStrLn("⓵ Busca por título")
     putStrLn("⓶ Busca por gênero")
     putStrLn("⓷ Busca por diretor")
     putStrLn("⓸ Busca por produtora")
     putStrLn("⓹ Voltar ao menu principal\n")
+
+opcoesBuscaSerieMsg :: IO()
+opcoesBuscaSerieMsg = do
+    clearScreen
+    putStrLn("● ○ ◉ BUSCA DE SÉRIE ◉ ○ ●")
+    putStrLn("\nQue tipo de busca você gostaria, cinéfilo? \n")
+    putStrLn("⓵ Busca por título")
+    putStrLn("⓶ Busca por gênero")
+    putStrLn("⓷ Busca por produtora")
+    putStrLn("⓸ Voltar ao menu principal\n")
 
 buscaTituloMsg :: IO()
 buscaTituloMsg = do 

@@ -115,7 +115,7 @@ telaCadastraFilme = do
                         then do addMediaScreen
                         else do {
                             Texts.confirmacaoCadastroMsg (Filme.cadastraFilme titulo diretor anoLancamento genero (parseToInt(duracao)) produtora);
-                            addMediaScreen
+                            mainScren
         }
 
 telaCadastraSerie :: IO()
@@ -141,7 +141,7 @@ telaCadastraSerie = do
                 then do addMediaScreen
                 else do {
                     Texts.confirmacaoCadastroSerieMsg (Serie.cadastraSerie titulo (parseToInt(duracaoMediaEpisodio)) genero produtora);
-                    addMediaScreen
+                    mainScren
                         }
 
 telaAssistirMidia :: IO()
@@ -288,54 +288,112 @@ telaBuscarMidia = do
     opcoesBusca opcao
 
 opcoesBusca :: String -> IO()
-opcoesBusca opcao   | opcao == "1" = telaBuscaTitulo
-                    | opcao == "2" = telaBuscaGenero
-                    | opcao == "3" = telaBuscaDiretor
-                    | opcao == "4" = telaBuscaProdutora
+opcoesBusca opcao   | opcao == "1" = telaBuscaFilme
+                    | opcao == "2" = telaBuscaSerie
+                    | opcao == "3" = mainScren
+                    | otherwise = do {Texts.invalidOptionMsg; mainScren}
+
+telaBuscaFilme :: IO()
+telaBuscaFilme = do
+    Texts.opcoesBuscaFilmeMsg
+    opcao <- Util.readStringInput
+    opcoesBuscaFilme opcao
+
+opcoesBuscaFilme :: String -> IO()
+opcoesBuscaFilme opcao   | opcao == "1" = telaBuscaTituloFilme
+                    | opcao == "2" = telaBuscaGeneroFilme
+                    | opcao == "3" = telaBuscaDiretorFilme
+                    | opcao == "4" = telaBuscaProdutoraFilme
                     | opcao == "5" = mainScren
                     | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
-telaBuscaTitulo :: IO()
-telaBuscaTitulo = do
+telaBuscaSerie :: IO()
+telaBuscaSerie = do
+    Texts.opcoesBuscaSerieMsg
+    opcao <- Util.readStringInput
+    opcoesBuscaSerie opcao
+
+opcoesBuscaSerie :: String -> IO()
+opcoesBuscaSerie opcao   | opcao == "1" = telaBuscaTituloSerie
+                    | opcao == "2" = telaBuscaGeneroSerie
+                    | opcao == "3" = telaBuscaProdutoraSerie
+                    | opcao == "4" = mainScren
+                    | otherwise = do {Texts.invalidOptionMsg; mainScren}
+
+telaBuscaTituloFilme :: IO()
+telaBuscaTituloFilme = do
     Texts.buscaTituloMsg
     titulo <- Util.readStringInput
     if titulo == "V" || titulo == "v"
         then do telaBuscarMidia
     else do 
-        --chama metodo de busca por titulo
+        putStrLn(Filme.buscaFilmePorTitulo titulo)
         Texts.eAgoraMsg
         mainScren
 
-telaBuscaGenero :: IO()
-telaBuscaGenero = do
+telaBuscaTituloSerie :: IO()
+telaBuscaTituloSerie = do
+    Texts.buscaTituloMsg
+    titulo <- Util.readStringInput
+    if titulo == "V" || titulo == "v"
+        then do telaBuscarMidia
+    else do 
+        putStrLn(Serie.buscaSeriePorTitulo titulo)
+        Texts.eAgoraMsg
+        mainScren
+
+telaBuscaGeneroFilme :: IO()
+telaBuscaGeneroFilme = do
     Texts.buscaGeneroMsg
     genero <- Util.readStringInput
     if genero == "V" || genero == "v"
         then do telaBuscarMidia
     else do
-        --chama metodo de busca por genero
+        putStrLn(Filme.buscaFilmePorGenero genero)
+        Texts.eAgoraMsg
+        mainScren
+
+telaBuscaGeneroSerie :: IO()
+telaBuscaGeneroSerie = do
+    Texts.buscaGeneroMsg
+    genero <- Util.readStringInput
+    if genero == "V" || genero == "v"
+        then do telaBuscarMidia
+    else do
+        putStrLn(Serie.buscaSeriePorGenero genero)
         Texts.eAgoraMsg
         mainScren
     
-telaBuscaDiretor :: IO()
-telaBuscaDiretor = do
+telaBuscaDiretorFilme :: IO()
+telaBuscaDiretorFilme = do
     Texts.buscaDiretorMsg
     diretor <- Util.readStringInput
     if diretor == "V" ||  diretor == "v"
         then do telaBuscarMidia
     else do
-        --chama metodo de busca por diretor
+        putStrLn(Filme.buscaFilmePorDiretor diretor)
         Texts.eAgoraMsg
         mainScren
     
-telaBuscaProdutora :: IO()
-telaBuscaProdutora = do
+telaBuscaProdutoraFilme :: IO()
+telaBuscaProdutoraFilme = do
     Texts.buscaProdutoraMsg
     produtora <- Util.readStringInput
     if produtora == "V" || produtora == "v"
         then do telaBuscarMidia
     else do
-        --chama metodo de busca por produtora
+        putStrLn(Filme.buscaFilmePorProdutora produtora)
+        Texts.eAgoraMsg
+        mainScren
+
+telaBuscaProdutoraSerie :: IO()
+telaBuscaProdutoraSerie = do
+    Texts.buscaProdutoraMsg
+    produtora <- Util.readStringInput
+    if produtora == "V" || produtora == "v"
+        then do telaBuscarMidia
+    else do
+        putStrLn(Serie.buscaSeriePorProdutora produtora)
         Texts.eAgoraMsg
         mainScren
     

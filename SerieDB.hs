@@ -209,6 +209,13 @@ recuperaSerieTitulo titulo = fromIO (queryBD ("SELECT * FROM series WHERE titulo
 recuperaSeriesPorGenero :: String -> [Serie]
 recuperaSeriesPorGenero genero = fromIO (queryBD ("SELECT * FROM series WHERE genero = '" ++ genero ++ "'"))
 
+-- Método que retorna uma lista de séries que correspondam à pesquisa do usuário
+buscaSerie :: String -> String -> [Serie]
+buscaSerie coluna str = do
+    let resultado = queryBD ("SELECT * FROM series WHERE "++ coluna ++" LIKE '%"++ str ++"%';")
+    let series = fromIO resultado
+    series
+
 -- Metodo que verifica existência de uma série no Banco de dados e retorna um valor booleano
 -- True se ele existir e False se ele não existir
 verificaExistenciaSerie :: Int -> Bool
@@ -230,7 +237,7 @@ formataSeries indice series@(serie:resto) = ("[" ++ show (id_serie serie) ++ "] 
 
 -- Metodo que serve para formatar um série específico para exibição.
 formataSerie :: Serie -> String
-formataSerie serie = "Título: " ++ titulo serie ++ ", Gênero: " ++ genero serie
+formataSerie serie = "Título: " ++ titulo serie ++ ", Gênero: " ++ genero serie ++ ", Produtora: " ++ produtora serie
 
 --- pesquisa um id de série para aquele genero, se tiver  daquele genero
 pesquisaSerieParaRecomendar:: String -> Int
