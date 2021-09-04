@@ -87,7 +87,7 @@ seriesMelhorAvaliadasRecursivo (x : xs) i = show i ++ "° " ++ SerieDB.titulo (h
 
 horasAssitidasSeries :: String
 horasAssitidasSeries
-  |((null filmes) == False) = erroSemCadastroSerie
+  |(null filmes) = erroSemCadastroSerie
   |(null assistidos) = erroSerieNaoAssistida
   |otherwise = "O total de horas assistidas é de " ++  show (div horas 60)  ++ " horas e " ++ show (mod horas 60) ++ " minutos."
     where 

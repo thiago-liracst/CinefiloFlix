@@ -404,8 +404,8 @@ telaListaAvaliacoes = do
     opcoesLista opcao
 
 opcoesLista :: String -> IO()
-opcoesLista opcao   | opcao == "1" = telaListaAvaliacaoFilme
-                    | opcao == "2" = telaListaAvaliacaoSerie
+opcoesLista opcao   | opcao == "1" = telaListaAvaliacaoSerie
+                    | opcao == "2" = telaListaAvaliacaoFilme
                     | opcao == "3" = mainScren
                     | otherwise = do {Texts.invalidOptionMsg; mainScren}
 
