@@ -73,6 +73,15 @@ buscaSeriePorProdutora produtora
     | otherwise = "\nNão há séries para exibir!\n"
     where series = concatenaToStringsSeries (SerieDB.buscaSerie "produtora" produtora)
 
+recuperaEstatisticaSerie :: Int -> String
+recuperaEstatisticaSerie id_serie
+    | not (null estatistica) = "\nAvaliação: " ++ show (avaliacao (head estatistica)) ++ "\nComentário: " ++ comentarios (head estatistica) ++ "\n"
+    | otherwise = "\nNão há estatistica para exibir!\n"
+    where estatistica = SerieDB.recuperaEstatistica id_serie
+
+recuperaSeriesAssistidas ::  String
+recuperaSeriesAssistidas = Serie.formataSeries SerieDB.recuperaSeriesAssistidas
+
 concatenaToStringsSeries :: [Serie] -> String
 concatenaToStringsSeries [] = ""
 concatenaToStringsSeries (serie:outros) = "id: " ++ show (id_serie serie) ++ " - " ++ SerieDB.formataSerie serie ++ "\n" ++ concatenaToStringsSeries outros

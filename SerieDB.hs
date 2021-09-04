@@ -216,6 +216,12 @@ buscaSerie coluna str = do
     let series = fromIO resultado
     series
 
+-- Método que retorna a avaliação e comentário sobre uma determinada série
+recuperaEstatistica :: Int -> [EstatisticasDaSerie]
+recuperaEstatistica id_serie = do
+    let consulta = fromIO(queryBD("SELECT * FROM estatisticasseries WHERE id_estatistica_serie = "++ show id_serie ++";"))
+    consulta
+
 -- Metodo que verifica existência de uma série no Banco de dados e retorna um valor booleano
 -- True se ele existir e False se ele não existir
 verificaExistenciaSerie :: Int -> Bool

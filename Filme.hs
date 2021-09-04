@@ -65,6 +65,15 @@ buscaFilmePorProdutora produtora
     | otherwise = "\nNão há filmes para exibir!\n"
     where filmes = concatenaToStringsFilmes (FilmeDB.buscaFilme "produtora" produtora)
 
+recuperaEstatisticaFilme :: Int -> String
+recuperaEstatisticaFilme id_filme
+    | not (null estatistica) = "\nAvaliação: " ++ show (avaliacao (head estatistica)) ++ "\nComentário: " ++ comentarios (head estatistica) ++ "\n"
+    | otherwise = "\nNão há estatistica para exibir!\n"
+    where estatistica = FilmeDB.recuperaEstatistica id_filme
+
+recuperaFilmesAssistidos :: String
+recuperaFilmesAssistidos = Filme.formataFilmes FilmeDB.recuperaFilmesAssistidos
+
 concatenaToStringsFilmes :: [Filme] -> String
 concatenaToStringsFilmes [] = ""
 concatenaToStringsFilmes (filme:outros) = "id: " ++ show (id_filme filme) ++ " - " ++ (FilmeDB.formataFilme filme) ++ "\n" ++ (concatenaToStringsFilmes outros)
