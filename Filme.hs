@@ -41,6 +41,30 @@ recomendaFilme
     | otherwise = "\nNão há filmes para exibir!\n"
     where filme = FilmeDB.recomendaFilme
 
+buscaFilmePorTitulo :: String -> String
+buscaFilmePorTitulo titulo
+    | not (null filmes) = "\nFilmes:\n" ++ filmes
+    | otherwise = "\nNão há filmes para exibir!\n"
+    where filmes = concatenaToStringsFilmes (FilmeDB.buscaFilme "titulo" titulo)
+
+buscaFilmePorGenero :: String -> String
+buscaFilmePorGenero genero
+    | not (null filmes) = "\nFilmes:\n" ++ filmes
+    | otherwise = "\nNão há filmes para exibir!\n"
+    where filmes = concatenaToStringsFilmes (FilmeDB.buscaFilme "genero" genero)
+
+buscaFilmePorDiretor :: String -> String
+buscaFilmePorDiretor diretor
+    | not (null filmes) = "\nFilmes:\n" ++ filmes
+    | otherwise = "\nNão há filmes para exibir!\n"
+    where filmes = concatenaToStringsFilmes (FilmeDB.buscaFilme "diretor" diretor)
+
+buscaFilmePorProdutora :: String -> String
+buscaFilmePorProdutora produtora
+    | not (null filmes) = "\nFilmes:\n" ++ filmes
+    | otherwise = "\nNão há filmes para exibir!\n"
+    where filmes = concatenaToStringsFilmes (FilmeDB.buscaFilme "produtora" produtora)
+
 concatenaToStringsFilmes :: [Filme] -> String
 concatenaToStringsFilmes [] = ""
 concatenaToStringsFilmes (filme:outros) = "id: " ++ show (id_filme filme) ++ " - " ++ (FilmeDB.formataFilme filme) ++ "\n" ++ (concatenaToStringsFilmes outros)

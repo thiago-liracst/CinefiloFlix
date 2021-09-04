@@ -176,6 +176,13 @@ recuperaFilmeTitulo titulo = fromIO (queryBD ("SELECT * FROM filmes WHERE titulo
 recuperaFilmesPorGenero :: String -> [Filme]
 recuperaFilmesPorGenero genero = fromIO (queryBD ("SELECT * FROM filmes WHERE genero = '" ++ genero ++ "'"))
 
+-- Método que retorna uma lista de filmes que correspondam à pesquisa do usuário
+buscaFilme :: String -> String -> [Filme]
+buscaFilme coluna str = do
+    let resultado = queryBD ("SELECT * FROM filmes WHERE "++ coluna ++" LIKE '%"++ str ++"%';")
+    let filmes = fromIO resultado
+    filmes
+
 -- Metodo que verifica existência de um filme no Banco de dados e retorna um valor booleano
 -- True se ele existir e False se ele não existir
 verificaExistenciaFilme :: Int -> Bool
@@ -197,7 +204,7 @@ formataFilmes indice filmes@(filme:resto) = ("[" ++ show (id_filme filme) ++ "] 
 
 -- Metodo que serve para formatar um filme específico para exibição.
 formataFilme :: Filme -> String
-formataFilme filme = "Título: " ++ titulo filme ++ ", Gênero: " ++ genero filme
+formataFilme filme = "Título: " ++ titulo filme ++ ", Gênero: " ++ genero filme ++ ", Diretor: " ++ diretor filme ++ ", Produtora: " ++ produtora filme
 
 --- pesquisa um id de filme para aquele genero, se tiver filmes daquele genero
 pesquisaFilmeParaRecomendar:: String -> Int

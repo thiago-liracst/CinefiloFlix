@@ -55,6 +55,24 @@ recomendaSerie
     | otherwise = "\nNão há séries para exibir!\n"
     where serie = SerieDB.recomendaSerie
 
+buscaSeriePorTitulo :: String -> String
+buscaSeriePorTitulo titulo
+    | not (null series) = "\nSéries:\n" ++ series
+    | otherwise = "\nNão há séries para exibir!\n"
+    where series = concatenaToStringsSeries (SerieDB.buscaSerie "titulo" titulo)
+
+buscaSeriePorGenero :: String -> String
+buscaSeriePorGenero genero
+    | not (null series) = "\nSéries:\n" ++ series
+    | otherwise = "\nNão há séries para exibir!\n"
+    where series = concatenaToStringsSeries (SerieDB.buscaSerie "genero" genero)
+
+buscaSeriePorProdutora :: String -> String
+buscaSeriePorProdutora produtora
+    | not (null series) = "\nSéries:\n" ++ series
+    | otherwise = "\nNão há séries para exibir!\n"
+    where series = concatenaToStringsSeries (SerieDB.buscaSerie "produtora" produtora)
+
 concatenaToStringsSeries :: [Serie] -> String
 concatenaToStringsSeries [] = ""
 concatenaToStringsSeries (serie:outros) = "id: " ++ show (id_serie serie) ++ " - " ++ SerieDB.formataSerie serie ++ "\n" ++ concatenaToStringsSeries outros
