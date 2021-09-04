@@ -16,6 +16,7 @@
   $ cabal update
   $ cabal install sqlite-simple
   $ cabal install random
+  $ cabal install ansi-terminal
   $ runhaskell Main.hs
   ```
 
