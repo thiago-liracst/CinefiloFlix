@@ -8,10 +8,10 @@
   $ sudo apt-get install swi-prolog
   ```
 
-#### Após a etapa de instalação, basta apenas executar os comandos abaixo e o ALOKA estará à sua disposição.
+#### Após a etapa de instalação, basta apenas executar os comandos abaixo e o CinefiloFlix estará à sua disposição.
 
   ```
-  $ git clone https://github.com/RodrigoEC/Aloka.git
-  $ cd Aloka/Logico
+  $ git clone https://github.com/thiago-liracst/CinefiloFlix.git
+  $ cd CinefiloFlix/Logico
   $ swipl -s Main.pl
   ```
