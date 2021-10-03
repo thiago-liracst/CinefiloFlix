@@ -7,7 +7,7 @@ eh_user(CPF, Result) :- userExiste(CPF, Result).
 get_nome(CPF, Result) :- getNome(CPF, Result).
 
 % Metodo que verifica se o user ja esta cadastrado, caso nao esteja segue para o novo cadastro.
-add_cliente(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita, Result) :- userExiste(CPF, R),
+add_user(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita, Result) :- userExiste(CPF, R),
     (R -> Result = "Erro: usuário já cadastrado!";
     adiciona_user(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita, Result)).
 
@@ -29,3 +29,8 @@ resumoUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita,
     string_concat(R1, C, R2),
     string_concat(R2, T, R3),
     string_concat(R3, E, Result).
+
+% Metodo responsavel por atualizar dados de um usuario
+atualizaUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita, Result):-
+    updateUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita),
+    resumoUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita Result).

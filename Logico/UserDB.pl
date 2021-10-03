@@ -2,7 +2,7 @@
 :-include('Arquivos.pl').
 
 % Adiciona um usuario no arquivo
-addCliente(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita) :-
+addUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita) :-
     open('./dados/Users.csv', append, File),
     writeln(File, (CPF, Nome, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita)),                 
     close(File).
@@ -17,3 +17,11 @@ getNome(Cpf, Nome):-
     lerCsvRowList('Users.csv', Users),
     getEntidadeById(Cpf, Users, User),
     elementByIndex(1, User, Nome).
+
+updateUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita):-
+    lerCsvRowList('Users.csv', Users),
+    removeind(0, Users),
+    open('./dados/Users.csv', write, File),
+    write(File, ''),
+    close(File).
+    addUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita).
