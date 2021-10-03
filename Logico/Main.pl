@@ -14,6 +14,7 @@ menu_principal :-
 
 escolheOpcoesMenuPrincipal() :- menu_principal.
 escolheOpcoesMenuPrincipal(1) :- update_user.
+escolheOpcoesMenuPrincipal(2) :- cadastro_midia.
 
 
 %Update do usuario
@@ -56,3 +57,58 @@ recebeFilmeFavorito(Nome, Idade, Sexo, GeneroFavorito, FilmeFavorito) :-
 
 %fazUpdateUser(Nome, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita):-
    % confirmacaoUpdateMsg.
+
+%Cadastro de midia 
+
+cadastro_midia :-
+    opcoesCadastroMidia,
+    read(Opcao),
+    escolheOpcoesCadastroMidia(Opcao).
+
+escolheOpcoesCadastroMidia(1) :- update_user.
+escolheOpcoesCadastroMidia(3) :- menu_principal.
+
+%Cadastro de filme
+
+tela_cadastro_filme :- 
+    cadastroTituloFilmeMsg,
+    read(Titulo),
+    recebeTituloFilme(Titulo).
+
+recebeTituloFilme("V") :- menu_principal.
+recebeTituloFilme(Titulo) :- 
+    cadastroDiretorFilmeMsg,
+    read(Diretor),
+    recebeDiretorFilme(Titulo, Diretor).
+
+recebeDiretorFilme(_,"V") :- menu_principal.
+recebeDiretorFilme(Titulo, Diretor) :- 
+    cadastroLancamentoFilmeMsg,
+    read(AnoLancamento),
+    recebeLancamentoFilme(Titulo, Diretor, AnoLancamento).
+
+recebeLancamentoFilme(_,_,"V") :- menu_principal.
+recebeLancamentoFilme(Titulo, Diretor , AnoLancamento) :- 
+    cadastroGeneroFilmeMsg ,
+    read(Genero),
+    recebeGeneroFilme(Titulo, Diretor, AnoLancamento, Genero).
+
+recebeGeneroFilme(_,_,_,"V") :- menu_principal.
+recebeGeneroFilme(Titulo, Diretor , AnoLancamento, Genero) :- 
+    cadastroDuracaoFilmeMsg ,
+    read(Duracao),
+    recebeDuracaoFilme(Titulo, Diretor, AnoLancamento, Genero, Duracao).
+
+recebeDuracaoFilme(_,_,_,_,"V") :- menu_principal.
+recebeDuracaoFilme(Titulo, Diretor , AnoLancamento, Genero, Duracao) :- 
+    cadastroNacionalidadeFilmeMsg ,
+    read(Nacionalidade),
+    recebeNacionalidadeFilme(Titulo, Diretor, AnoLancamento, Genero, Duracao, Nacionalidade).
+
+recebeNacionalidadeFilme(_,_,_,_,_,"V") :- menu_principal.
+recebeNacionalidadeFilme(Titulo, Diretor , AnoLancamento, Genero, Duracao, Nacionalidade) :- 
+    cadastroProdutoraFilmeMsg ,
+    read(Produtora),
+    fazCadastroFilme(Titulo, Diretor, AnoLancamento, Genero, Duracao, Nacionalidade, Produtora).
+
+%fazCadastroFilme(Titulo, Diretor, AnoLancamento, Genero, Duracao, Nacionalidade, Produtora).
