@@ -20,3 +20,31 @@ voltarAoMenuMsg() :-
 
 eAgoraMsg() :-
     writeln("\nO que deseja fazer a seguir?\n").
+
+pedeNomeUsuarioMsg :-
+    clear,
+    writeln("● ○ ◉ ATUALIZAÇÃO DE DADOS DO USUÁRIO ◉ ○ ●"),
+    voltarAoMenuMsg,
+    writeln("\nNome: ").
+
+pedeIdadeUsuarioMsg :-
+    writeln("\nIdade: ").
+
+pedeSexoUsuarioMsg :-
+    writeln("\nSexo: ").
+
+pedeGeneroFavoritoMsg  :-
+    writeln("\nQual é o seu gênero cinematográfico favorito? ").
+
+pedeFilmeFavoritoMsg :-
+    writeln("\nQual é o seu filme favorito? ").
+
+
+pedeSerieFavoritaMsg :-
+    writeln("\nQual é a sua série favorita? ").
+
+
+confirmacaoUpdateMsg(User) :-
+    writeln(""),
+    writeln(User),
+    eAgoraMsg.
