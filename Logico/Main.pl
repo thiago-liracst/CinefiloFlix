@@ -65,7 +65,8 @@ cadastro_midia :-
     read(Opcao),
     escolheOpcoesCadastroMidia(Opcao).
 
-escolheOpcoesCadastroMidia(1) :- update_user.
+escolheOpcoesCadastroMidia(1) :- tela_cadastro_filme.
+escolheOpcoesCadastroMidia(2) :- tela_cadastro_serie.
 escolheOpcoesCadastroMidia(3) :- menu_principal.
 
 %Cadastro de filme
@@ -112,3 +113,39 @@ recebeNacionalidadeFilme(Titulo, Diretor , AnoLancamento, Genero, Duracao, Nacio
     fazCadastroFilme(Titulo, Diretor, AnoLancamento, Genero, Duracao, Nacionalidade, Produtora).
 
 %fazCadastroFilme(Titulo, Diretor, AnoLancamento, Genero, Duracao, Nacionalidade, Produtora).
+
+
+%Cadastro de serie
+
+tela_cadastro_serie :- 
+    cadastroTituloSerieMsg,
+    read(Titulo),
+    recebeTituloSerie(Titulo).
+
+recebeTituloSerie("V") :- menu_principal.
+recebeTituloSerie(Titulo) :- 
+    cadastroDuracaoEpisodioMsg,
+    read(DuracaoEpisodio),
+    recebeDuracaoSerie(Titulo, DuracaoEpisodio).
+
+recebeDuracaoSerie(_,"V") :- menu_principal.
+recebeDuracaoSerie(Titulo, DuracaoEpisodio) :- 
+    cadastroGeneroSerieMsg,
+    read(Genero),
+    recebeGeneroSerie(Titulo, DuracaoEpisodio, Genero).
+
+recebeGeneroSerie(_,_,"V") :- menu_principal.
+recebeGeneroSerie(Titulo, DuracaoEpisodio, Genero) :- 
+    cadastroNacionalidadeSerieMsg ,
+    read(Nacionalidade),
+    recebeNacionalidadeSerie(Titulo, DuracaoEpisodio, Genero, Nacionalidade).
+
+recebeNacionalidadeSerie(_,_,_,"V") :- menu_principal.
+recebeNacionalidadeSerie(Titulo, DuracaoEpisodio, Genero, Nacionalidade) :- 
+    cadastroProdutoraSerieMsg ,
+    read(Produtora),
+    fazCadastroSerie(Titulo, DuracaoEpisodio, Genero, Nacionalidade, Produtora).
+
+%fazCadastroSerie(Titulo, DuracaoEpisodio, Genero, Nacionalidade, Produtora):-
+ %   confirmacaoCadastroSerieMsg.
+
