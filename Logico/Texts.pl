@@ -61,7 +61,7 @@ opcoesCadastroMidia :-
 %Cadastro de filme
 
 cadastroTituloFilmeMsg :-
-    clearScreen,
+    clear,
     writeln("● ○ ◉ CADASTRO DE FILME ◉ ○ ●"),
     voltarAoMenuMsg,
     writeln("\nTítulo: ").
@@ -71,7 +71,6 @@ cadastroDiretorFilmeMsg :-
 
 cadastroLancamentoFilmeMsg :-
     writeln("\nAno de lançamento: ").
-
 
 cadastroGeneroFilmeMsg :-
     writeln("\nGênero: ").
@@ -88,4 +87,29 @@ cadastroProdutoraFilmeMsg :-
 confirmacaoCadastroMsg(Filme) :-
     writeln("Cadastro do filme:"),
     writeln(Filme),
+    eAgoraMsg.
+
+%Cadastro de serie
+
+cadastroTituloSerieMsg :-
+    clear,
+    writeln("● ○ ◉ CADASTRO DE SÉRIE ◉ ○ ●"),
+    voltarAoMenuMsg,
+    writeln("\nTítulo: ").
+
+cadastroDuracaoEpisodioMsg :-
+    writeln("\nDuração média (em minutos) do episódio: ").
+
+cadastroGeneroSerieMsg :-
+    writeln("\nGênero: ").
+
+cadastroNacionalidadeSerieMsg :-
+    writeln("\nNacionalidade: ").
+
+cadastroProdutoraSerieMsg :-
+    writeln("\nProdutora: ").
+
+confirmacaoCadastroSerieMsg(Serie) :-
+    writeln("Cadastro da série:"),
+    writeln(Serie),
     eAgoraMsg.
