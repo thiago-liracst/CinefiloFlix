@@ -3,6 +3,7 @@
 :- include('Texts.pl').
 :- include('User.pl').
 :- include('Info.pl').
+:- include('Filme.pl').
 
 
 main :-
@@ -100,36 +101,32 @@ recebeTituloFilme(Titulo) :-
 recebeDiretorFilme(_,"V") :- menu_principal.
 recebeDiretorFilme(Titulo, Diretor) :- 
     cadastroLancamentoFilmeMsg,
-    read(AnoLancamento),
-    recebeLancamentoFilme(Titulo, Diretor, AnoLancamento).
+    read(AnoDeLancamento),
+    recebeLancamentoFilme(Titulo, Diretor, AnoDeLancamento).
 
 recebeLancamentoFilme(_,_,"V") :- menu_principal.
-recebeLancamentoFilme(Titulo, Diretor , AnoLancamento) :- 
+recebeLancamentoFilme(Titulo, Diretor , AnoDeLancamento) :- 
     cadastroGeneroFilmeMsg ,
     read(Genero),
-    recebeGeneroFilme(Titulo, Diretor, AnoLancamento, Genero).
+    recebeGeneroFilme(Titulo, Diretor, AnoDeLancamento, Genero).
 
 recebeGeneroFilme(_,_,_,"V") :- menu_principal.
-recebeGeneroFilme(Titulo, Diretor , AnoLancamento, Genero) :- 
+recebeGeneroFilme(Titulo, Diretor , AnoDeLancamento, Genero) :- 
     cadastroDuracaoFilmeMsg ,
     read(Duracao),
-    recebeDuracaoFilme(Titulo, Diretor, AnoLancamento, Genero, Duracao).
+    recebeDuracaoFilme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao).
 
 recebeDuracaoFilme(_,_,_,_,"V") :- menu_principal.
-recebeDuracaoFilme(Titulo, Diretor , AnoLancamento, Genero, Duracao) :- 
-    cadastroNacionalidadeFilmeMsg ,
-    read(Nacionalidade),
-    recebeNacionalidadeFilme(Titulo, Diretor, AnoLancamento, Genero, Duracao, Nacionalidade).
-
-recebeNacionalidadeFilme(_,_,_,_,_,"V") :- menu_principal.
-recebeNacionalidadeFilme(Titulo, Diretor , AnoLancamento, Genero, Duracao, Nacionalidade) :- 
+recebeDuracaoFilme(Titulo, Diretor , AnoDeLancamento, Genero, Duracao) :- 
     cadastroProdutoraFilmeMsg ,
     read(Produtora),
-    fazCadastroFilme(Titulo, Diretor, AnoLancamento, Genero, Duracao, Nacionalidade, Produtora).
+    fazCadastroFilme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Produtora).
 
-%fazCadastroFilme(Titulo, Diretor, AnoLancamento, Genero, Duracao, Nacionalidade, Produtora).
-
-
+fazCadastroFilme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao,  Produtora):-
+    atualizaFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, 0 , 0, Produtora, 0, "Sem comentário", Resumo),
+    msgResumoCadastroFilme(Resumo),
+    read(Opcao),
+    retorna(Opcao, menu_principal).
 %Cadastro de serie
 
 tela_cadastro_serie :- 
