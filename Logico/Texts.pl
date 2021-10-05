@@ -116,3 +116,63 @@ confirmacaoCadastroSerieMsg(Serie) :-
     writeln("Cadastro da série:"),
     writeln(Serie),
     eAgoraMsg.
+
+%Assistir
+
+opcoesAssistirMsg :-
+    clear,
+    writeln("O que você deseja, cinéfilo?\n"),
+    writeln("⓵ Assistir Filme"),
+    writeln("⓶ Assistir Série"),
+    writeln("⓷ Voltar ao Menu Principal\n").
+
+% Assistir filme
+
+pedeIdFilmeMsg :-
+    writeln("\nPor favor, digite o id do filme que você quer assistir: \n").
+
+avaliacaoFilmeMsg :-
+    writeln("\nComo você classifica esse filme?"),
+    writeln(" ★"),
+    writeln(" ★★"),
+    writeln(" ★★★"),
+    writeln(" ★★★★"),
+    writeln(" ★★★★★").
+
+pedeComentarioFilmeMsg :-
+    writeln("\nPor favor, insira um comentário sobre o filme: ").
+
+confirmacaoAssistirFilmeMsg(Filme) :-
+    writeln(""),
+    writelnln(Filme),
+    eAgoraMsg.
+
+%Assistir serie
+
+pedeIdSerieMsg :-
+    writeln("\nPor favor, digite o id da série que você quer assistir: \n").
+
+opcoesAssistirSerieMsg :-
+    writeln("\nO quê você deseja fazer, cinéfilo?\n"),
+    writeln("⓵ Finalizar Episódio"),
+    writeln("⓶ Finalizar Temporada"),
+    writeln("⓷ Finalizar Série").
+
+episodioFinalizadoMsg :-
+    writeln("Episódio finalizado com sucesso!"),
+    eAgoraMsg.
+
+temporadaFinalizadaMsg :-
+    writeln("Temporada finalizada com sucesso!"),
+    eAgoraMsg.
+
+avaliacaoSerieMsg :-
+    writeln("\nComo você classifica esse série?"),
+    writeln("★"),
+    writeln("★★"),
+    writeln("★★★"),
+    writeln("★★★★"),
+    writeln("★★★★★").
+
+pedeComentarioSerieMsg :-
+    writeln("\n Por favor, insira um comentário sobre a série: ").
