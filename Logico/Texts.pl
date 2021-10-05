@@ -21,6 +21,8 @@ voltarAoMenuMsg() :-
 eAgoraMsg() :-
     writeln("\nO que deseja fazer a seguir?\n").
 
+%Atualização dados user
+
 pedeNomeUsuarioMsg :-
     clear,
     writeln("● ○ ◉ ATUALIZAÇÃO DE DADOS DO USUÁRIO ◉ ○ ●"),
@@ -46,8 +48,71 @@ pedeFilmeFavoritoMsg :-
 pedeSerieFavoritaMsg :-
     writeln("\nQual é a sua série favorita? ").
 
-
 confirmacaoUpdateMsg(User) :-
     writeln(""),
     writeln(User),
+    eAgoraMsg.
+
+% Cadastro de mídia
+opcoesCadastroMidia :-
+    clear,
+    writeln("● ○ ◉ CADASTRO DE MÍDIA ◉ ○ ●\n"),
+    writeln("⓵ Cadastrar Filme"),
+    writeln("⓶ Cadastrar Série"),
+    writeln("⓷ Voltar ao Menu Principal\n").
+
+%Cadastro de filme
+
+cadastroTituloFilmeMsg :-
+    clear,
+    writeln("● ○ ◉ CADASTRO DE FILME ◉ ○ ●"),
+    voltarAoMenuMsg,
+    writeln("\nTítulo: ").
+
+cadastroDiretorFilmeMsg :-
+    writeln("\nDiretor: ").
+
+cadastroLancamentoFilmeMsg :-
+    writeln("\nAno de lançamento: ").
+
+cadastroGeneroFilmeMsg :-
+    writeln("\nGênero: ").
+
+cadastroDuracaoFilmeMsg :-
+    writeln("\nDuração (Em minutos): ").
+
+cadastroNacionalidadeFilmeMsg :-
+    writeln("\nNacionalidade: ").
+
+cadastroProdutoraFilmeMsg :-
+    writeln("\nProdutora: ").
+
+confirmacaoCadastroMsg(Filme) :-
+    writeln("Cadastro do filme:"),
+    writeln(Filme),
+    eAgoraMsg.
+
+%Cadastro de serie
+
+cadastroTituloSerieMsg :-
+    clear,
+    writeln("● ○ ◉ CADASTRO DE SÉRIE ◉ ○ ●"),
+    voltarAoMenuMsg,
+    writeln("\nTítulo: ").
+
+cadastroDuracaoEpisodioMsg :-
+    writeln("\nDuração média (em minutos) do episódio: ").
+
+cadastroGeneroSerieMsg :-
+    writeln("\nGênero: ").
+
+cadastroNacionalidadeSerieMsg :-
+    writeln("\nNacionalidade: ").
+
+cadastroProdutoraSerieMsg :-
+    writeln("\nProdutora: ").
+
+confirmacaoCadastroSerieMsg(Serie) :-
+    writeln("Cadastro da série:"),
+    writeln(Serie),
     eAgoraMsg.
