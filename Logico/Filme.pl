@@ -1,23 +1,23 @@
 :- include('FilmeDB.pl').
 
 % Metodo responsavel por verificar se um filme está cadastrado.
-eh_filme(IdFilme, Result) :- filmeExiste(IdFilme, Result).
+eh_filme(Titulo, Result) :- filmeExiste(Titulo, Result).
 
 % Metodo que retorna o nome do título do filme  a partir do ID.
-get_titulo(idFilme, Result) :- getTitulo(IdFilme, Result).
+get_titulo(Titulo, Result) :- getTitulo(Titulo, Result).
 
 % Metodo que verifica se o flme já está cadastrado, caso nao esteja segue para o novo cadastro.
-add_filme(IdFilme,Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result) :- filmeExiste(IdFilme, R),
+add_filme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result) :- filmeExiste(IdFilme, R),
     (R -> Result = "Erro: filme já cadastrado!";
-    adiciona_filme(IdFilme, Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result)).
+    adiciona_filme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result)).
 
 % Metodo responsavel por adcionar um filme no sistema.
-adiciona_filme(IdFilme, Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result) :- 
-    addFilme(IdFilme, Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario),
-    resumoFilme(IdFilme, Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result).
+adiciona_filme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result) :- 
+    addFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario),
+    resumoFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result).
 
 % Metodo responsavel por exibir o resumo dos dados de um filme.
-resumoFilme(IdFilme, Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result):- 
+resumoFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result):- 
     string_concat('Título: ', Titulo, T),
     string_concat('\nDiretor: ', Diretor, D),
     string_concat('\nAnoDeLancamento: ', AnoDeLancamento, AL),
@@ -40,6 +40,6 @@ resumoFilme(IdFilme, Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistid
     string_concat(R9, C, Result).
 
 % Metodo responsavel por atualizar dados de um filme
-atualizaFilme(IdFilme, Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result):-
-    updateFilme(IdFilme, Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario),
-    resumoFilme(IdFilme, Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result).
+atualizaFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result):-
+    updateFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario),
+    resumoFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result).
