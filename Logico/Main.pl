@@ -18,6 +18,7 @@ escolheOpcoesMenuPrincipal() :- menu_principal.
 escolheOpcoesMenuPrincipal(1) :- update_user.
 escolheOpcoesMenuPrincipal(2) :- tela_cadastro_midia.
 escolheOpcoesMenuPrincipal(3) :- tela_assistir_midia.
+escolheOpcoesMenuPrincipal(6) :- tela_recomendacoes.
 
 % Metodo responsavel por retornar a uma funcao especifica X, 
 % ou persistir em caso de opcao invalida.
@@ -228,6 +229,23 @@ finaliza_serie :-
 recebeAvaliacaoSerie("V") :- menu_principal.
 recebeAvaliacaoSerie(AvaliacaoSerie):- 
     pedeComentarioSerieMsg,
-    read(ComentarioSerie,)
+    read(ComentarioSerie),
     recebeComentarioSerie(AvaliacaoSerie,ComentarioSerie).
 
+tela_recomendacoes :-
+    opcoesRecomendacoes,
+    read(Opcao),
+    escolheOpcoesRecomendacao(Opcao).
+
+escolheOpcoesRecomendacao(1) :- recomendacao_filme.
+escolheOpcoesRecomendacao(2) :- recomendacao_serie.
+escolheOpcoesRecomendacao(3) :- menu_principal.
+
+recomendacao_filme :-
+    recomendacaoDeFilmeMsg.
+    %lista os filmes aqui.
+
+recomendacao_serie :-
+    recomendacaoDeSerieMsg.
+    %lista as series aqui.
+    

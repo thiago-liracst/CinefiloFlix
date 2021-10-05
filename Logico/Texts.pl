@@ -176,3 +176,23 @@ avaliacaoSerieMsg :-
 
 pedeComentarioSerieMsg :-
     writeln("\n Por favor, insira um comentário sobre a série: ").
+
+%Recomendações
+
+opcoesRecomendacoes :-
+    clear,
+    writeln("● ○ ◉ RECOMENDAÇÕES ◉ ○ ●"),
+    writeln("\nQue tipo de recomendação você gostaria, cinéfilo? \n"),
+    writeln("⓵ Recomendação de filmes"),
+    writeln("⓶ Recomendação de séries"),
+    writeln("⓷ Voltar ao menu principal\n").
+
+recomendacaoDeFilmeMsg :-
+    clear,
+    writeln("● ○ ◉ RECOMENDAÇÕES DE FILMES ◉ ○ ●"),
+    writeln("\nConfira a lista de filmes que foi preparada só para você:").
+
+recomendacaoDeSerieMsg :-
+    clear,
+    writeln("● ○ ◉ RECOMENDAÇÕES DE SÉRIES ◉ ○ ●"),
+    writeln("\nConfira a lista de séries que foi preparada só para você:").
