@@ -27,6 +27,9 @@ pedeNomeUsuarioMsg :-
     voltarAoMenuMsg,
     writeln("\nNome: ").
 
+pedeCPFUsuarioMsg :-
+    writeln("\nCPF: ").
+
 pedeIdadeUsuarioMsg :-
     writeln("\nIdade: ").
 

@@ -14,7 +14,7 @@ add_user(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita, R
 % Metodo responsavel por adcionar um usuario no sistema.
 adiciona_user(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita, Result) :- 
     addUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita),
-    resumoUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita Result).
+    resumoUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita, Result).
 
 % Metodo responsavel por exibir o resumo dos dados de um usuario.
 resumoUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita, Result):- 
@@ -23,14 +23,17 @@ resumoUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita,
     string_concat('\nIdade: ', Idade, I),
     string_concat('\nSexo: ', Sexo, S),
     string_concat('\nGenero Favorito: ', GeneroFavorito, G),
-    string_concat('\Filme Favorito: ', FilmeFavorito, F),
-    string_concat('\Serie Favorita: ', SerieFavorita, SF),
-    string_concat('Usuário cadastrado com sucesso!\n', N, R1),
+    string_concat('\nFilme Favorito: ', FilmeFavorito, F),
+    string_concat('\nSerie Favorita: ', SerieFavorita, SF),
+    string_concat('Usuário atualizado com sucesso!\n', N, R1),
     string_concat(R1, C, R2),
-    string_concat(R2, T, R3),
-    string_concat(R3, E, Result).
+    string_concat(R2, I, R3),
+    string_concat(R3, S, R4),
+    string_concat(R4, G, R5),
+    string_concat(R5, F, R6),
+    string_concat(R6, SF, Result).
 
 % Metodo responsavel por atualizar dados de um usuario
 atualizaUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita, Result):-
     updateUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita),
-    resumoUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita Result).
+    resumoUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita, Result).

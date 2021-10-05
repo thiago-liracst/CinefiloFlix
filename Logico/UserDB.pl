@@ -19,9 +19,7 @@ getNome(Cpf, Nome):-
     elementByIndex(1, User, Nome).
 
 updateUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita):-
-    lerCsvRowList('Users.csv', Users),
-    removeind(0, Users),
     open('./dados/Users.csv', write, File),
     write(File, ''),
-    close(File).
+    close(File),
     addUser(Nome, CPF, Idade, Sexo, GeneroFavorito, FilmeFavorito, SerieFavorita).
