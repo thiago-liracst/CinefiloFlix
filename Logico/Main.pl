@@ -14,7 +14,8 @@ menu_principal :-
 
 escolheOpcoesMenuPrincipal() :- menu_principal.
 escolheOpcoesMenuPrincipal(1) :- update_user.
-escolheOpcoesMenuPrincipal(2) :- cadastro_midia.
+escolheOpcoesMenuPrincipal(2) :- tela_cadastro_midia.
+escolheOpcoesMenuPrincipal(3) :- tela_assistir_midia.
 
 
 %Update do usuario
@@ -60,7 +61,7 @@ recebeFilmeFavorito(Nome, Idade, Sexo, GeneroFavorito, FilmeFavorito) :-
 
 %Cadastro de midia 
 
-cadastro_midia :-
+tela_cadastro_midia :-
     opcoesCadastroMidia,
     read(Opcao),
     escolheOpcoesCadastroMidia(Opcao).
@@ -149,3 +150,34 @@ recebeNacionalidadeSerie(Titulo, DuracaoEpisodio, Genero, Nacionalidade) :-
 %fazCadastroSerie(Titulo, DuracaoEpisodio, Genero, Nacionalidade, Produtora):-
  %   confirmacaoCadastroSerieMsg.
 
+%Assistir mídia
+
+tela_assistir_midia :-
+    opcoesAssistirMsg,
+    read(Opcao),
+    escolheOpcoesAssistir(Opcao).
+
+escolheOpcoesAssistir(1) :- tela_assiste_filme.
+escolheOpcoesAssistir(2) :- tela_assiste_serie.
+escolheOpcoesAssistir(3) :- menu_principal.
+
+tela_assiste_filme:-
+    %tem que listar os filmes em algum lugar
+    pedeIdFilmeMsg,
+    read(Id),
+    recebeIdFilme(Id).
+
+recebeIdFilme("V") :- menu_principal.
+recebeIdFilme(Id) :- 
+    avaliacaoFilmeMsg,
+    read(Avaliacao),
+    recebeAvaliacaoFilme(Id, Avaliacao).
+
+recebeAvaliacaoFilme(_,"V") :- menu_principal.
+recebeAvaliacaoFilme(Id, Avaliacao) :- 
+    pedeComentarioFilmeMsg ,
+    read(Comentario),
+    assisteFilme(Id, Avaliacao, Comentario).
+
+%assisteFilme(Id, Avaliacao, Comentario)-:
+ %   confirmacaoAssistirFilmeMsg.
