@@ -194,3 +194,40 @@ recebeAvaliacaoFilme(Id, Avaliacao) :-
 
 %assisteFilme(Id, Avaliacao, Comentario)-:
  %   confirmacaoAssistirFilmeMsg.
+
+ tela_assiste_serie:-
+    %tem que listar as series 
+    pedeIdSerieMsg,
+    read(Id),
+    recebeIdSerie(Id).
+
+recebeIdSerie("V") :- menu_principal.
+recebeIdSerie(Id) :- 
+    opcoesAssistirSerieMsg,
+    read(Opcao),
+    escolheOpcoesAssistirSerie(Id, Opcao).
+
+escolheOpcoesAssistirSerie(Id,1) :- finaliza_episodio.
+escolheOpcoesAssistirSerie(Id,2) :- finaliza_temporada.
+escolheOpcoesAssistirSerie(Id,3) :- finaliza_serie.
+
+finaliza_episodio :-
+    episodioFinalizadoMsg,
+    menu_principal.
+    
+
+finaliza_temporada :-
+    temporadaFinalizadaMsg,
+    menu_principal.
+
+finaliza_serie :-
+    avaliacaoSerieMsg ,
+    read(AvaliacaoSerie),
+    recebeAvaliacaoSerie(AvaliacaoSerie).
+
+recebeAvaliacaoSerie("V") :- menu_principal.
+recebeAvaliacaoSerie(AvaliacaoSerie):- 
+    pedeComentarioSerieMsg,
+    read(ComentarioSerie,)
+    recebeComentarioSerie(AvaliacaoSerie,ComentarioSerie).
+
