@@ -6,7 +6,7 @@ eh_filme(Titulo, Result) :- filmeExiste(Titulo, Result).
 % Metodo que retorna o nome do título do filme  a partir do ID.
 get_titulo(Titulo, Result) :- getTitulo(Titulo, Result).
 
-% Metodo que verifica se o flme já está cadastrado, caso nao esteja segue para o novo cadastro.
+% Metodo que verifica se o filme já está cadastrado, caso nao esteja segue para o novo cadastro.
 add_filme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result) :- filmeExiste(IdFilme, R),
     (R -> Result = "Erro: filme já cadastrado!";
     adiciona_filme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result)).

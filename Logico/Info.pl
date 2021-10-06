@@ -1,7 +1,7 @@
 % Método que realiza a exibição de resumo do cadastro do cliente.
 msgResumoUpdateUser(User) :-
    % put_logo(),
-   writeln("       -------ATUALIZADO-------"),
+   writeln("       -------USUÁRIO ATUALIZADO-------"),
    writeln("\n-----\n"),
    writeln(User),
    writeln("\n-----"),
@@ -14,8 +14,17 @@ msgDigiteS() :-
 % Método que realiza a exibição de resumo do cadastro do filme.
 msgResumoCadastroFilme(Filme) :-
    % put_logo(),
-   writeln("       -------CADASTRADO-------"),
+   writeln("       -------FILME CADASTRADO-------"),
    writeln("\n-----\n"),
    writeln(Filme),
+   writeln("\n-----"),
+   msgDigiteS.
+
+% Método que realiza a exibição de resumo do cadastro do filme.
+msgResumoCadastroSerie(Serie) :-
+   % put_logo(),
+   writeln("       -------SÉRIE CADASTRADA-------"),
+   writeln("\n-----\n"),
+   writeln(Serie),
    writeln("\n-----"),
    msgDigiteS.
