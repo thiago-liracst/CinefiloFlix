@@ -4,6 +4,7 @@
 :- include('User.pl').
 :- include('Info.pl').
 :- include('Filme.pl').
+:- include('Serie.pl').
 
 
 main :-
@@ -138,29 +139,26 @@ tela_cadastro_serie :-
 recebeTituloSerie("V") :- menu_principal.
 recebeTituloSerie(Titulo) :- 
     cadastroDuracaoEpisodioMsg,
-    read(DuracaoEpisodio),
-    recebeDuracaoSerie(Titulo, DuracaoEpisodio).
+    read(DuracaoMediaEpisodio),
+    recebeDuracaoSerie(Titulo, DuracaoMediaEpisodio).
 
 recebeDuracaoSerie(_,"V") :- menu_principal.
-recebeDuracaoSerie(Titulo, DuracaoEpisodio) :- 
+recebeDuracaoSerie(Titulo, DuracaoMediaEpisodio) :- 
     cadastroGeneroSerieMsg,
     read(Genero),
-    recebeGeneroSerie(Titulo, DuracaoEpisodio, Genero).
+    recebeGeneroSerie(Titulo, DuracaoMediaEpisodio, Genero).
 
 recebeGeneroSerie(_,_,"V") :- menu_principal.
-recebeGeneroSerie(Titulo, DuracaoEpisodio, Genero) :- 
-    cadastroNacionalidadeSerieMsg ,
-    read(Nacionalidade),
-    recebeNacionalidadeSerie(Titulo, DuracaoEpisodio, Genero, Nacionalidade).
-
-recebeNacionalidadeSerie(_,_,_,"V") :- menu_principal.
-recebeNacionalidadeSerie(Titulo, DuracaoEpisodio, Genero, Nacionalidade) :- 
+recebeGeneroSerie(Titulo, DuracaoMediaEpisodio, Genero) :- 
     cadastroProdutoraSerieMsg ,
     read(Produtora),
-    fazCadastroSerie(Titulo, DuracaoEpisodio, Genero, Nacionalidade, Produtora).
+    fazCadastroSerie(Titulo, DuracaoMediaEpisodio, Genero,  Produtora).
 
-%fazCadastroSerie(Titulo, DuracaoEpisodio, Genero, Nacionalidade, Produtora):-
- %   confirmacaoCadastroSerieMsg.
+fazCadastroSerie(Titulo, DuracaoMediaEpisodio, Genero,  Produtora):-
+    atualizaSerie( Titulo, DuracaoMediaEpisodio, Genero, 0, 1, 0, 0, Produtora, 0, "Sem comentário", Resumo),
+    msgResumoCadastroSerie(Resumo),
+    read(Opcao),
+    retorna(Opcao, menu_principal).
 
 %Assistir mídia
 
