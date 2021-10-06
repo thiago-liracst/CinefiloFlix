@@ -196,3 +196,56 @@ recomendacaoDeSerieMsg :-
     clear,
     writeln("● ○ ◉ RECOMENDAÇÕES DE SÉRIES ◉ ○ ●"),
     writeln("\nConfira a lista de séries que foi preparada só para você:").
+
+% Busca
+
+opcoesBuscaMsg :-
+    clear,
+    writeln("● ○ ◉ BUSCA DE MÍDIA ◉ ○ ●"),
+    writeln("\nQue tipo de busca você gostaria, cinéfilo? \n"),
+    writeln("⓵ Busca filmes"),
+    writeln("⓶ Busca séries"),
+    writeln("⓷ Voltar ao menu principal\n").
+
+opcoesBuscaFilmeMsg :-
+    clear,
+    writeln("● ○ ◉ BUSCA DE FILME ◉ ○ ●"),
+    writeln("\nQue tipo de busca você gostaria, cinéfilo? \n"),
+    writeln("⓵ Busca por título"),
+    writeln("⓶ Busca por gênero"),
+    writeln("⓷ Busca por diretor"),
+    writeln("⓸ Busca por produtora"),
+    writeln("⓹ Voltar ao menu principal\n").
+
+opcoesBuscaSerieMsg :-
+    clear,
+    writeln("● ○ ◉ BUSCA DE SÉRIE ◉ ○ ●"),
+    writeln("\nQue tipo de busca você gostaria, cinéfilo? \n"),
+    writeln("⓵ Busca por título"),
+    writeln("⓶ Busca por gênero"),
+    writeln("⓷ Busca por produtora"),
+    writeln("⓸ Voltar ao menu principal\n").
+
+buscaTituloMsg :- 
+    clear,
+    writeln("● ○ ◉ BUSCA POR TÍTULO ◉ ○ ●"),
+    voltarAoMenuMsg,
+    writeln("\nPor favor, insira o título que você procura: \n").
+
+buscaGeneroMsg :- 
+    clear,
+    writeln("● ○ ◉ BUSCA POR GÊNERO ◉ ○ ●"),
+    voltarAoMenuMsg,
+    writeln("\nPor favor, insira o gênero que você procura: \n").
+
+buscaDiretorMsg :- 
+    clear,
+    writeln("● ○ ◉ BUSCA POR DIRETOR ◉ ○ ●"),
+    voltarAoMenuMsg,
+    writeln("Por favor, insira o diretor que você procura: \n").
+
+buscaProdutoraMsg :- 
+    clear,
+    writeln("● ○ ◉ BUSCA POR PRODUTORA ◉ ○ ●"),
+    voltarAoMenuMsg,
+    writeln("Por favor, insira a produtora que você procura: \n").

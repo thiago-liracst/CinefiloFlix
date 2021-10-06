@@ -19,6 +19,7 @@ escolheOpcoesMenuPrincipal() :- menu_principal.
 escolheOpcoesMenuPrincipal(1) :- update_user.
 escolheOpcoesMenuPrincipal(2) :- tela_cadastro_midia.
 escolheOpcoesMenuPrincipal(3) :- tela_assistir_midia.
+escolheOpcoesMenuPrincipal(4) :- tela_busca.
 escolheOpcoesMenuPrincipal(6) :- tela_recomendacoes.
 
 % Metodo responsavel por retornar a uma funcao especifica X, 
@@ -228,6 +229,81 @@ recebeAvaliacaoSerie(AvaliacaoSerie):-
     pedeComentarioSerieMsg,
     read(ComentarioSerie),
     recebeComentarioSerie(AvaliacaoSerie,ComentarioSerie).
+
+%Busca
+tela_busca :-
+    opcoesBuscaMsg,
+    read(Opcao),
+    escolheOpcoesBusca(Opcao).
+
+escolheOpcoesBusca(1) :- tela_busca_filme.
+escolheOpcoesBusca(2) :- tela_busca_serie.
+escolheOpcoesBusca(3) :- menu_principal.
+
+tela_busca_filme :-
+    opcoesBuscaFilmeMsg,
+    read(Opcao),
+    escolheOpcoesBuscaFilme(Opcao).
+
+escolheOpcoesBuscaFilme(1) :- busca_filme_titulo.
+escolheOpcoesBuscaFilme(2) :- busca_filme_genero.
+escolheOpcoesBuscaFilme(3) :- busca_filme_diretor.
+escolheOpcoesBuscaFilme(4) :- busca_filme_produtora.
+escolheOpcoesBuscaFilme(5) :- menu_principal.
+
+busca_filme_titulo :-
+    buscaTituloMsg.
+    %read(Titulo).
+    %coloca metodo que faz a busca
+
+busca_filme_genero :-
+    buscaGeneroMsg.
+    %read(Genero).
+    %coloca metodo que faz a busca
+
+busca_filme_diretor :-
+    buscaDiretorMsg.
+    %read(Diretor).
+    %coloca metodo que faz a busca
+
+busca_filme_produtora:-
+    buscaProdutoraMsg.
+    %read(Produtora).
+    %coloca metodo que faz a busca
+
+
+tela_busca_serie :-
+    opcoesBuscaSerieMsg,
+    read(Opcao),
+    escolheOpcoesBuscaSerie(Opcao).
+
+escolheOpcoesBuscaSerie(1) :- busca_serie_titulo.
+escolheOpcoesBuscaSerie(2) :- busca_serie_genero.
+escolheOpcoesBuscaSerie(3) :- busca_serie_diretor.
+escolheOpcoesBuscaSerie(4) :- busca_serie_produtora.
+escolheOpcoesBuscaSerie(5) :- menu_principal.
+
+busca_serie_titulo :-
+    buscaTituloMsg.
+    %read(Titulo).
+    %coloca metodo que faz a busca
+
+busca_serie_genero :-
+    buscaGeneroMsg.
+    %read(Genero).
+    %coloca metodo que faz a busca
+
+busca_serie_diretor :-
+    buscaDiretorMsg.
+    %read(Diretor).
+    %coloca metodo que faz a busca
+
+busca_serie_produtora:-
+    buscaProdutoraMsg.
+    %read(Produtora).
+    %coloca metodo que faz a busca
+
+%Recomendacoes
 
 tela_recomendacoes :-
     opcoesRecomendacoes,
