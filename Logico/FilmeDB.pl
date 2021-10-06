@@ -12,7 +12,7 @@ filmeExiste( Titulo, Result):-
     lerCsvRowList('Filmes.csv', Filmes),
     verificaNaLista( Titulo, Filmes, Result).
 
-% Retorna nome do Usuario a partir do cpf
+% Retorna nome do filme a partir do título
 getTitulo( Titulo, Resposta):-
    lerCsvRowList('Filmes.csv', Filmes),
     getEntidadeById( Titulo, Filmes, Filme),
