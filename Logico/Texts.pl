@@ -1,4 +1,5 @@
 :- include('Util.pl').
+:- include('DashBoard.pl').
 
 opcoesMenuPrincipal() :-
 writeln("● ○ ◉ MENU PRINCIPAL ◉ ○ ●"),
@@ -249,3 +250,32 @@ buscaProdutoraMsg :-
     writeln("● ○ ◉ BUSCA POR PRODUTORA ◉ ○ ●"),
     voltarAoMenuMsg,
     writeln("Por favor, insira a produtora que você procura: \n").
+
+%DashBoard
+dashBoardMainScreen :- 
+    writeln("● ○ ◉ DASHBOARD ◉ ○ ●"),
+    writeln("\nComo você quer prosseguir, cinéfilo? \n"),
+    writeln("⓵ DashBoard de Filmes"),
+    writeln("⓶ DashBoard de Series"),
+    writeln("⓷ Voltar ao menu principal\n").
+
+dashBoardFilmes :- 
+    writeln("\n--------------------\n"),
+    filmesMelhorAvaliados,
+    writeln("\n--------------------\n"),
+    horasAssitidasFilmes,
+    writeln("\n--------------------\n"),
+    principaisGenerosFilmes,
+    writeln("\n--------------------\n"),
+    principaisDiretores,nl.
+
+
+dashBoardSeries :- 
+    writeln("\n--------------------\n"),
+    seriesMelhorAvaliadas,
+    writeln("\n--------------------\n"),
+    horasAssitidasSeries,
+    writeln("\n--------------------\n"),
+    principaisGenerosSeries,
+    writeln("\n--------------------\n"),
+    principaisProdutoras,nl.
