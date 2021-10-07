@@ -27,6 +27,7 @@ escolheOpcoesMenuPrincipal("2") :- tela_cadastro_midia.
 escolheOpcoesMenuPrincipal("5") :- dashBoard.
 escolheOpcoesMenuPrincipal("3") :- tela_assistir_midia.
 escolheOpcoesMenuPrincipal("6") :- tela_recomendacoes.
+escolheOpcoesMenuPrincipal("7") :- tela_lista_avaliacoes.
 escolheOpcoesMenuPrincipal("8") :- read_file_to_string('files/xau.txt',Xau,[]),
                                    writeln(Xau),halt.
 
@@ -345,3 +346,28 @@ dashBoard :-
     writeln("\nOBS: Para voltar ao menu, digite qualquer tecla.\n"),
     readStringInput(Entrada),
     menu_principal.
+
+%Lista de Avaliações
+
+tela_lista_avaliacoes :-
+    opcoesListaMsg,
+    readStringInput(Opcao),
+    escolheOpcoesListas(Opcao).
+
+escolheOpcoesListas("1") :- avaliacoes_filme.
+escolheOpcoesListas("2") :- avaliacoes_serie.
+escolheOpcoesListas("3") :- menu_principal.
+
+avaliacoes_filme:-
+    listaDeFilmeMsg,
+    %lista filmes,
+    pedeIdFilmeAvaliacaoMsg,
+    readStringInput(Id).
+    %Lista avaliacoes do filme desse id.
+
+avaliacoes_serie:-
+    listaDeSerieMsg,
+    %lista series,
+    pedeIdSerieAvaliacaoMsg,
+    readStringInput(Id).
+    %Lista avaliacoes da serie desse id.

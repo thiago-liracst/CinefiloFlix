@@ -279,3 +279,31 @@ dashBoardSeries :-
     principaisGenerosSeries,
     writeln("\n--------------------\n"),
     principaisProdutoras,nl.
+
+%Lista
+
+opcoesListaMsg :-
+    clear,
+    writeln("● ○ ◉ LISTA DE AVALIAÇÕES ◉ ○ ●"),
+    writeln("\nQue tipo de avaliações você gostaria de ver, cinéfilo? \n"),
+    writeln("⓵ Avaliações de séries"),
+    writeln("⓶ Avaliações de filmes"),
+    writeln("⓷ Voltar ao menu principal\n").
+
+listaDeFilmeMsg :-
+    clear,
+    writeln("● ○ ◉ AVALIAÇÕES DE FILMES ◉ ○ ●"),
+    voltarAoMenuMsg,
+    writeln("\nConfira a lista de filmes disponíveis:").
+
+pedeIdFilmeAvaliacaoMsg :-
+    writeln("\nPor favor, digite o id do filme que você quer ver as avaliações: \n").
+
+listaDeSerieMsg :-
+    clear,
+    writeln("● ○ ◉ AVALIAÇÕES DE SÉRIES ◉ ○ ●"),
+    voltarAoMenuMsg,
+    writeln("\nConfira a lista de séries disponíveis:").
+
+pedeIdSerieAvaliacaoMsg :-
+    writeln("\nPor favor, digite o id da série que você quer ver as avaliações: \n").
