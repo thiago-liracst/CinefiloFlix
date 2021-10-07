@@ -19,16 +19,16 @@ adiciona_serie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, Epi
 % Metodo responsavel por exibir o resumo dos dados de um filme.
 resumoSerie(  Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result):- 
     string_concat('Título: ', Titulo, T),
-    string_concat('\nDuração(Média por episódio): ', DuracaoMediaEpisodio, D),
-    string_concat('\nGenero: ', Genero, G),
+    string_concat('\nDuração média por episódio: ', DuracaoMediaEpisodio, D),
+    string_concat('\nGênero: ', Genero, G),
     string_concat('\nEpisódios: ', Episodios, EP),
     string_concat('\nTemporadas: ', Temporadas, TE),
     string_concat('\nEpisódios totais: ', EpisodiosTotais, EPT),
     string_concat('\nAssistido: ', Assistido, AS),
     string_concat('\nProdutora: ', Produtora, P),
-    string_concat('\nAvaliacao: ', Avaliacao, AV),
-    string_concat('\nComentario: ', Comentario, C),
-    string_concat('Série atualizada com sucesso!\n', T, R1),
+    string_concat('\nAvaliação: ', Avaliacao, AV),
+    string_concat('\nComentário: ', Comentario, C),
+    string_concat('Série cadastrada com sucesso!\n', T, R1),
     string_concat(R1, D, R2),
     string_concat(R2, G, R3),
     string_concat(R3, EP, R4),
@@ -43,3 +43,6 @@ resumoSerie(  Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, Episo
 atualizaSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result):-
     updateSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario),
     resumoSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result).
+
+cadastraSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result):-
+    add_serie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario).
