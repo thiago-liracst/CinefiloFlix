@@ -1,5 +1,4 @@
 :- include('FilmeDB.pl').
-:- dynamic add_Filme/11.
 
 % Metodo responsavel por verificar se um filme está cadastrado.
 eh_filme(Titulo, Result) :- filmeExiste(Titulo, Result).
@@ -46,4 +45,4 @@ atualizaFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Vis
     resumoFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result).
 
 cadastraFilme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result):-
-    add_Filme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result).
+    add_filme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result).
