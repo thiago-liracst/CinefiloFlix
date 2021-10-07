@@ -1,4 +1,7 @@
 :- (initialization main).
+:- style_check(-discontiguous).
+:- style_check(-singleton).
+
 
 :- include('Util.pl').
 :- include('Texts.pl').
@@ -12,7 +15,8 @@ main :-
     menu_principal,
     halt.
 
-menu_principal :-
+menu_principal :- read_file_to_string('files/logo.txt',Logo,[]),
+    writeln(Logo),
     opcoesMenuPrincipal,
     readStringInput(Opcao),
     escolheOpcoesMenuPrincipal(Opcao).
@@ -23,7 +27,8 @@ escolheOpcoesMenuPrincipal("2") :- tela_cadastro_midia.
 escolheOpcoesMenuPrincipal("5") :- dashBoard.
 escolheOpcoesMenuPrincipal("3") :- tela_assistir_midia.
 escolheOpcoesMenuPrincipal("6") :- tela_recomendacoes.
-escolheOpcoesMenuPrincipal("8") :- halt.
+escolheOpcoesMenuPrincipal("8") :- read_file_to_string('files/xau.txt',Xau,[]),
+                                   writeln(Xau),halt.
 
 % Metodo responsavel por retornar a uma funcao especifica X, 
 % ou persistir em caso de opcao invalida.
