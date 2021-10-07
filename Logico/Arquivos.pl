@@ -25,7 +25,7 @@ verificaNaLista(SearchedId, [H|T], Result) :-
 
 idCadastrado(_,[], false).
 idCadastrado(SearchedId, [H|T], Result) :-
-    H =:= SearchedId -> Result = true
+    H == SearchedId -> Result = true
     ; Result = false.
 
 % Retorna o Id da entidade. É assumido que esse identificador é elemento da cabeça da lista.
@@ -36,7 +36,7 @@ getEntidadeId([H|T], H).
 getEntidadeById(_, [], []).
 getEntidadeById(Id, [H|T], Result) :-
     getEntidadeId(H, EntidadeID),
-    (EntidadeID =:= Id 
+    (EntidadeID == Id 
         -> Result = H
         ; getEntidadeById(Id, T, R),
         Result = R

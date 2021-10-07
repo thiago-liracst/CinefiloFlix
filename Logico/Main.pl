@@ -11,6 +11,7 @@
 :- include('DashBoard.pl').
 :- include('Serie.pl').
 
+
 main :-
     menu_principal,
     halt.
@@ -133,7 +134,8 @@ recebeDuracaoFilme(Titulo, Diretor , AnoDeLancamento, Genero, Duracao) :-
     fazCadastroFilme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Produtora).
 
 fazCadastroFilme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao,  Produtora):-
-    atualizaFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, 0 , 0, Produtora, 0, "Sem comentário", Resumo),
+    %atualizaFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, 0 , 0, Produtora, 0, "Sem comentário", Resumo),
+    cadastraFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, 0 , 0, Produtora, 0, "Sem comentário", Resumo),
     msgResumoCadastroFilme(Resumo),
     readStringInput(Opcao),
     retorna(Opcao, menu_principal).
