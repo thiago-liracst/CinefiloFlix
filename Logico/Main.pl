@@ -165,7 +165,8 @@ recebeGeneroSerie(Titulo, DuracaoMediaEpisodio, Genero) :-
     fazCadastroSerie(Titulo, DuracaoMediaEpisodio, Genero, Produtora).
 
 fazCadastroSerie(Titulo, DuracaoMediaEpisodio, Genero,  Produtora):-
-    atualizaSerie( Titulo, DuracaoMediaEpisodio, Genero, 0, 1, 0, 0, Produtora, 0, "Sem comentário", Resumo),
+   % atualizaSerie( Titulo, DuracaoMediaEpisodio, Genero, 0, 1, 0, 0, Produtora, 0, "Sem comentário", Resumo),
+    cadastraSerie( Titulo, DuracaoMediaEpisodio, Genero, 0, 1, 0, 0, Produtora, 0, "Sem comentário", Resumo),
     msgResumoCadastroSerie(Resumo),
     read(Opcao),
     retorna(Opcao, menu_principal).
