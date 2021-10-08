@@ -144,7 +144,7 @@ pedeComentarioFilmeMsg :-
     writeln("\nPor favor, insira um comentário sobre o filme: ").
 
 confirmacaoAssistirFilmeMsg(Filme) :-
-    writeln(""),
+    writeln("Filme concluído!"),
     writelnln(Filme),
     eAgoraMsg.
 

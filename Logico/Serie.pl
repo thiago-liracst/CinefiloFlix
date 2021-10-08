@@ -44,5 +44,17 @@ atualizaSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, Epis
     updateSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario),
     resumoSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result).
 
+% Metodo responsavel por concluir um episodio de uma serie
+concluiEpisodio(Titulo) :- 
+    concluiEpisodioSerie(Titulo).
+
+% Metodo responsavel por concluir uma temporada de uma serie
+concluiTemporada(Titulo) :- 
+    concluiTemporadaSerie(Titulo).
+
+% Metodo responsavel por concluir uma serie
+concluiSerie(Titulo, Avaliacao, Comentario) :- 
+    concluiSerie(Titulo, Avaliacao, Comentario).
+
 cadastraSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result):-
     add_serie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario).
