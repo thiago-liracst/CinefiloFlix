@@ -8,9 +8,10 @@ addSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, Episodios
     close(File).
 
 % Verifica se a série existe, lê o arquivo csv e chama o metodo verificaNaLista que vai ver se o série está na lista
-serieExiste( Titulo, Result):-
+serieExiste(Titulo, Result):-
+	atom_string(Titulo1, Titulo),
     lerCsvRowList('Series.csv', Series),
-    verificaNaLista( Titulo, Series, Result).
+    verificaNaLista( Titulo1, Series, Result).
 
 % Retorna nome da série a partir do título
 getTitulo( Titulo, Resposta):-
@@ -27,92 +28,60 @@ concluiEpisodioSerie(Titulo) :-
 	nth0(5,Serie,EpisodiosTotais),
 	E is Episodios + 1,
 	ET is EpisodiosTotais + 1,
-	select(Episodios, Serie, E, Serie1),
-	select(EpisodiosTotais, Serie1, ET, Serie2),
-	selectchk(Serie, ArraySeries, Serie2, SeriesFinal),
+	selectchk(Episodios, Serie, Serie1),
+	nth0(3, Serie2, E, Serie1),
+	selectchk(EpisodiosTotais, Serie2, Serie3),
+	nth0(5, Serie4, ET, Serie3),
+	selectchk(Serie, ArraySeries, Serie4, SeriesFinal),
+	
 	limparCsvSeries,
 	escreverSeries(SeriesFinal).
 
 % Conclui temporada da serie
-concluiTemporadaSerie(Titulo) :-
-	lerCsvRowList('Series.csv', ArraySeries),
-	getEntidadeById(Titulo, ArraySeries, Serie),
-	remover(Serie, ArraySeries, Series),
-	zeraEpisodiosSerie(Titulo),
-	elementByIndex(4, Serie, Temporadas),
-	T is Temporadas+1,
-	removeind(4, Serie, TemporadaConcluida),
-	concatenar(TemporadaConcluida, [E], SerieFinal),
-	concatenar(Series, [SerieFinal], SeriesFinal),
+concluiTemporadaSerie(Titulo) :- lerCsvRowList('Series.csv',ArraySeries),
+	atom_string(Titulo1, Titulo),
+	getEntidadeById(Titulo1,ArraySeries,Serie),
+	nth0(3,Serie,Episodios),
+	nth0(4,Serie,Temporadas),
+	T is Temporadas + 1,
+	selectchk(Episodios, Serie, Serie1),
+	nth0(3, Serie2, 0, Serie1),
+	selectchk(Temporadas, Serie2, Serie3),
+	nth0(4, Serie4, T, Serie3),
+	selectchk(Serie, ArraySeries, Serie4, SeriesFinal),
 	limparCsvSeries,
 	escreverSeries(SeriesFinal).
 
-% Zera episodios da serie
-zeraEpisodiosSerie(Titulo) :-
-	lerCsvRowList('Series.csv', ArraySeries),
-	getEntidadeById(Titulo, ArraySeries, Serie),
-	remover(Serie, ArraySeries, Series),
-	elementByIndex(3, Serie, Episodios),
-	E is 0,
-	removeind(3, Serie, EpisodiosZerados),
-	concatenar(EpisodiosZerados, [E], SerieFinal),
-	concatenar(Series, [SerieFinal], SeriesFinal),
-	limparCsvSeries,
-	escreverSeries(SeriesFinal).
 
-% Incrementa episodios totais da serie
-incrementaEpisodiosTotaisSerie(Titulo) :-
-	lerCsvRowList('Series.csv', ArraySeries),
-	getEntidadeById(Titulo, ArraySeries, Serie),
-	remover(Serie, ArraySeries, Series),
-	elementByIndex(5, Serie, EpisodiosTotais),
-	E is EpisodiosTotais+1,
-	removeind(5, Serie, EpTotais),
-	concatenar(EpTotais, [E], SerieFinal),
-	concatenar(Series, [SerieFinal], SeriesFinal),
-	limparCsvSeries,
-	escreverSeries(SeriesFinal).
+
+
 
 % Conclui serie
-concluiSerie(Titulo, Avaliacao, Comentario) :- 
+conclui_Serie(Titulo, Avaliacao, Comentario) :- 
 	lerCsvRowList('Series.csv', ArraySeries),
-	getEntidadeById(Titulo, ArraySeries, Serie),
-	remover(Serie, ArraySeries, Series),
-	darNotaASerie(Titulo, Avaliacao, Comentario),
-	elementByIndex(6, Serie, Assistido),
-	A is 1,
-	removeind(6, Serie, SerieAssistida),
-	concatenar(SerieAssistida, [A], SerieFinal),
-	concatenar(Series, [SerieFinal], SeriesFinal),
+	atom_string(Titulo1, Titulo),
+	getEntidadeById(Titulo1, ArraySeries, Serie),
+	nth0(6, Serie, Assistido1),
+	nth0(8, Serie, Avaliacao1),
+	nth0(9,Serie, Comentario1),
+
+	selectchk(Assistido1, Serie, Serie1),
+	writeln(Serie1),
+	nth0(6, Serie2, "true", Serie1),
+	writeln(Serie2),
+	selectchk(Avaliacao1, Serie2, Serie3),
+	writeln(Serie3),
+	nth0(8, Serie4, Avaliacao, Serie3),
+	writeln(Serie4),
+	selectchk(Comentario1, Serie4, Serie5),
+	writeln(Serie5),
+	nth0(9, Serie6, Comentario, Serie5),
+	selectchk(Serie, ArraySeries, Serie6, SeriesFinal),
+
 	limparCsvSeries,
 	escreverSeries(SeriesFinal).
 
-%Metodo responsavel pela avaliacao de uma serie
-darNotaASerie(Titulo, Avaliacao, Comentario) :- 
-	lerCsvRowList('Series.csv', ArraySeries),
-	getEntidadeById(Titulo, ArraySeries, Serie),
-	remover(Serie, ArraySeries, Series),
-    comentarSerie(Titulo, Comentario),
-	elementByIndex(8, Serie, avaliacao),
-	A is Avaliacao,
-	removeind(8, Serie, SerieAssistida),
-	concatenar(SerieAssistida, [A], SerieFinal),
-	concatenar(Series, [SerieFinal], SeriesFinal),
-	limparCsvSeries,
-	escreverSeries(SeriesFinal).
 
-% Metodo responsavel pelo comentario de uma serie
-comentarSerie(Titulo, Comentario) :- 
-	lerCsvRowList('Series.csv', ArraySeries),
-	getEntidadeById(Titulo, ArraySeries, Serie),
-	remover(Serie, ArraySeries, Series),
-	elementByIndex(9, Serie, comentario),
-	C is Comentario,
-	removeind(9, Serie, SerieAssistida),
-	concatenar(SerieAssistida, [C], SerieFinal),
-	concatenar(Series, [SerieFinal], SeriesFinal),
-	limparCsvSeries,
-	escreverSeries(SeriesFinal).
 
 
 updateSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario):-

@@ -7,7 +7,7 @@ eh_serie(Titulo, Result) :- serieExiste(Titulo, Result).
 get_titulo(Titulo, Result) :- getTitulo(Titulo, Result).
 
 % Metodo que verifica se a série já está cadastrada, caso nao esteja segue para o novo cadastro.
-add_serie(Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario) :- serieExiste(Titulo, R),
+add_serie(Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario,Result) :- serieExiste(Titulo, R),
     (R -> Result = "Erro: série já cadastrada!";
     adiciona_serie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result)).
 
@@ -17,7 +17,7 @@ adiciona_serie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, Epi
     resumoSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result).
 
 % Metodo responsavel por exibir o resumo dos dados de um filme.
-resumoSerie(  Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result):- 
+resumoSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result):- 
     string_concat('Título: ', Titulo, T),
     string_concat('\nDuração média por episódio: ', DuracaoMediaEpisodio, D),
     string_concat('\nGênero: ', Genero, G),
@@ -55,7 +55,7 @@ concluiTemporada(Titulo) :-
 
 % Metodo responsavel por concluir uma serie
 concluiSerie(Titulo, Avaliacao, Comentario) :- 
-    concluiSerie(Titulo, Avaliacao, Comentario).
+    conclui_Serie(Titulo, Avaliacao, Comentario).
 
 cadastraSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result):-
-    add_serie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario).
+    add_serie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario,Result).

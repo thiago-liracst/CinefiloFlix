@@ -166,10 +166,9 @@ recebeGeneroSerie(Titulo, DuracaoMediaEpisodio, Genero) :-
     fazCadastroSerie(Titulo, DuracaoMediaEpisodio, Genero, Produtora).
 
 fazCadastroSerie(Titulo, DuracaoMediaEpisodio, Genero,  Produtora):-
-   % atualizaSerie( Titulo, DuracaoMediaEpisodio, Genero, 0, 1, 0, 0, Produtora, 0, "Sem comentário", Resumo),
-    cadastraSerie( Titulo, DuracaoMediaEpisodio, Genero, 0, 1, 0, 0, Produtora, 0, "Sem comentário", Resumo),
+    cadastraSerie( Titulo, DuracaoMediaEpisodio, Genero, 0, 1, 0, "false", Produtora, -1, "Sem comentário", Resumo),
     msgResumoCadastroSerie(Resumo),
-    read(Opcao),
+    readStringInput(Opcao),
     retorna(Opcao, menu_principal).
 
 %Assistir mídia
@@ -234,16 +233,22 @@ finaliza_temporada(Id) :-
     menu_principal.
 
 finaliza_serie(Id) :-
-    avaliacaoSerieMsg ,
+    avaliacaoSerieMsg,
     readStringInput(AvaliacaoSerie),
-    recebeAvaliacaoSerie(AvaliacaoSerie),
-    concluiSerie(Id, Avaliacao, Comentario).
+    recebeAvaliacaoSerie(Id,AvaliacaoSerie).
 
-recebeAvaliacaoSerie("V") :- menu_principal.
-recebeAvaliacaoSerie(AvaliacaoSerie):- 
+recebeAvaliacaoSerie(_,"V") :- menu_principal.
+recebeAvaliacaoSerie(Id,AvaliacaoSerie):- 
     pedeComentarioSerieMsg,
     readStringInput(ComentarioSerie),
-    recebeComentarioSerie(AvaliacaoSerie,ComentarioSerie).
+    recebeComentarioSerie(Id,AvaliacaoSerie,ComentarioSerie).
+
+recebeComentarioSerie(_,_,"V") :- menu_principal.
+recebeComentarioSerie(Id,AvaliacaoSerie, ComentarioSerie) :-
+    concluiSerie(Id, AvaliacaoSerie, ComentarioSerie),
+    serieConcluidaMsg,
+    menu_principal.
+
 
 %Busca
 tela_busca :-
