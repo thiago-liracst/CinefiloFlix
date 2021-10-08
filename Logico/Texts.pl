@@ -177,6 +177,10 @@ avaliacaoSerieMsg :-
 pedeComentarioSerieMsg :-
     writeln("\n Por favor, insira um comentário sobre a série: ").
 
+serieConcluidaMsg :- 
+    writeln("\n Serie Concluida com Sucesso!!!\n").
+    
+
 %Recomendações
 
 opcoesRecomendacoes :-

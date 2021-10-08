@@ -9,9 +9,10 @@ addFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualiz
     close(File).
 
 % Verifica se o filme existe, lê o arquivo csv e chama o metodo verificaNaLista que vai ver se o filme está na lista
-filmeExiste( Titulo, Result):-
+filmeExiste(Titulo, Result):-
+	atom_string(Titulo1, Titulo),
     lerCsvRowList('Filmes.csv', Filmes),
-    verificaNaLista( Titulo, Filmes, Result).
+    verificaNaLista( Titulo1, Filmes, Result).
 
 % Retorna nome do filme a partir do título
 getTitulo( Titulo, Resposta):-
