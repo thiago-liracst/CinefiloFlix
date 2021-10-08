@@ -13,11 +13,12 @@
 
 
 main :-
+    read_file_to_string('files/logo.txt',Logo,[]),
+    writeln(Logo),
     menu_principal,
     halt.
 
-menu_principal :- read_file_to_string('files/logo.txt',Logo,[]),
-    writeln(Logo),
+menu_principal :- 
     opcoesMenuPrincipal,
     readStringInput(Opcao),
     escolheOpcoesMenuPrincipal(Opcao).
@@ -217,22 +218,22 @@ recebeIdSerie(Id) :-
     readStringInput(Opcao),
     escolheOpcoesAssistirSerie(Id, Opcao).
 
-escolheOpcoesAssistirSerie(Id,"1") :- finaliza_episodio.
-escolheOpcoesAssistirSerie(Id,"2") :- finaliza_temporada.
-escolheOpcoesAssistirSerie(Id,"3") :- finaliza_serie.
+escolheOpcoesAssistirSerie(Id,"1") :- finaliza_episodio(Id).
+escolheOpcoesAssistirSerie(Id,"2") :- finaliza_temporada(Id).
+escolheOpcoesAssistirSerie(Id,"3") :- finaliza_serie(Id).
 
-finaliza_episodio :-
+finaliza_episodio(Id) :-
     concluiEpisodio(Id),
     episodioFinalizadoMsg,
     menu_principal.
     
 
-finaliza_temporada :-
+finaliza_temporada(Id) :-
     concluiTemporada(Id),
     temporadaFinalizadaMsg,
     menu_principal.
 
-finaliza_serie :-
+finaliza_serie(Id) :-
     avaliacaoSerieMsg ,
     readStringInput(AvaliacaoSerie),
     recebeAvaliacaoSerie(AvaliacaoSerie),

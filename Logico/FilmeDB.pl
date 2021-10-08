@@ -32,16 +32,6 @@ concluiFilme(Titulo, Avaliacao, Comentario) :- lerCsvRowList('Filmes.csv', Array
 	select(Avaliacao1, Filme2, Avaliacao, Filme3),
 	select(Comentario1, Filme3, Comentario, Filme4),
 	selectchk(Filme, ArrayFilmes, Filme4, FilmesFinal),
-	
-	%remover(Filme, ArrayFilmes, Filmes),
-    %visualizaFilme(Titulo),
-	%darNotaAoFilme(Titulo, Avaliacao, Comentario),
-	%elementByIndex(5, Filme, Assistido),
-	%A is 1,
-	%removeind(5, Filme, FilmeAssistido),
-	%concatenar(FilmeAssistido, [A], FilmeFinal),
-	%concatenar(Filmes, [FilmeFinal], FilmesFinal),
-	
 	limparCsvFilmes,
 	escreverFilmes(FilmesFinal).
 
@@ -115,3 +105,12 @@ escreverFilmes([Filme|T]) :-
     elementByIndex(9, Filme, Comentario),
     addFilme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario),
 	escreverFilmes(T).
+
+%getTituloFilme(Filme, R):- elementByIndex(0,Filme,Titulo), R = Titulo.
+%getVisualizacoes(Filme,R):- elementByIndex(6,Filme,Visualizacoes), R = Visualizacoes.
+%getAvaliacao(Filme,R) :- elementByIndex(8,Filme,Avaliacao), R = Avaliacao.
+%getComentario(Filme,R) :- elementByIndex(9,Filme,Comentario), R = Comentario.
+%getFilmebyId(Titulo,R) :- lerCsvRowList('Filmes.csv', Filmes),
+						%atom_string(Id,Titulo),
+						%getEntidadeById(Id,Filmes,Filme),
+						%R = Filme.

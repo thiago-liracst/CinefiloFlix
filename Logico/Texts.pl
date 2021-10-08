@@ -121,7 +121,6 @@ confirmacaoCadastroSerieMsg(Serie) :-
 %Assistir
 
 opcoesAssistirMsg :-
-    clear,
     writeln("O que você deseja, cinéfilo?\n"),
     writeln("⓵ Assistir Filme"),
     writeln("⓶ Assistir Série"),

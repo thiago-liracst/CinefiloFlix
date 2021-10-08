@@ -45,8 +45,9 @@ atualizaSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, Epis
     resumoSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result).
 
 % Metodo responsavel por concluir um episodio de uma serie
-concluiEpisodio(Titulo) :- 
-    concluiEpisodioSerie(Titulo).
+concluiEpisodio(Id) :- 
+    writeln(Id),
+    concluiEpisodioSerie(Id).
 
 % Metodo responsavel por concluir uma temporada de uma serie
 concluiTemporada(Titulo) :- 

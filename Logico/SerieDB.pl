@@ -20,21 +20,22 @@ getTitulo( Titulo, Resposta):-
 
 % Conclui episodio da serie
 concluiEpisodioSerie(Titulo) :-
-	lerCsvRowList(‘Series.csv’, ArraySeries),
-	getEntidadeById(Titulo, ArraySeries, Serie),
-	remover(Serie, ArraySeries, Series),
-	incrementaEpisodiosTotaisSerie(Titulo),
-	elementByIndex(3, Serie, Episodios),
-	E is Episodios+1,
-	removeind(3, Serie, EpisodioConcluido),
-	concatenar(EpisodioConcluido, [E], SerieFinal),
-	concatenar(Series, [SerieFinal], SeriesFinal),
+	lerCsvRowList('Series.csv', ArraySeries),
+	atom_string(Titulo1,Titulo),
+	getEntidadeById(Titulo1, ArraySeries, Serie),
+	nth0(3,Serie,Episodios),
+	nth0(5,Serie,EpisodiosTotais),
+	E is Episodios + 1,
+	ET is EpisodiosTotais + 1,
+	select(Episodios, Serie, E, Serie1),
+	select(EpisodiosTotais, Serie1, ET, Serie2),
+	selectchk(Serie, ArraySeries, Serie2, SeriesFinal),
 	limparCsvSeries,
 	escreverSeries(SeriesFinal).
 
 % Conclui temporada da serie
 concluiTemporadaSerie(Titulo) :-
-	lerCsvRowList(‘Series.csv’, ArraySeries),
+	lerCsvRowList('Series.csv', ArraySeries),
 	getEntidadeById(Titulo, ArraySeries, Serie),
 	remover(Serie, ArraySeries, Series),
 	zeraEpisodiosSerie(Titulo),
@@ -48,7 +49,7 @@ concluiTemporadaSerie(Titulo) :-
 
 % Zera episodios da serie
 zeraEpisodiosSerie(Titulo) :-
-	lerCsvRowList(‘Series.csv’, ArraySeries),
+	lerCsvRowList('Series.csv', ArraySeries),
 	getEntidadeById(Titulo, ArraySeries, Serie),
 	remover(Serie, ArraySeries, Series),
 	elementByIndex(3, Serie, Episodios),
@@ -61,7 +62,7 @@ zeraEpisodiosSerie(Titulo) :-
 
 % Incrementa episodios totais da serie
 incrementaEpisodiosTotaisSerie(Titulo) :-
-	lerCsvRowList(‘Series.csv’, ArraySeries),
+	lerCsvRowList('Series.csv', ArraySeries),
 	getEntidadeById(Titulo, ArraySeries, Serie),
 	remover(Serie, ArraySeries, Series),
 	elementByIndex(5, Serie, EpisodiosTotais),
@@ -74,7 +75,7 @@ incrementaEpisodiosTotaisSerie(Titulo) :-
 
 % Conclui serie
 concluiSerie(Titulo, Avaliacao, Comentario) :- 
-	lerCsvRowList(Series.csv’, ArraySeries),
+	lerCsvRowList('Series.csv', ArraySeries),
 	getEntidadeById(Titulo, ArraySeries, Serie),
 	remover(Serie, ArraySeries, Series),
 	darNotaASerie(Titulo, Avaliacao, Comentario),
@@ -88,7 +89,7 @@ concluiSerie(Titulo, Avaliacao, Comentario) :-
 
 %Metodo responsavel pela avaliacao de uma serie
 darNotaASerie(Titulo, Avaliacao, Comentario) :- 
-	lerCsvRowList(Series.csv’, ArraySeries),
+	lerCsvRowList('Series.csv', ArraySeries),
 	getEntidadeById(Titulo, ArraySeries, Serie),
 	remover(Serie, ArraySeries, Series),
     comentarSerie(Titulo, Comentario),
@@ -102,7 +103,7 @@ darNotaASerie(Titulo, Avaliacao, Comentario) :-
 
 % Metodo responsavel pelo comentario de uma serie
 comentarSerie(Titulo, Comentario) :- 
-	lerCsvRowList(‘Series.csv’, ArraySeries),
+	lerCsvRowList('Series.csv', ArraySeries),
 	getEntidadeById(Titulo, ArraySeries, Serie),
 	remover(Serie, ArraySeries, Series),
 	elementByIndex(9, Serie, comentario),
@@ -128,7 +129,7 @@ limparCsvSeries :-
 
 % Escreve no csv todas as series do array passado como parâmetro
 escreverSeries([]).
-escreverSeries([H|T]) :-
+escreverSeries([Filme|T]) :-
     elementByIndex(0, Filme, Titulo),
     elementByIndex(1, Filme, DuracaoMediaEpisodio),
     elementByIndex(2, Filme, Genero),
@@ -139,4 +140,5 @@ escreverSeries([H|T]) :-
     elementByIndex(7, Filme, Produtora),
     elementByIndex(8, Filme, Avaliacao),
     elementByIndex(9, Filme, Comentario),
-    updateSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario).
+    addSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario),
+	escreverSeries(T).
