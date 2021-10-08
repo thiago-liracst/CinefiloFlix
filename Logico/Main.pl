@@ -198,9 +198,10 @@ recebeAvaliacaoFilme(_,"V") :- menu_principal.
 recebeAvaliacaoFilme(Id) :- 
     pedeComentarioFilmeMsg ,
     readStringInput(Comentario),
-    concluiFilme(Id).
+    concluiFilme(Id, Avaliacao, Comentario, Result),
+    writeln(Result).
 
-assisteFilme(Id)-:
+concluiFilme(Id)-:
    confirmacaoAssistirFilmeMsg.
 
  tela_assiste_serie:-
@@ -231,10 +232,10 @@ finaliza_temporada :-
     menu_principal.
 
 finaliza_serie :-
-    concluiSerie(Id)
     avaliacaoSerieMsg ,
     readStringInput(AvaliacaoSerie),
-    recebeAvaliacaoSerie(AvaliacaoSerie).
+    recebeAvaliacaoSerie(AvaliacaoSerie),
+    concluiSerie(Id, Avaliacao, Comentario).
 
 recebeAvaliacaoSerie("V") :- menu_principal.
 recebeAvaliacaoSerie(AvaliacaoSerie):- 

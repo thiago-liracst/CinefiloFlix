@@ -53,8 +53,8 @@ concluiTemporada(Titulo) :-
     concluiTemporadaSerie(Titulo).
 
 % Metodo responsavel por concluir uma serie
-concluiSerie(Titulo) :- 
-    concluiSerie(Titulo).
+concluiSerie(Titulo, Avaliacao, Comentario) :- 
+    concluiSerie(Titulo, Avaliacao, Comentario).
 
 cadastraSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result):-
     add_serie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario).
