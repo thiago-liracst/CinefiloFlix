@@ -1,5 +1,6 @@
 :-use_module(library(csv)).
-:-include('Arquivos.pl').
+:- use_module(library(lists)).
+:- include('Arquivos.pl').
 
 % Adiciona um filme no arquivo
 addFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario) :-
@@ -18,17 +19,29 @@ getTitulo( Titulo, Resposta):-
     getEntidadeById( Titulo, Filmes, Filme),
   elementByIndex(1, Filme, Resposta).
 
-concluiFilme(Titulo, Avaliacao, Comentario) :- 
-	lerCsvRowList('Filmes.csv', ArrayFilmes),
-	getEntidadeById(Titulo, ArrayFilmes, Filme),
-	remover(Filme, ArrayFilmes, Filmes),
-    visualizaFilme(Titulo),
-	darNotaAoFilme(Titulo, Avaliacao, Comentario),
-	elementByIndex(5, Filme, Assistido),
-	A is 1,
-	removeind(5, Filme, FilmeAssistido),
-	concatenar(FilmeAssistido, [A], FilmeFinal),
-	concatenar(Filmes, [FilmeFinal], FilmesFinal),
+concluiFilme(Titulo, Avaliacao, Comentario) :- lerCsvRowList('Filmes.csv', ArrayFilmes),
+	atom_string(Titulo1, Titulo),
+	getEntidadeById(Titulo1, ArrayFilmes, Filme),
+	nth0(5, Filme, Assistido1),
+	nth0(6, Filme, Visualizacoes),
+	nth0(8, Filme, Avaliacao1),
+	nth0(9, Filme, Comentario1),
+	V is Visualizacoes + 1,
+	select(Assistido1, Filme, 1, Filme1),
+	select(Visualizacoes, Filme1, V, Filme2),
+	select(Avaliacao1, Filme2, Avaliacao, Filme3),
+	select(Comentario1, Filme3, Comentario, Filme4),
+	selectchk(Filme, ArrayFilmes, Filme4, FilmesFinal),
+	
+	%remover(Filme, ArrayFilmes, Filmes),
+    %visualizaFilme(Titulo),
+	%darNotaAoFilme(Titulo, Avaliacao, Comentario),
+	%elementByIndex(5, Filme, Assistido),
+	%A is 1,
+	%removeind(5, Filme, FilmeAssistido),
+	%concatenar(FilmeAssistido, [A], FilmeFinal),
+	%concatenar(Filmes, [FilmeFinal], FilmesFinal),
+	
 	limparCsvFilmes,
 	escreverFilmes(FilmesFinal).
 
@@ -89,7 +102,7 @@ limparCsvFilmes :-
 
 % Escreve no csv todos os filmes do array passado como parâmetro
 escreverFilmes([]).
-escreverFilmes([H|T]) :-
+escreverFilmes([Filme|T]) :-
     elementByIndex(0, Filme, Titulo),
     elementByIndex(1, Filme, Diretor),
     elementByIndex(2, Filme, AnoDeLancamento),
@@ -100,4 +113,5 @@ escreverFilmes([H|T]) :-
     elementByIndex(7, Filme, Produtora),
     elementByIndex(8, Filme, Avaliacao),
     elementByIndex(9, Filme, Comentario),
-    updateFilme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario).
+    addFilme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario),
+	escreverFilmes(T).

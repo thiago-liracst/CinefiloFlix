@@ -195,14 +195,15 @@ recebeIdFilme(Id) :-
     recebeAvaliacaoFilme(Id, Avaliacao).
 
 recebeAvaliacaoFilme(_,"V") :- menu_principal.
-recebeAvaliacaoFilme(Id) :- 
-    pedeComentarioFilmeMsg ,
+recebeAvaliacaoFilme(Id,Avaliacao) :- 
+    pedeComentarioFilmeMsg,
     readStringInput(Comentario),
-    concluiFilme(Id, Avaliacao, Comentario, Result),
-    writeln(Result).
+    concluiFilme(Id, Avaliacao, Comentario,Result),
+    writeln(Result),
+    tela_assistir_midia.
 
-concluiFilme(Id)-:
-   confirmacaoAssistirFilmeMsg.
+%concluiFilme(Id) :-
+   %confirmacaoAssistirFilmeMsg.
 
  tela_assiste_serie:-
     %tem que listar as series 
