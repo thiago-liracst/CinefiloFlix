@@ -44,5 +44,9 @@ atualizaFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Vis
     updateFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario),
     resumoFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result).
 
+% Metodo responsavel por marcar um filme como concluido
+concluiFilme(Titulo, Result) :- 
+    concluiFilme(Titulo).
+
 cadastraFilme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result):-
     add_filme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result).

@@ -195,13 +195,13 @@ recebeIdFilme(Id) :-
     recebeAvaliacaoFilme(Id, Avaliacao).
 
 recebeAvaliacaoFilme(_,"V") :- menu_principal.
-recebeAvaliacaoFilme(Id, Avaliacao) :- 
+recebeAvaliacaoFilme(Id) :- 
     pedeComentarioFilmeMsg ,
     readStringInput(Comentario),
-    assisteFilme(Id, Avaliacao, Comentario).
+    concluiFilme(Id).
 
-%assisteFilme(Id, Avaliacao, Comentario)-:
- %   confirmacaoAssistirFilmeMsg.
+assisteFilme(Id)-:
+   confirmacaoAssistirFilmeMsg.
 
  tela_assiste_serie:-
     %tem que listar as series 
@@ -220,15 +220,18 @@ escolheOpcoesAssistirSerie(Id,"2") :- finaliza_temporada.
 escolheOpcoesAssistirSerie(Id,"3") :- finaliza_serie.
 
 finaliza_episodio :-
+    concluiEpisodio(Id),
     episodioFinalizadoMsg,
     menu_principal.
     
 
 finaliza_temporada :-
+    concluiTemporada(Id),
     temporadaFinalizadaMsg,
     menu_principal.
 
 finaliza_serie :-
+    concluiSerie(Id)
     avaliacaoSerieMsg ,
     readStringInput(AvaliacaoSerie),
     recebeAvaliacaoSerie(AvaliacaoSerie).

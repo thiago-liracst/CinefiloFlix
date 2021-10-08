@@ -18,6 +18,20 @@ getTitulo( Titulo, Resposta):-
     getEntidadeById( Titulo, Filmes, Filme),
   elementByIndex(1, Filme, Resposta).
 
+concluiFilme(Titulo) :- 
+	lerCsvRowList(Filmes.csv’, ArrayFilmes),
+	getEntidadeById(Titulo, ArrayFilmes, Filme),
+	remover(Filme, ArrayFilmes, Filmes),
+	%avaliaFilme(Titulo),
+	elementByIndex(5, Filme, Assistido),
+	A is 1,
+	removeind(7, Filme, FilmeAssistido),
+	concatenar(FilmeAssistido, [A], FilmeFinal),
+	concatenar(Filmes, [FilmeFinal], FilmesFinal),
+	limparCsvFilmes,
+	escreverFilmes(FilmesFinal).
+  
+
 updateFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario):-
     open('./dados/Filmes.csv', write, File),
     write(File, ''),
