@@ -1,4 +1,5 @@
 :- include('SerieDB.pl').
+:- include('Arquivos.pl').
 
 % Metodo responsavel por verificar se uma série está cadastrada.
 eh_serie(Titulo, Result) :- serieExiste(Titulo, Result).
@@ -15,6 +16,28 @@ add_serie(Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, Episodios
 adiciona_serie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result) :- 
     addSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario),
     resumoSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result).
+
+% Método responsável por listar todas as séries cadastradas
+listaSeries() :- 
+    getSeries(Result),
+    exibeSeries(Result).
+
+% Método responsável por exibir todas as séries
+exibeSeries([]).
+exibeSeries([H|T]) :- 
+    toStringSerie(H),
+    exibeSeries(T).
+
+% Método responsável por listar as avaliações de todas as séries cadastradas
+listaAvaliacoesSeries() :- 
+    getSeries(Result),
+    exibeAvaliacoesSeries(Result).
+
+% Método responsável por exibir as avaliações de todas as séries
+exibeAvaliacoesSeries([]).
+exibeAvaliacoesSeries([H|T]) :- 
+    toStringAvaliacaoSerie(H),
+    exibeAvaliacoesSeries(T).
 
 % Metodo responsavel por exibir o resumo dos dados de um filme.
 resumoSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result):- 
@@ -38,6 +61,38 @@ resumoSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, Episod
     string_concat(R7, P, R8),
     string_concat(R8, AV, R9),
     string_concat(R9, C, Result).
+
+% Metodo responsavel por exibir a representação textual de uma série.
+toStringSerie(Filme):- 
+    elementByIndex(0, Filme, Titulo),
+    elementByIndex(1, Filme, DuracaoMediaEpisodio),
+    elementByIndex(2, Filme, Genero),
+    elementByIndex(3, Filme, Episodios),
+    elementByIndex(4, Filme, Temporadas),
+    elementByIndex(5, Filme, EpisodiosTotais),
+    elementByIndex(6, Filme, Assistido),
+    elementByIndex(7, Filme, Produtora),
+    elementByIndex(8, Filme, Avaliacao),
+    elementByIndex(9, Filme, Comentario),
+    write('Título: '), write(Titulo),
+    write(' - Duração média por episódio: '), write(DuracaoMediaEpisodio),
+    write(' - Gênero: '), write(Genero),
+    write(' - Episódios: '), write(Episodios),
+    write(' - Temporadas: '), write(Temporadas),
+    write(' - Episódios totais: '), write(EpisodiosTotais),
+    write(' - Assistido: '), write(Assistido),
+    write(' - Produtora: '), write(Produtora),
+    write(' - Avaliação: '), write(Avaliacao),
+    write(' - Comentário: '), write(Comentario), nl.
+
+% Metodo responsavel por exibir o texto referente à avaliação de uma série.
+toStringAvaliacaoSerie(Filme):- 
+    elementByIndex(0, Filme, Titulo),
+    elementByIndex(8, Filme, Avaliacao),
+    elementByIndex(9, Filme, Comentario),
+    write('Título: '), write(Titulo),
+    write(' - Avaliação: '), write(Avaliacao),
+    write(' - Comentário: '), write(Comentario), nl.
 
 % Metodo responsavel por atualizar dados de um filme
 atualizaSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result):-
