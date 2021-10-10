@@ -92,10 +92,11 @@ toStringAvaliacaoFilme(Filme):-
     elementByIndex(2, Filme, AnoDeLancamento),
     elementByIndex(8, Filme, Avaliacao),
     elementByIndex(9, Filme, Comentario),
+    (Avaliacao = 0 -> write('');
     write('Título: '), write(Titulo),
     write(' - Ano De Lançamento: '), write(AnoDeLancamento),
     write(' - Avaliação: '), write(Avaliacao),
-    write(' - Comentário: '), write(Comentario), nl.
+    write(' - Comentário: '), write(Comentario), nl).
 
 % Metodo responsavel por atualizar dados de um filme
 atualizaFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result):-

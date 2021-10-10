@@ -286,10 +286,10 @@ dashBoardSeries :-
 %Lista
 
 opcoesListaMsg :-
-    writeln("● ○ ◉ LISTA DE AVALIAÇÕES ◉ ○ ●"),
+    writeln("\n● ○ ◉ LISTA DE AVALIAÇÕES ◉ ○ ●"),
     writeln("\nQue tipo de avaliações você gostaria de ver, cinéfilo? \n"),
-    writeln("⓵ Avaliações de séries"),
-    writeln("⓶ Avaliações de filmes"),
+    writeln("⓵ Avaliações de filmes"),
+    writeln("⓶ Avaliações de séries"),
     writeln("⓷ Voltar ao menu principal\n").
 
 listaDeFilmeMsg :-
