@@ -116,8 +116,9 @@ getFilmebyId(Titulo,R) :- lerCsvRowList('Filmes.csv', Filmes),
 							atom_string(Id,Titulo),
 							getEntidadeById(Id,Filmes,Filme),
 							R = Filme.
+getDuracao(Filme,R) :- elementByIndex(4,Filme,R).
 
 getPairsAvaliacaoFilme(Pares) :- lerCsvRowList('Filmes.csv',ArrayFilmes),
 									map_list_to_pairs(getAvaliacao, ArrayFilmes, Pares).
 
-									
+getFilmes(Filmes) :- lerCsvRowList('Filmes.csv', Filmes).

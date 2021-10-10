@@ -15,11 +15,17 @@ listarFilmesAvaliados([K-V|T],I) :- getTituloFilme(V,Titulo),
                                         I1 is I + 1,
                                         listarFilmesAvaliados(T,I1)).
                                             
-                                            
-                                                                      
+horasAssitidasFilmes :- 
+    getFilmes(Filmes),
+    calculaHorasAssistidas(Filmes,0,Result),
+    divmod(Result, 60, Horas, Minutos),
+    format('O tempo total gasto assistindo filmes é de ~d horas e ~d minutos.\n', [Horas,Minutos]).
+                         
 
-horasAssitidasFilmes :-
-    writeln("A quantidade total de horas assistidas aparecerá aqui.").
+calculaHorasAssistidas([],A,Result) :- A = Result.
+calculaHorasAssistidas([H|T],A,Result) :- getDuracao(H,Duracao),
+                                        Horas is A + Duracao,
+                                        calculaHorasAssistidas(T,Horas,Result).
 
 principaisGenerosFilmes :- 
     writeln("A lista com os principais generos aparecerá aqui.").
