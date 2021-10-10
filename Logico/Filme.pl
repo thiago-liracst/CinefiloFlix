@@ -45,9 +45,16 @@ atualizaFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Vis
     resumoFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result).
 
 % Metodo responsavel por marcar um filme como concluido
-concluiFilme(Titulo, Avaliacao, Comentario, Result) :- 
+concluiFilme(Titulo, Avaliacao, Comentario, R) :- 
     concluiFilme(Titulo, Avaliacao, Comentario),
-    Result = "Filme concluído com sucesso!".
+    %getFilmebyId(Titulo,Filme),
+    %writeln(Filme),
+    %getVisualizacoes(Filme,Visualizacoes),
+    %writeln(Visualizacoes),
+    %atomics_to_string([Titulo, Visualizacoes, Avaliacao, Comentario], '\n', String),
+    %writeln(String).
+    R = "Filme concluido com sucesso.".
+    
 
 cadastraFilme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result):-
     add_filme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result).

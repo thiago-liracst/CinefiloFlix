@@ -198,9 +198,10 @@ recebeAvaliacaoFilme(_,"V") :- menu_principal.
 recebeAvaliacaoFilme(Id,Avaliacao) :- 
     pedeComentarioFilmeMsg,
     readStringInput(Comentario),
-    concluiFilme(Id, Avaliacao, Comentario,Result),
-    writeln(Result),
+    concluiFilme(Id, Avaliacao, Comentario,R),
+    writeln(R),
     tela_assistir_midia.
+    
 
 %concluiFilme(Id) :-
    %confirmacaoAssistirFilmeMsg.

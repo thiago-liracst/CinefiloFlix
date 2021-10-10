@@ -1,5 +1,6 @@
 :-use_module(library(csv)).
 :- use_module(library(lists)).
+:- use_module(library(pairs)).
 :- include('Arquivos.pl').
 
 % Adiciona um filme no arquivo
@@ -107,11 +108,16 @@ escreverFilmes([Filme|T]) :-
     addFilme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario),
 	escreverFilmes(T).
 
-%getTituloFilme(Filme, R):- elementByIndex(0,Filme,Titulo), R = Titulo.
-%getVisualizacoes(Filme,R):- elementByIndex(6,Filme,Visualizacoes), R = Visualizacoes.
-%getAvaliacao(Filme,R) :- elementByIndex(8,Filme,Avaliacao), R = Avaliacao.
-%getComentario(Filme,R) :- elementByIndex(9,Filme,Comentario), R = Comentario.
-%getFilmebyId(Titulo,R) :- lerCsvRowList('Filmes.csv', Filmes),
-						%atom_string(Id,Titulo),
-						%getEntidadeById(Id,Filmes,Filme),
-						%R = Filme.
+getTituloFilme(Filme, R):- elementByIndex(0,Filme,Titulo), R = Titulo.
+getVisualizacoes(Filme,R):- elementByIndex(6,Filme,Visualizacoes), R = Visualizacoes.
+getAvaliacao(Filme,R) :- elementByIndex(8,Filme,Avaliacao), R = Avaliacao.
+getComentario(Filme,R) :- elementByIndex(9,Filme,Comentario), R = Comentario.
+getFilmebyId(Titulo,R) :- lerCsvRowList('Filmes.csv', Filmes),
+							atom_string(Id,Titulo),
+							getEntidadeById(Id,Filmes,Filme),
+							R = Filme.
+
+getPairsAvaliacaoFilme(Pares) :- lerCsvRowList('Filmes.csv',ArrayFilmes),
+									map_list_to_pairs(getAvaliacao, ArrayFilmes, Pares).
+
+									

@@ -142,10 +142,9 @@ avaliacaoFilmeMsg :-
 pedeComentarioFilmeMsg :-
     writeln("\nPor favor, insira um comentário sobre o filme: ").
 
-confirmacaoAssistirFilmeMsg(Filme) :-
+confirmacaoAssistirFilmeMsg(R) :-
     writeln("Filme concluído!"),
-    writelnln(Filme),
-    eAgoraMsg.
+    writeln(R).
 
 %Assistir serie
 
