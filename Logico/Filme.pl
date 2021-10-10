@@ -17,6 +17,47 @@ adiciona_filme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Vi
     addFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario),
     resumoFilme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario, Result).
 
+% Método responsável pela busca de um filme pelo título
+buscaFilmePeloTitulo(Titulo) :- 
+    getFilmes(Filmes),
+    getEntidadeById(Titulo, Filmes, Filme),
+    toStringFilme(Filme).
+
+% Método responsável pela busca de um filme pelo gênero
+buscaFilmePeloGenero(Genero) :-
+    getFilmes(Filmes),
+    procuraFilmePeloGenero(Genero, Filmes).
+
+% Método responsável por exibir todos os filmes de um determinado gênero
+procuraFilmePeloGenero(Genero, []).
+procuraFilmePeloGenero(Genero, [H|T]) :-
+    elementByIndex(3, H, G),
+    (Genero == G -> toStringFilme(H), procuraFilmePeloGenero(Genero, T);
+                    write(''), procuraFilmePeloGenero(Genero, T)).
+
+% Método responsável pela busca de um filme pelo(a) diretor(a)
+buscaFilmePeloDiretor(Diretor) :-
+    getFilmes(Filmes),
+    procuraFilmePeloDiretor(Diretor, Filmes).
+
+% Método responsável por exibir todos os filmes de um(a) determinado(a) diretor(a)
+procuraFilmePeloDiretor(Diretor, []).
+procuraFilmePeloDiretor(Diretor, [H|T]) :-
+    elementByIndex(1, H, D),
+    (Diretor == D -> toStringFilme(H), procuraFilmePeloDiretor(Diretor, T);
+                    write(''), procuraFilmePeloDiretor(Diretor, T)).
+
+% Método responsável pela busca de um filme pela produtora
+buscaFilmePelaProdutora(Produtora) :-
+    getFilmes(Filmes),
+    procuraFilmePelaProdutora(Produtora, Filmes).
+
+% Método responsável por exibir todos os filmes de uma determinada produtora
+procuraFilmePelaProdutora(Produtora, []).
+procuraFilmePelaProdutora(Produtora, [H|T]) :-
+    elementByIndex(7, H, P),
+    (Produtora == P -> toStringFilme(H), procuraFilmePelaProdutora(Produtora, T);
+                    write(''), procuraFilmePelaProdutora(Produtora, T)).
 
 % Método responsável por listar todos os filmes cadastrados
 listaFilmes() :- 
@@ -92,7 +133,7 @@ toStringAvaliacaoFilme(Filme):-
     elementByIndex(2, Filme, AnoDeLancamento),
     elementByIndex(8, Filme, Avaliacao),
     elementByIndex(9, Filme, Comentario),
-    (Avaliacao = 0 -> write('');
+    (Avaliacao == 0 -> write('');
     write('Título: '), write(Titulo),
     write(' - Ano De Lançamento: '), write(AnoDeLancamento),
     write(' - Avaliação: '), write(Avaliacao),
