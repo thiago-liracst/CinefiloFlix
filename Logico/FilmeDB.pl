@@ -107,11 +107,5 @@ escreverFilmes([Filme|T]) :-
     addFilme(Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Visualizacoes, Produtora, Avaliacao, Comentario),
 	escreverFilmes(T).
 
-%getTituloFilme(Filme, R):- elementByIndex(0,Filme,Titulo), R = Titulo.
-%getVisualizacoes(Filme,R):- elementByIndex(6,Filme,Visualizacoes), R = Visualizacoes.
-%getAvaliacao(Filme,R) :- elementByIndex(8,Filme,Avaliacao), R = Avaliacao.
-%getComentario(Filme,R) :- elementByIndex(9,Filme,Comentario), R = Comentario.
-%getFilmebyId(Titulo,R) :- lerCsvRowList('Filmes.csv', Filmes),
-						%atom_string(Id,Titulo),
-						%getEntidadeById(Id,Filmes,Filme),
-						%R = Filme.
+getFilmes(Result) :- 
+	lerCsvRowList('Filmes.csv', Result).
