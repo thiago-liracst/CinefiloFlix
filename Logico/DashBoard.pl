@@ -1,4 +1,5 @@
 :- use_module(library(pairs)).
+:- use_module(library(lists)).
 :- include('FilmeDB.pl').
 
 filmesMelhorAvaliados :- getPairsAvaliacaoFilme(Pares),
@@ -11,11 +12,11 @@ listarFilmesAvaliados([],_).
 listarFilmesAvaliados(_,5).
 listarFilmesAvaliados([K-V|T],I) :- getTituloFilme(V,Titulo),
                                         (K =< 0 -> listarFilmesAvaliados(T,I);
-                                        format('~d - ~s', [K,Titulo]),nl,
+                                        format('~d. ~s - ~d', [I + 1,Titulo,K]),nl,
                                         I1 is I + 1,
                                         listarFilmesAvaliados(T,I1)).
                                             
-horasAssitidasFilmes :- 
+horasAssitidasFilmes :- writeln("Principais Generos: \n"),
     getFilmes(Filmes),
     calculaHorasAssistidas(Filmes,0,Result),
     divmod(Result, 60, Horas, Minutos),
@@ -28,7 +29,21 @@ calculaHorasAssistidas([H|T],A,Result) :- getDuracao(H,Duracao),
                                         calculaHorasAssistidas(T,Horas,Result).
 
 principaisGenerosFilmes :- 
-    writeln("A lista com os principais generos aparecerá aqui.").
+    getFilmes(Filmes),
+    getListaGenerosFilme(Filmes,[],ListaGeneros),
+    msort(ListaGeneros, Sorted),
+    agrupaGeneros(Sorted,[],"",0,R),
+    selectchk(0-"", R, R1),
+    keysort(R1, Result),
+    exibirPrincipaisgeneros(0,Result).
+
+exibirPrincipaisgeneros(_,[]).
+exibirPrincipaisgeneros(5,_).
+exibirPrincipaisgeneros(I,[H|T]) :- 
+    H = K-V,
+    format('~d. ~s - ~d\n', [I + 1,V,K]),
+    exibirPrincipaisgeneros(I + 1,T).
+    
 
 principaisDiretores :- 
     writeln("A lista com os principais diretores aparecerá aqui.").

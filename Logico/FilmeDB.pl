@@ -117,8 +117,31 @@ getFilmebyId(Titulo,R) :- lerCsvRowList('Filmes.csv', Filmes),
 							getEntidadeById(Id,Filmes,Filme),
 							R = Filme.
 getDuracao(Filme,R) :- elementByIndex(4,Filme,R).
+getGenero(Filme,R) :- elementByIndex(3,Filme,R).
+getAssistido(Filme,R) :- elementByIndex(5,Filme,R).
 
 getPairsAvaliacaoFilme(Pares) :- lerCsvRowList('Filmes.csv',ArrayFilmes),
 									map_list_to_pairs(getAvaliacao, ArrayFilmes, Pares).
 
 getFilmes(Filmes) :- lerCsvRowList('Filmes.csv', Filmes).
+
+
+
+getListaGenerosFilme([],A,A).
+getListaGenerosFilme([H|T],A,Result):- 
+	getGenero(H,Genero),
+	string_lower(Genero, G),
+	getAssistido(H,Assistido),
+	((Assistido =:= 1) -> append(A, [G], A1),getListaGenerosFilme(T,A1,Result);
+	getListaGenerosFilme(T,A,Result)).
+
+
+
+
+agrupaGeneros([],Pares,GeneroAnterior,I,Result) :- 
+	append(Pares,[I-GeneroAnterior],Result).
+
+agrupaGeneros([H|T],Pares,GeneroAnterior,I,Result):- 
+		((H == GeneroAnterior) -> I1 is I + 1, P1 = Pares;
+		append(Pares,[I-GeneroAnterior],P1),
+		agrupaGeneros(T,P1,H,1,Result)).
