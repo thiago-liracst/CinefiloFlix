@@ -16,7 +16,7 @@ listarFilmesAvaliados([K-V|T],I) :- getTituloFilme(V,Titulo),
                                         I1 is I + 1,
                                         listarFilmesAvaliados(T,I1)).
                                             
-horasAssitidasFilmes :- writeln("Principais Generos: \n"),
+horasAssitidasFilmes :-
     getFilmes(Filmes),
     calculaHorasAssistidas(Filmes,0,Result),
     divmod(Result, 60, Horas, Minutos),
@@ -28,7 +28,7 @@ calculaHorasAssistidas([H|T],A,Result) :- getDuracao(H,Duracao),
                                         Horas is A + Duracao,
                                         calculaHorasAssistidas(T,Horas,Result).
 
-principaisGenerosFilmes :- 
+principaisGenerosFilmes :- writeln("Principais Generos: \n"),
     getFilmes(Filmes),
     getListaGenerosFilme(Filmes,[],ListaGeneros),
     msort(ListaGeneros, Sorted),
