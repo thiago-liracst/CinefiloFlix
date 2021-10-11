@@ -66,15 +66,10 @@ conclui_Serie(Titulo, Avaliacao, Comentario) :-
 	nth0(9,Serie, Comentario1),
 
 	selectchk(Assistido1, Serie, Serie1),
-	writeln(Serie1),
 	nth0(6, Serie2, "true", Serie1),
-	writeln(Serie2),
 	selectchk(Avaliacao1, Serie2, Serie3),
-	writeln(Serie3),
 	nth0(8, Serie4, Avaliacao, Serie3),
-	writeln(Serie4),
 	selectchk(Comentario1, Serie4, Serie5),
-	writeln(Serie5),
 	nth0(9, Serie6, Comentario, Serie5),
 	selectchk(Serie, ArraySeries, Serie6, SeriesFinal),
 
