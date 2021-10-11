@@ -17,6 +17,40 @@ adiciona_serie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, Epi
     addSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario),
     resumoSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario, Result).
 
+% Método responsável pela busca de uma série pelo título
+buscaSeriePeloTitulo(Titulo) :- 
+    getSeries(Series),
+    atom_string(Result, Titulo),
+    getEntidadeById(Result, Series, Serie),
+    toStringSerie(Serie).
+
+% Método responsável pela busca de uma série pelo gênero
+buscaSeriePeloGenero(Genero) :-
+    getSeries(Series),
+    procuraSeriePeloGenero(Genero, Series).
+
+% Método responsável por exibir todas as séries de um determinado gênero
+procuraSeriePeloGenero(Genero, []).
+procuraSeriePeloGenero(Genero, [H|T]) :-
+    elementByIndex(2, H, G),
+    atom_string(G, Result),
+    (Genero == Result -> toStringSerie(H), procuraSeriePeloGenero(Genero, T);
+                    write(''), procuraSeriePeloGenero(Genero, T)).
+
+% Método responsável pela busca de uma série pela produtora
+buscaSeriePelaProdutora(Produtora) :-
+    getSeries(Series),
+    procuraSeriePelaProdutora(Produtora, Series).
+
+% Método responsável por exibir todas as séries de uma determinada produtora
+procuraSeriePelaProdutora(Produtora, []).
+procuraSeriePelaProdutora(Produtora, [H|T]) :-
+    elementByIndex(7, H, P),
+    atom_string(P, Result),
+    (Produtora == Result -> toStringSerie(H), procuraSeriePelaProdutora(Produtora, T);
+                    write(''), procuraSeriePelaProdutora(Produtora, T)).
+
+
 % Método responsável por listar todas as séries cadastradas
 listaSeries() :- 
     getSeries(Result),
@@ -90,7 +124,7 @@ toStringAvaliacaoSerie(Filme):-
     elementByIndex(0, Filme, Titulo),
     elementByIndex(8, Filme, Avaliacao),
     elementByIndex(9, Filme, Comentario),
-    (Avaliacao = -1 -> write('');
+    (Avaliacao == -1 -> write('');
     write('Título: '), write(Titulo),
     write(' - Avaliação: '), write(Avaliacao),
     write(' - Comentário: '), write(Comentario), nl).

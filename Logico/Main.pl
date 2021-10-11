@@ -26,8 +26,9 @@ menu_principal :-
 escolheOpcoesMenuPrincipal() :- invalidOptionMsg, menu_principal.
 escolheOpcoesMenuPrincipal("1") :- update_user.
 escolheOpcoesMenuPrincipal("2") :- tela_cadastro_midia.
-escolheOpcoesMenuPrincipal("5") :- dashBoard.
 escolheOpcoesMenuPrincipal("3") :- tela_assistir_midia.
+escolheOpcoesMenuPrincipal("4") :- tela_busca.
+escolheOpcoesMenuPrincipal("5") :- dashBoard.
 escolheOpcoesMenuPrincipal("6") :- tela_recomendacoes.
 escolheOpcoesMenuPrincipal("7") :- tela_lista_avaliacoes.
 escolheOpcoesMenuPrincipal("8") :- read_file_to_string('files/xau.txt',Xau,[]),
@@ -257,40 +258,44 @@ tela_busca :-
     readStringInput(Opcao),
     escolheOpcoesBusca(Opcao).
 
-escolheOpcoesBusca(1) :- tela_busca_filme.
-escolheOpcoesBusca(2) :- tela_busca_serie.
-escolheOpcoesBusca(3) :- menu_principal.
+escolheOpcoesBusca("1") :- tela_busca_filme.
+escolheOpcoesBusca("2") :- tela_busca_serie.
+escolheOpcoesBusca("3") :- menu_principal.
 
 tela_busca_filme :-
     opcoesBuscaFilmeMsg,
-    read(Opcao),
+    readStringInput(Opcao),
     escolheOpcoesBuscaFilme(Opcao).
 
-escolheOpcoesBuscaFilme(1) :- busca_filme_titulo.
-escolheOpcoesBuscaFilme(2) :- busca_filme_genero.
-escolheOpcoesBuscaFilme(3) :- busca_filme_diretor.
-escolheOpcoesBuscaFilme(4) :- busca_filme_produtora.
-escolheOpcoesBuscaFilme(5) :- menu_principal.
+escolheOpcoesBuscaFilme("1") :- busca_filme_titulo.
+escolheOpcoesBuscaFilme("2") :- busca_filme_genero.
+escolheOpcoesBuscaFilme("3") :- busca_filme_diretor.
+escolheOpcoesBuscaFilme("4") :- busca_filme_produtora.
+escolheOpcoesBuscaFilme("5") :- menu_principal.
 
 busca_filme_titulo :-
-    buscaTituloMsg.
-    %readStringInput(Titulo).
-    %coloca metodo que faz a busca
+    buscaTituloMsg,
+    readStringInput(Titulo),
+    buscaFilmePeloTitulo(Titulo),
+    tela_busca.
 
 busca_filme_genero :-
-    buscaGeneroMsg.
-    %readStringInput(Genero).
-    %coloca metodo que faz a busca
+    buscaGeneroMsg,
+    readStringInput(Genero),
+    buscaFilmePeloGenero(Genero),
+    tela_busca.
 
 busca_filme_diretor :-
-    buscaDiretorMsg.
-    %readStringInput(Diretor).
-    %coloca metodo que faz a busca
+    buscaDiretorMsg,
+    readStringInput(Diretor),
+    buscaFilmePeloDiretor(Diretor),
+    tela_busca.
 
 busca_filme_produtora:-
-    buscaProdutoraMsg.
-    %readStringInput(Produtora).
-    %coloca metodo que faz a busca
+    buscaProdutoraMsg,
+    readStringInput(Produtora),
+    buscaFilmePelaProdutora(Produtora),
+    tela_busca.
 
 
 tela_busca_serie :-
@@ -300,29 +305,26 @@ tela_busca_serie :-
 
 escolheOpcoesBuscaSerie("1") :- busca_serie_titulo.
 escolheOpcoesBuscaSerie("2") :- busca_serie_genero.
-escolheOpcoesBuscaSerie("3") :- busca_serie_diretor.
-escolheOpcoesBuscaSerie("4") :- busca_serie_produtora.
-escolheOpcoesBuscaSerie("5") :- menu_principal.
+escolheOpcoesBuscaSerie("3") :- busca_serie_produtora.
+escolheOpcoesBuscaSerie("4") :- menu_principal.
 
 busca_serie_titulo :-
-    buscaTituloMsg.
-    %readStringInput(Titulo).
-    %coloca metodo que faz a busca
+    buscaTituloMsg,
+    readStringInput(Titulo),
+    buscaSeriePeloTitulo(Titulo),
+    tela_busca.
 
 busca_serie_genero :-
-    buscaGeneroMsg.
-    %readStringInput(Genero).
-    %coloca metodo que faz a busca
-
-busca_serie_diretor :-
-    buscaDiretorMsg.
-    %readStringInput(Diretor).
-    %coloca metodo que faz a busca
+    buscaGeneroMsg,
+    readStringInput(Genero),
+    buscaSeriePeloGenero(Genero),
+    tela_busca.
 
 busca_serie_produtora:-
-    buscaProdutoraMsg.
-    %readStringInput(Produtora).
-    %coloca metodo que faz a busca
+    buscaProdutoraMsg,
+    readStringInput(Produtora),
+    buscaSeriePelaProdutora(Produtora),
+    tela_busca.
 
 %Recomendacoes
 
