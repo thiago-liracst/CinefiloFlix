@@ -20,7 +20,8 @@ adiciona_filme( Titulo, Diretor, AnoDeLancamento, Genero, Duracao, Assistido, Vi
 % Método responsável pela busca de um filme pelo título
 buscaFilmePeloTitulo(Titulo) :- 
     getFilmes(Filmes),
-    getEntidadeById(Titulo, Filmes, Filme),
+    atom_string(Result, Titulo),
+    getEntidadeById(Result, Filmes, Filme),
     toStringFilme(Filme).
 
 % Método responsável pela busca de um filme pelo gênero
@@ -32,7 +33,8 @@ buscaFilmePeloGenero(Genero) :-
 procuraFilmePeloGenero(Genero, []).
 procuraFilmePeloGenero(Genero, [H|T]) :-
     elementByIndex(3, H, G),
-    (Genero == G -> toStringFilme(H), procuraFilmePeloGenero(Genero, T);
+    atom_string(G, Result),
+    (Genero == Result -> toStringFilme(H), procuraFilmePeloGenero(Genero, T);
                     write(''), procuraFilmePeloGenero(Genero, T)).
 
 % Método responsável pela busca de um filme pelo(a) diretor(a)
@@ -44,7 +46,8 @@ buscaFilmePeloDiretor(Diretor) :-
 procuraFilmePeloDiretor(Diretor, []).
 procuraFilmePeloDiretor(Diretor, [H|T]) :-
     elementByIndex(1, H, D),
-    (Diretor == D -> toStringFilme(H), procuraFilmePeloDiretor(Diretor, T);
+    atom_string(D, Result),
+    (Diretor == Result -> toStringFilme(H), procuraFilmePeloDiretor(Diretor, T);
                     write(''), procuraFilmePeloDiretor(Diretor, T)).
 
 % Método responsável pela busca de um filme pela produtora
@@ -56,7 +59,8 @@ buscaFilmePelaProdutora(Produtora) :-
 procuraFilmePelaProdutora(Produtora, []).
 procuraFilmePelaProdutora(Produtora, [H|T]) :-
     elementByIndex(7, H, P),
-    (Produtora == P -> toStringFilme(H), procuraFilmePelaProdutora(Produtora, T);
+    atom_string(P, Result),
+    (Produtora == Result -> toStringFilme(H), procuraFilmePelaProdutora(Produtora, T);
                     write(''), procuraFilmePelaProdutora(Produtora, T)).
 
 % Método responsável por listar todos os filmes cadastrados

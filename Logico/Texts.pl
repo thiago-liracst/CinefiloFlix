@@ -211,7 +211,6 @@ opcoesBuscaMsg :-
     writeln("⓷ Voltar ao menu principal\n").
 
 opcoesBuscaFilmeMsg :-
-    clear,
     writeln("\n● ○ ◉ BUSCA DE FILME ◉ ○ ●"),
     writeln("\nQue tipo de busca você gostaria, cinéfilo? \n"),
     writeln("⓵ Busca por título"),
@@ -221,7 +220,6 @@ opcoesBuscaFilmeMsg :-
     writeln("⓹ Voltar ao menu principal\n").
 
 opcoesBuscaSerieMsg :-
-    clear,
     writeln("\n● ○ ◉ BUSCA DE SÉRIE ◉ ○ ●"),
     writeln("\nQue tipo de busca você gostaria, cinéfilo? \n"),
     writeln("⓵ Busca por título"),

@@ -20,7 +20,8 @@ adiciona_serie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, Epi
 % Método responsável pela busca de uma série pelo título
 buscaSeriePeloTitulo(Titulo) :- 
     getSeries(Series),
-    getEntidadeById(Titulo, Series, Serie),
+    atom_string(Result, Titulo),
+    getEntidadeById(Result, Series, Serie),
     toStringSerie(Serie).
 
 % Método responsável pela busca de uma série pelo gênero
@@ -32,7 +33,8 @@ buscaSeriePeloGenero(Genero) :-
 procuraSeriePeloGenero(Genero, []).
 procuraSeriePeloGenero(Genero, [H|T]) :-
     elementByIndex(2, H, G),
-    (Genero == G -> toStringSerie(H), procuraSeriePeloGenero(Genero, T);
+    atom_string(G, Result),
+    (Genero == Result -> toStringSerie(H), procuraSeriePeloGenero(Genero, T);
                     write(''), procuraSeriePeloGenero(Genero, T)).
 
 % Método responsável pela busca de uma série pela produtora
@@ -44,7 +46,8 @@ buscaSeriePelaProdutora(Produtora) :-
 procuraSeriePelaProdutora(Produtora, []).
 procuraSeriePelaProdutora(Produtora, [H|T]) :-
     elementByIndex(7, H, P),
-    (Produtora == P -> toStringSerie(H), procuraSeriePelaProdutora(Produtora, T);
+    atom_string(P, Result),
+    (Produtora == Result -> toStringSerie(H), procuraSeriePelaProdutora(Produtora, T);
                     write(''), procuraSeriePelaProdutora(Produtora, T)).
 
 
