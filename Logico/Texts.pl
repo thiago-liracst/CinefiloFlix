@@ -285,27 +285,26 @@ dashBoardSeries :-
 %Lista
 
 opcoesListaMsg :-
-    clear,
-    writeln("● ○ ◉ LISTA DE AVALIAÇÕES ◉ ○ ●"),
+    writeln("\n● ○ ◉ LISTA DE AVALIAÇÕES ◉ ○ ●"),
     writeln("\nQue tipo de avaliações você gostaria de ver, cinéfilo? \n"),
-    writeln("⓵ Avaliações de séries"),
-    writeln("⓶ Avaliações de filmes"),
+    writeln("⓵ Avaliações de filmes"),
+    writeln("⓶ Avaliações de séries"),
     writeln("⓷ Voltar ao menu principal\n").
 
 listaDeFilmeMsg :-
     clear,
-    writeln("● ○ ◉ AVALIAÇÕES DE FILMES ◉ ○ ●"),
+    writeln("\n● ○ ◉ AVALIAÇÕES DE FILMES ◉ ○ ●"),
     voltarAoMenuMsg,
-    writeln("\nConfira a lista de filmes disponíveis:").
+    writeln("\nConfira a lista de avaliações dos filmes:\n").
 
-pedeIdFilmeAvaliacaoMsg :-
-    writeln("\nPor favor, digite o id do filme que você quer ver as avaliações: \n").
+% pedeIdFilmeAvaliacaoMsg :-
+%     writeln("\nPor favor, digite o id do filme que você quer ver as avaliações: \n").
 
 listaDeSerieMsg :-
     clear,
-    writeln("● ○ ◉ AVALIAÇÕES DE SÉRIES ◉ ○ ●"),
+    writeln("\n● ○ ◉ AVALIAÇÕES DE SÉRIES ◉ ○ ●"),
     voltarAoMenuMsg,
-    writeln("\nConfira a lista de séries disponíveis:").
+    writeln("\nConfira a lista de avaliações das séries:\n").
 
-pedeIdSerieAvaliacaoMsg :-
-    writeln("\nPor favor, digite o id da série que você quer ver as avaliações: \n").
+% pedeIdSerieAvaliacaoMsg :-
+%     writeln("\nPor favor, digite o id da série que você quer ver as avaliações: \n").

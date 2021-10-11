@@ -145,3 +145,5 @@ agrupaGeneros([H|T],Pares,GeneroAnterior,I,Result):-
 		((H == GeneroAnterior) -> I1 is I + 1, P1 = Pares;
 		append(Pares,[I-GeneroAnterior],P1),
 		agrupaGeneros(T,P1,H,1,Result)).
+getFilmes(Result) :- 
+	lerCsvRowList('Filmes.csv', Result).

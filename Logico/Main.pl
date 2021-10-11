@@ -183,7 +183,7 @@ escolheOpcoesAssistir("2") :- tela_assiste_serie.
 escolheOpcoesAssistir("3") :- menu_principal.
 
 tela_assiste_filme:-
-    %tem que listar os filmes em algum lugar
+    listaFilmes,
     pedeIdFilmeMsg,
     readStringInput(Id),
     recebeIdFilme(Id).
@@ -207,7 +207,7 @@ recebeAvaliacaoFilme(Id,Avaliacao) :-
    %confirmacaoAssistirFilmeMsg.
 
  tela_assiste_serie:-
-    %tem que listar as series 
+    listaSeries,
     pedeIdSerieMsg,
     readStringInput(Id),
     recebeIdSerie(Id).
@@ -375,14 +375,16 @@ escolheOpcoesListas("3") :- menu_principal.
 
 avaliacoes_filme:-
     listaDeFilmeMsg,
-    %lista filmes,
-    pedeIdFilmeAvaliacaoMsg,
-    readStringInput(Id).
-    %Lista avaliacoes do filme desse id.
+    % %lista film,
+    % pedeIdFilmeAvaliacaoMsg,
+    % readStringInput(Id).
+    listaAvaliacoesFilmes,
+    tela_lista_avaliacoes.
 
 avaliacoes_serie:-
     listaDeSerieMsg,
-    %lista series,
-    pedeIdSerieAvaliacaoMsg,
-    readStringInput(Id).
-    %Lista avaliacoes da serie desse id.
+    % %lista series,
+    % pedeIdSerieAvaliacaoMsg,
+    % readStringInput(Id).
+    listaAvaliacoesSeries,
+    tela_lista_avaliacoes.

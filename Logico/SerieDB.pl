@@ -106,3 +106,6 @@ escreverSeries([Filme|T]) :-
     elementByIndex(9, Filme, Comentario),
     addSerie( Titulo, DuracaoMediaEpisodio, Genero, Episodios, Temporadas, EpisodiosTotais, Assistido, Produtora, Avaliacao, Comentario),
 	escreverSeries(T).
+
+getSeries(Result) :- 
+		lerCsvRowList('Series.csv', Result).
